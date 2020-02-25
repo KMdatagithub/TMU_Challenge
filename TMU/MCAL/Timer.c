@@ -75,15 +75,15 @@ static ERROR_STATUS Timer1_Init(Timer_cfg_s* Timer_cfg);
 static ERROR_STATUS Timer2_Init(Timer_cfg_s* Timer_cfg);
 
 
-void (*Ptr_Timer0_OV) (void) = ((void *) 0);
-void (*Ptr_Timer0_CM) (void) = ((void *) 0);
 
-void (*Ptr_Timer2_OV) (void) = ((void *) 0);
-void (*Ptr_Timer2_CM) (void) = ((void *) 0);
+FunPtr Ptr_Timer0_OV = NULL;
+FunPtr Ptr_Timer0_CM = NULL;
 
-void (*Ptr_Timer1_OV) (void) = ((void *) 0);
-void (*Ptr_Timer1_CM) (void) = ((void *) 0);
+FunPtr Ptr_Timer1_OV = NULL;
+FunPtr Ptr_Timer1_CM = NULL;
 
+FunPtr Ptr_Timer2_OV = NULL;
+FunPtr Ptr_Timer2_CM = NULL;
 
 //=======================================================
 //--------------[ Functions Definitions ]----------------
@@ -544,38 +544,42 @@ ERROR_STATUS Timer_GetValue(uint8_t Timer_CH_NO, uint16_t* Data)
 	return errorStatus;
 }
 
-/*===================================================*/
+/*=======================================================*/
+/*-----------[ Timers Set CallBack Functions ]-----------*/
+/*=======================================================*/
 
-void TIMER0_SetOV(void (*Ptr_ISR) (void))
+void TIMER0_SetOV(FunPtr Ptr_ISR)
 {
 	Ptr_Timer0_OV = Ptr_ISR;
 }
 
-void TIMER0_SetCM(void (*Ptr_ISR) (void))
+void TIMER0_SetCM(FunPtr Ptr_ISR)
 {
 	Ptr_Timer0_CM = Ptr_ISR;
 }
 
-void TIMER2_SetOV(void (*Ptr_ISR) (void))
+void TIMER2_SetOV(FunPtr Ptr_ISR)
 {
 	Ptr_Timer2_OV = Ptr_ISR;
 }
 
-void TIMER2_SetCM(void (*Ptr_ISR) (void))
+void TIMER2_SetCM(FunPtr Ptr_ISR)
 {
 	Ptr_Timer2_CM = Ptr_ISR;
 }
 
-void TIMER1_SetOV(void (*Ptr_ISR) (void))
+void TIMER1_SetOV(FunPtr Ptr_ISR)
 {
 	Ptr_Timer1_OV = Ptr_ISR;
 }
 
-void TIMER1_SetCM(void (*Ptr_ISR) (void))
+void TIMER1_SetCM(FunPtr Ptr_ISR)
 {
 	Ptr_Timer1_CM = Ptr_ISR;
 }
 
+/*===================================================*/
+/*---------------[ Timers ISR Handlers ]-------------*/
 /*===================================================*/
 
 ISR(TIMER0_OVF_vect)

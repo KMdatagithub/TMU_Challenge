@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000160  00000000  00000000  00000b28  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000010af  00000000  00000000  00000c88  2**0
+  6 .debug_info   000010ba  00000000  00000000  00000c88  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000005ae  00000000  00000000  00001d37  2**0
+  7 .debug_abbrev 000005ae  00000000  00000000  00001d42  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000521  00000000  00000000  000022e5  2**0
+  8 .debug_line   00000521  00000000  00000000  000022f0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000004a0  00000000  00000000  00002808  2**2
+  9 .debug_frame  000004a0  00000000  00000000  00002814  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000005a2  00000000  00000000  00002ca8  2**0
+ 10 .debug_str    000005b9  00000000  00000000  00002cb4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001527  00000000  00000000  0000324a  2**0
+ 11 .debug_loc    00001527  00000000  00000000  0000326d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000120  00000000  00000000  00004771  2**0
+ 12 .debug_ranges 00000120  00000000  00000000  00004794  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -773,8 +773,8 @@ static ERROR_STATUS Timer1_Init(Timer_cfg_s* Timer_cfg)
 				Ptr_Timer1_CM = Timer_cfg->Timer_Cbk_ptr;
  3e8:	84 81       	ldd	r24, Z+4	; 0x04
  3ea:	95 81       	ldd	r25, Z+5	; 0x05
- 3ec:	90 93 61 00 	sts	0x0061, r25
- 3f0:	80 93 60 00 	sts	0x0060, r24
+ 3ec:	90 93 65 00 	sts	0x0065, r25
+ 3f0:	80 93 64 00 	sts	0x0064, r24
 				break;
 			default :
 				errorStatus = E_NOK;
@@ -946,8 +946,8 @@ static ERROR_STATUS Timer2_Init(Timer_cfg_s* Timer_cfg)
 				Ptr_Timer2_CM = Timer_cfg->Timer_Cbk_ptr;
  4e2:	84 81       	ldd	r24, Z+4	; 0x04
  4e4:	95 81       	ldd	r25, Z+5	; 0x05
- 4e6:	90 93 65 00 	sts	0x0065, r25
- 4ea:	80 93 64 00 	sts	0x0064, r24
+ 4e6:	90 93 61 00 	sts	0x0061, r25
+ 4ea:	80 93 60 00 	sts	0x0060, r24
 				break;
 			default :
 				errorStatus = E_NOK;
@@ -1175,7 +1175,7 @@ ERROR_STATUS Timer_Start(uint8_t Timer_CH_NO, uint16_t Timer_Count)
 	Ptr_Timer0_OV = Ptr_ISR;
 }
 
-void TIMER0_SetCM(void (*Ptr_ISR) (void))
+void TIMER0_SetCM(FunPtr Ptr_ISR)
 {
 	Ptr_Timer0_CM = Ptr_ISR;
  5d2:	90 93 69 00 	sts	0x0069, r25
@@ -1186,27 +1186,27 @@ void TIMER0_SetCM(void (*Ptr_ISR) (void))
 	Ptr_Timer2_OV = Ptr_ISR;
 }
 
-void TIMER2_SetCM(void (*Ptr_ISR) (void))
+void TIMER2_SetCM(FunPtr Ptr_ISR)
 {
 	Ptr_Timer2_CM = Ptr_ISR;
- 5dc:	90 93 65 00 	sts	0x0065, r25
- 5e0:	80 93 64 00 	sts	0x0064, r24
+ 5dc:	90 93 61 00 	sts	0x0061, r25
+ 5e0:	80 93 60 00 	sts	0x0060, r24
  5e4:	08 95       	ret
 
 000005e6 <TIMER1_SetCM>:
 	Ptr_Timer1_OV = Ptr_ISR;
 }
 
-void TIMER1_SetCM(void (*Ptr_ISR) (void))
+void TIMER1_SetCM(FunPtr Ptr_ISR)
 {
 	Ptr_Timer1_CM = Ptr_ISR;
- 5e6:	90 93 61 00 	sts	0x0061, r25
- 5ea:	80 93 60 00 	sts	0x0060, r24
+ 5e6:	90 93 65 00 	sts	0x0065, r25
+ 5ea:	80 93 64 00 	sts	0x0064, r24
  5ee:	08 95       	ret
 
 000005f0 <__vector_11>:
-}
-
+/*===================================================*/
+/*---------------[ Timers ISR Handlers ]-------------*/
 /*===================================================*/
 
 ISR(TIMER0_OVF_vect)
@@ -1327,8 +1327,8 @@ ISR(TIMER2_OVF_vect)
  6b2:	ef 93       	push	r30
  6b4:	ff 93       	push	r31
 	if (Ptr_Timer2_OV != NULL)
- 6b6:	e0 91 66 00 	lds	r30, 0x0066
- 6ba:	f0 91 67 00 	lds	r31, 0x0067
+ 6b6:	e0 91 62 00 	lds	r30, 0x0062
+ 6ba:	f0 91 63 00 	lds	r31, 0x0063
  6be:	30 97       	sbiw	r30, 0x00	; 0
  6c0:	09 f0       	breq	.+2      	; 0x6c4 <__vector_5+0x30>
 	{
@@ -1376,8 +1376,8 @@ ISR(TIMER2_COMP_vect)
  704:	ef 93       	push	r30
  706:	ff 93       	push	r31
 	if (Ptr_Timer2_CM != NULL)
- 708:	e0 91 64 00 	lds	r30, 0x0064
- 70c:	f0 91 65 00 	lds	r31, 0x0065
+ 708:	e0 91 60 00 	lds	r30, 0x0060
+ 70c:	f0 91 61 00 	lds	r31, 0x0061
  710:	30 97       	sbiw	r30, 0x00	; 0
  712:	09 f0       	breq	.+2      	; 0x716 <__vector_4+0x30>
 	{
@@ -1425,8 +1425,8 @@ ISR(TIMER1_OVF_vect)
  756:	ef 93       	push	r30
  758:	ff 93       	push	r31
 	if (Ptr_Timer1_OV != NULL)
- 75a:	e0 91 62 00 	lds	r30, 0x0062
- 75e:	f0 91 63 00 	lds	r31, 0x0063
+ 75a:	e0 91 66 00 	lds	r30, 0x0066
+ 75e:	f0 91 67 00 	lds	r31, 0x0067
  762:	30 97       	sbiw	r30, 0x00	; 0
  764:	09 f0       	breq	.+2      	; 0x768 <__vector_9+0x30>
 	{
@@ -1474,8 +1474,8 @@ ISR(TIMER1_COMPA_vect)
  7a8:	ef 93       	push	r30
  7aa:	ff 93       	push	r31
 	if (Ptr_Timer1_CM != NULL)
- 7ac:	e0 91 60 00 	lds	r30, 0x0060
- 7b0:	f0 91 61 00 	lds	r31, 0x0061
+ 7ac:	e0 91 64 00 	lds	r30, 0x0064
+ 7b0:	f0 91 65 00 	lds	r31, 0x0065
  7b4:	30 97       	sbiw	r30, 0x00	; 0
  7b6:	09 f0       	breq	.+2      	; 0x7ba <__vector_7+0x30>
 	{
@@ -1523,8 +1523,8 @@ ISR(TIMER1_COMPB_vect)
  7fa:	ef 93       	push	r30
  7fc:	ff 93       	push	r31
 	if (Ptr_Timer1_CM != NULL)
- 7fe:	e0 91 60 00 	lds	r30, 0x0060
- 802:	f0 91 61 00 	lds	r31, 0x0061
+ 7fe:	e0 91 64 00 	lds	r30, 0x0064
+ 802:	f0 91 65 00 	lds	r31, 0x0065
  806:	30 97       	sbiw	r30, 0x00	; 0
  808:	09 f0       	breq	.+2      	; 0x80c <__vector_8+0x30>
 	{

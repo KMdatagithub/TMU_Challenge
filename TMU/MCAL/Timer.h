@@ -125,12 +125,12 @@ extern ERROR_STATUS Timer_GetValue(uint8_t Timer_CH_NO, uint16_t* Data);
 
 
 
-void TIMER0_SetOV(void (*Ptr_ISR) (void));
-void TIMER0_SetCM(void (*Ptr_ISR) (void));
-void TIMER2_SetOV(void (*Ptr_ISR) (void));
-void TIMER2_SetCM(void (*Ptr_ISR) (void));
-void TIMER1_SetOV(void (*Ptr_ISR) (void));
-void TIMER1_SetCM(void (*Ptr_ISR) (void));
+void TIMER0_SetOV(FunPtr Ptr_ISR);
+void TIMER0_SetCM(FunPtr Ptr_ISR);
+void TIMER2_SetOV(FunPtr Ptr_ISR);
+void TIMER2_SetCM(FunPtr Ptr_ISR);
+void TIMER1_SetOV(FunPtr Ptr_ISR);
+void TIMER1_SetCM(FunPtr Ptr_ISR);
 
 
 
