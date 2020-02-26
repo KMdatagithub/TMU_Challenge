@@ -8,6 +8,15 @@
 #include "TMU_cfg.h"
 
 
+typedef struct Consumer_s{
+	FunPtr Consumer_Ptr;
+	uint8_t Periodicity;
+	uint32_t Time;
+	uint8_t State;
+	uint32_t Count;
+	uint16_t ConsumerID;
+} Consumer_s;
+
 static Timer_cfg_s g_TMU_TMR;
 static TMU_cfg_s   g_TMU;
 static Consumer_s  g_RequestBuffer[REQUEST_BUFFER_LEN];
@@ -87,24 +96,56 @@ ERROR_STATUS TMU_Init(TMU_cfg_s* a_TMU_s)
 ERROR_STATUS TMU_Start(FunPtr a_ConsumerFun, uint16_t a_ConsumerID, uint8_t a_Periodic_OneShot, uint32_t a_Time)
 {
 	ERROR_STATUS a_errorStatus = E_OK;
+	uint16_t index = 0;
+	
+	/*  Create New Consumer Instance & Initialize It  */
 	Consumer_s a_NewConsumer;
+	a_NewConsumer.Consumer_Ptr = a_ConsumerFun;
+	a_NewConsumer.ConsumerID = a_ConsumerID;
+	a_NewConsumer.Time = a_Time;
+	a_NewConsumer.Periodicity = a_Periodic_OneShot;
+	a_NewConsumer.Count = ZERO;
+	a_NewConsumer.State = ACTIVE;
 	
 	if(g_TMU.State == INACTIVE)
 	{
 		/*-------------[ Check Consumer's CBF Pointer Validity ]-------------*/
 		if(a_ConsumerFun != NULL)
 		{
-			/*  Create New Consumer Instance & Initialize It  */
-			a_NewConsumer.Consumer_Ptr = a_ConsumerFun;
-			a_NewConsumer.ConsumerID = a_ConsumerID;
-			a_NewConsumer.Time = a_Time;
-			a_NewConsumer.Periodicity = a_Periodic_OneShot;
-			a_NewConsumer.Count = ZERO;
-			a_NewConsumer.State = ACTIVE;
-			
-			/* Add The New Consumer To The Request Buffer */
-			g_RequestBuffer[g_ReqBuffer_Index++] = a_NewConsumer;
-			a_errorStatus = E_OK;
+			/*  In Case OF Full Request Buffer  */
+			if(g_ReqBuffer_Index == REQUEST_BUFFER_LEN)
+			{
+				/*  Search For Inactive Consumer & Overwrite It */
+				for(index = 0; index < REQUEST_BUFFER_LEN; index++)
+				{
+					if(g_RequestBuffer[index].State == INACTIVE)
+					{
+						g_RequestBuffer[index] = a_NewConsumer;
+						break;
+					}
+				}
+				/*  If All Consumers In The Buffer Are Active & No Space If Available */
+				if(index == REQUEST_BUFFER_LEN)
+				{
+					a_errorStatus = TMU_ERROR + FULL_BUFFER;
+					return a_errorStatus;
+				}
+			}
+			/*  If There Still Space In The Request Buffer  */
+			else
+			{
+				/*  Search The Buffer To Report Consumer ID Duplication IF Happened!  */
+				for(index = 0; index < REQUEST_BUFFER_LEN; index++)
+				{
+					if(g_RequestBuffer[index].ConsumerID == a_ConsumerID)
+					{
+						a_errorStatus = TMU_ERROR + MULTI_START;
+						return a_errorStatus;
+					}
+				}
+				/* Add The New Consumer To The Request Buffer */
+				g_RequestBuffer[g_ReqBuffer_Index++] = a_NewConsumer;				
+			}
 		}
 		/*-------------[ In Case Of Consumer's Null Pointer CBF ]-------------*/
 		else
@@ -187,13 +228,21 @@ ERROR_STATUS TMU_DeInit(TMU_cfg_s* a_TMU_s)
 	/*-------------[ Check TMU's Pointer Validity ]-------------*/
 	if(a_TMU_s != NULL)
 	{
-		/*-------------[ TMU DeInitialization ]-------------*/
-		Timer_Stop(g_TMU.Timer_ID);
-		g_TMU.Timer_ID  = a_TMU_s->Timer_ID = ZERO;
-		g_TMU.Tick_Time = a_TMU_s->Tick_Time = ZERO;
-		g_TMU.Timer_Cbk_ptr = NULL;
-		g_TMU.State    = DISABLED;
-		g_TMU_TickTime = g_TMU.Tick_Time = ZERO;
+		if(g_TMU.State == ACTIVE)
+		{
+			/*-------------[ TMU DeInitialization ]-------------*/
+			Timer_Stop(g_TMU.Timer_ID);
+			g_TMU.Timer_ID  = a_TMU_s->Timer_ID = ZERO;
+			g_TMU.Tick_Time = a_TMU_s->Tick_Time = ZERO;
+			g_TMU.Timer_Cbk_ptr = NULL;
+			g_TMU.State    = DISABLED;
+			g_TMU_TickTime = g_TMU.Tick_Time = ZERO;
+		}
+		else
+		{
+			errorStauts = TMU_ERROR + NOT_INIT;
+			return errorStauts;
+		}
 	}
 	/*-------------[ In Case Of TMU's Null Pointer ]-------------*/
 	else

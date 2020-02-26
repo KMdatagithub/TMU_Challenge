@@ -34,14 +34,6 @@ typedef struct TMU_cfg_s{
 	void (*Timer_Cbk_ptr)(void);
 }TMU_cfg_s;
 
-typedef struct Consumer_s{
-	FunPtr Consumer_Ptr;
-	uint8_t Periodicity;
-	uint32_t Time;
-	uint8_t State;
-	uint32_t Count;
-	uint16_t ConsumerID;
-} Consumer_s;
 
 /*-----[ TMU Functions' Prototypes ]-----*/
 

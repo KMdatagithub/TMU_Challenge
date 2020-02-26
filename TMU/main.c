@@ -10,6 +10,8 @@
 DIO_Cfg_s g_LED1;
 DIO_Cfg_s g_LED2;
 DIO_Cfg_s g_LED3;
+TMU_cfg_s TMU1;
+
 
 void ToggleLED1()
 {
@@ -51,7 +53,6 @@ void Init_LEDs(void)
 int main(void)
 {
 	/*-------------[ TMU Initialization ]-------------*/
-    TMU_cfg_s TMU1;
 	TMU1.Tick_Time = 1;
 	TMU1.Timer_ID = TIMER_CH0;
 	TMU_Init(&TMU1);
