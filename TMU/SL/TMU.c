@@ -87,13 +87,14 @@ ERROR_STATUS TMU_Init(TMU_cfg_s* a_TMU_s)
 ERROR_STATUS TMU_Start(FunPtr a_ConsumerFun, uint16_t a_ConsumerID, uint8_t a_Periodic_OneShot, uint32_t a_Time)
 {
 	ERROR_STATUS a_errorStatus = E_OK;
+	Consumer_s a_NewConsumer;
+	
 	if(g_TMU.State == INACTIVE)
 	{
 		/*-------------[ Check Consumer's CBF Pointer Validity ]-------------*/
 		if(a_ConsumerFun != NULL)
 		{
 			/*  Create New Consumer Instance & Initialize It  */
-			Consumer_s a_NewConsumer;
 			a_NewConsumer.Consumer_Ptr = a_ConsumerFun;
 			a_NewConsumer.ConsumerID = a_ConsumerID;
 			a_NewConsumer.Time = a_Time;
@@ -177,4 +178,28 @@ void TMU_Dispatcher(void)
 		}
 		g_TMR_Ticks_Changed = FALSE;
 	}
+}
+
+ERROR_STATUS TMU_DeInit(TMU_cfg_s* a_TMU_s)
+{
+	ERROR_STATUS errorStauts = E_OK;
+	
+	/*-------------[ Check TMU's Pointer Validity ]-------------*/
+	if(a_TMU_s != NULL)
+	{
+		/*-------------[ TMU DeInitialization ]-------------*/
+		Timer_Stop(g_TMU.Timer_ID);
+		g_TMU.Timer_ID  = a_TMU_s->Timer_ID = ZERO;
+		g_TMU.Tick_Time = a_TMU_s->Tick_Time = ZERO;
+		g_TMU.Timer_Cbk_ptr = NULL;
+		g_TMU.State    = DISABLED;
+		g_TMU_TickTime = g_TMU.Tick_Time = ZERO;
+	}
+	/*-------------[ In Case Of TMU's Null Pointer ]-------------*/
+	else
+	{
+		errorStauts = TMU_ERROR + NULL_PTR;
+		return errorStauts;
+	}
+	return errorStauts;
 }

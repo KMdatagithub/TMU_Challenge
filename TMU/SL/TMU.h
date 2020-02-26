@@ -12,28 +12,17 @@
 #include "../MCAL/Timer.h"
 #include "../util/std_types.h"
 #include "../util/interrupt.h"
+#include "../util/error_codes.h"
 
 
-#define ACTIVE		1
 #define INACTIVE	0
+#define ACTIVE		1
+#define DISABLED	2
 
 #define PERIODIC	1
 #define ONESHOT		0
 
 #define TMR_Ticks	250
-
-/*-----[ Module Error Codes ]-----*/
-
-#define TMR_ERROR   10
-#define TMU_ERROR	20
-
-/*-----[ Special Error Codes ]-----*/
-
-#define E_OK			0
-#define INVALID_IN		1
-#define NULL_PTR		2
-#define ALREADY_INIT    4
-#define NOT_INIT		5
 
 
 /*-----[ TMU Configurations & Consumer Structures ]-----*/
@@ -57,6 +46,8 @@ typedef struct Consumer_s{
 /*-----[ TMU Functions' Prototypes ]-----*/
 
 ERROR_STATUS TMU_Init(TMU_cfg_s* a_TMU_s);
+
+ERROR_STATUS TMU_DeInit(TMU_cfg_s* a_TMU_s);
 
 ERROR_STATUS TMU_Start(FunPtr a_ConsumerFun, uint16_t a_ConsumerID, uint8_t a_Periodic_OneShot, uint32_t a_Time);
 

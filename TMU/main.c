@@ -24,6 +24,12 @@ void ToggleLED3()
 	DIO_Toggle(g_LED3.GPIO, g_LED3.pins);
 }
 
+void StopTasks()
+{
+	TMU_Stop(100);
+	//TMU_Stop(110);
+}
+
 void Init_LEDs(void)
 {
 	g_LED1.GPIO = GPIOD;
@@ -58,6 +64,7 @@ int main(void)
 	TMU_Start(ToggleLED1, 100, PERIODIC, 100);
 	TMU_Start(ToggleLED2, 110, PERIODIC, 300);
 	TMU_Start(ToggleLED3, 120, ONESHOT, 3000);
+	TMU_Start(StopTasks, 130, ONESHOT, 5000);
 	
 	while (1) 
     {

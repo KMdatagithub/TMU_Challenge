@@ -93,8 +93,8 @@ Discarded input sections
  .text          0x00000000        0x0 SL/TMU.o
  .data          0x00000000        0x0 SL/TMU.o
  .bss           0x00000000        0x0 SL/TMU.o
- .text.TMU_Stop
-                0x00000000       0x56 SL/TMU.o
+ .text.TMU_DeInit
+                0x00000000       0x42 SL/TMU.o
  .text          0x00000000        0x0 SL/TMU_PBcfg.o
  .data          0x00000000        0x0 SL/TMU_PBcfg.o
  .bss           0x00000000        0x0 SL/TMU_PBcfg.o
@@ -367,7 +367,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xa46
+.text           0x00000000      0xabc
  *(.vectors)
  .vectors       0x00000000       0x54 E:/Prog_Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -449,74 +449,80 @@ END GROUP
  .text.ToggleLED3
                 0x000000c8        0xe main.o
                 0x000000c8                ToggleLED3
+ .text.StopTasks
+                0x000000d6        0xa main.o
+                0x000000d6                StopTasks
  .text.Init_LEDs
-                0x000000d6       0x56 main.o
-                0x000000d6                Init_LEDs
- .text.main     0x0000012c       0x68 main.o
-                0x0000012c                main
+                0x000000e0       0x56 main.o
+                0x000000e0                Init_LEDs
+ .text.main     0x00000136       0x7e main.o
+                0x00000136                main
  .text.DIO_init
-                0x00000194       0x80 MCAL/DIO.o
-                0x00000194                DIO_init
+                0x000001b4       0x80 MCAL/DIO.o
+                0x000001b4                DIO_init
  .text.DIO_Write
-                0x00000214       0x5c MCAL/DIO.o
-                0x00000214                DIO_Write
+                0x00000234       0x5c MCAL/DIO.o
+                0x00000234                DIO_Write
  .text.DIO_Toggle
-                0x00000270       0x6c MCAL/DIO.o
-                0x00000270                DIO_Toggle
+                0x00000290       0x6c MCAL/DIO.o
+                0x00000290                DIO_Toggle
  .text.Timer_Init
-                0x000002dc      0x28a MCAL/Timer.o
-                0x000002dc                Timer_Init
+                0x000002fc      0x28a MCAL/Timer.o
+                0x000002fc                Timer_Init
  .text.Timer_Start
-                0x00000566       0x6c MCAL/Timer.o
-                0x00000566                Timer_Start
+                0x00000586       0x6c MCAL/Timer.o
+                0x00000586                Timer_Start
  .text.TIMER0_SetCM
-                0x000005d2        0xa MCAL/Timer.o
-                0x000005d2                TIMER0_SetCM
+                0x000005f2        0xa MCAL/Timer.o
+                0x000005f2                TIMER0_SetCM
  .text.TIMER2_SetCM
-                0x000005dc        0xa MCAL/Timer.o
-                0x000005dc                TIMER2_SetCM
+                0x000005fc        0xa MCAL/Timer.o
+                0x000005fc                TIMER2_SetCM
  .text.TIMER1_SetCM
-                0x000005e6        0xa MCAL/Timer.o
-                0x000005e6                TIMER1_SetCM
+                0x00000606        0xa MCAL/Timer.o
+                0x00000606                TIMER1_SetCM
  .text.__vector_11
-                0x000005f0       0x52 MCAL/Timer.o
-                0x000005f0                __vector_11
+                0x00000610       0x52 MCAL/Timer.o
+                0x00000610                __vector_11
  .text.__vector_10
-                0x00000642       0x52 MCAL/Timer.o
-                0x00000642                __vector_10
+                0x00000662       0x52 MCAL/Timer.o
+                0x00000662                __vector_10
  .text.__vector_5
-                0x00000694       0x52 MCAL/Timer.o
-                0x00000694                __vector_5
+                0x000006b4       0x52 MCAL/Timer.o
+                0x000006b4                __vector_5
  .text.__vector_4
-                0x000006e6       0x52 MCAL/Timer.o
-                0x000006e6                __vector_4
+                0x00000706       0x52 MCAL/Timer.o
+                0x00000706                __vector_4
  .text.__vector_9
-                0x00000738       0x52 MCAL/Timer.o
-                0x00000738                __vector_9
+                0x00000758       0x52 MCAL/Timer.o
+                0x00000758                __vector_9
  .text.__vector_7
-                0x0000078a       0x52 MCAL/Timer.o
-                0x0000078a                __vector_7
+                0x000007aa       0x52 MCAL/Timer.o
+                0x000007aa                __vector_7
  .text.__vector_8
-                0x000007dc       0x52 MCAL/Timer.o
-                0x000007dc                __vector_8
+                0x000007fc       0x52 MCAL/Timer.o
+                0x000007fc                __vector_8
  .text.TMU_ISR_cbf
-                0x0000082e       0x38 SL/TMU.o
+                0x0000084e       0x38 SL/TMU.o
  .text.TMU_Init
-                0x00000866       0xae SL/TMU.o
-                0x00000866                TMU_Init
+                0x00000886       0xae SL/TMU.o
+                0x00000886                TMU_Init
  .text.TMU_Start
-                0x00000914       0x74 SL/TMU.o
-                0x00000914                TMU_Start
+                0x00000934       0x74 SL/TMU.o
+                0x00000934                TMU_Start
+ .text.TMU_Stop
+                0x000009a8       0x56 SL/TMU.o
+                0x000009a8                TMU_Stop
  .text.TMU_Dispatcher
-                0x00000988       0xae SL/TMU.o
-                0x00000988                TMU_Dispatcher
- .text.libgcc   0x00000a36        0xc e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_tablejump2.o)
-                0x00000a36                __tablejump2__
-                0x00000a42                . = ALIGN (0x2)
+                0x000009fe       0xae SL/TMU.o
+                0x000009fe                TMU_Dispatcher
+ .text.libgcc   0x00000aac        0xc e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_tablejump2.o)
+                0x00000aac                __tablejump2__
+                0x00000ab8                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000a42        0x0 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                0x00000a42                _exit
-                0x00000a42                exit
+ .fini9         0x00000ab8        0x0 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+                0x00000ab8                _exit
+                0x00000ab8                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -535,11 +541,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000a42        0x4 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000ab8        0x4 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000a46                _etext = .
+                0x00000abc                _etext = .
 
-.data           0x00800060        0x0 load address 0x00000a46
+.data           0x00800060        0x0 load address 0x00000abc
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -597,8 +603,8 @@ END GROUP
                 0x008000cb                g_LED1
                 0x008000ce                g_LED3
                 0x008000d1                PROVIDE (__bss_end, .)
-                0x00000a46                __data_load_start = LOADADDR (.data)
-                0x00000a46                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000abc                __data_load_start = LOADADDR (.data)
+                0x00000abc                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x008000d1        0x0
                 0x008000d1                PROVIDE (__noinit_start, .)
@@ -672,65 +678,65 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x160
+.debug_aranges  0x00000000      0x170
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x40 main.o
+                0x00000000       0x48 main.o
  .debug_aranges
-                0x00000040       0x38 MCAL/DIO.o
+                0x00000048       0x38 MCAL/DIO.o
  .debug_aranges
-                0x00000078       0xa8 MCAL/Timer.o
+                0x00000080       0xa8 MCAL/Timer.o
  .debug_aranges
-                0x00000120       0x40 SL/TMU.o
+                0x00000128       0x48 SL/TMU.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x10ba
+.debug_info     0x00000000     0x118f
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x3fe main.o
- .debug_info    0x000003fe      0x212 MCAL/DIO.o
- .debug_info    0x00000610      0x613 MCAL/Timer.o
- .debug_info    0x00000c23      0x497 SL/TMU.o
+ .debug_info    0x00000000      0x482 main.o
+ .debug_info    0x00000482      0x212 MCAL/DIO.o
+ .debug_info    0x00000694      0x613 MCAL/Timer.o
+ .debug_info    0x00000ca7      0x4e8 SL/TMU.o
 
-.debug_abbrev   0x00000000      0x5ae
+.debug_abbrev   0x00000000      0x5b0
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x140 main.o
  .debug_abbrev  0x00000140       0xe0 MCAL/DIO.o
  .debug_abbrev  0x00000220      0x1df MCAL/Timer.o
- .debug_abbrev  0x000003ff      0x1af SL/TMU.o
+ .debug_abbrev  0x000003ff      0x1b1 SL/TMU.o
 
-.debug_line     0x00000000      0x521
+.debug_line     0x00000000      0x54c
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000       0xe1 main.o
- .debug_line    0x000000e1       0xda MCAL/DIO.o
- .debug_line    0x000001bb      0x242 MCAL/Timer.o
- .debug_line    0x000003fd      0x124 SL/TMU.o
+ .debug_line    0x00000000       0xf2 main.o
+ .debug_line    0x000000f2       0xda MCAL/DIO.o
+ .debug_line    0x000001cc      0x242 MCAL/Timer.o
+ .debug_line    0x0000040e      0x13e SL/TMU.o
 
-.debug_frame    0x00000000      0x4a0
+.debug_frame    0x00000000      0x4d4
  *(.debug_frame)
- .debug_frame   0x00000000       0x88 main.o
- .debug_frame   0x00000088       0x54 MCAL/DIO.o
- .debug_frame   0x000000dc      0x32c MCAL/Timer.o
- .debug_frame   0x00000408       0x98 SL/TMU.o
+ .debug_frame   0x00000000       0x98 main.o
+ .debug_frame   0x00000098       0x54 MCAL/DIO.o
+ .debug_frame   0x000000ec      0x32c MCAL/Timer.o
+ .debug_frame   0x00000418       0xbc SL/TMU.o
 
-.debug_str      0x00000000      0x5b9
+.debug_str      0x00000000      0x5ce
  *(.debug_str)
- .debug_str     0x00000000      0x234 main.o
-                                0x268 (size before relaxing)
- .debug_str     0x00000234       0x37 MCAL/DIO.o
+ .debug_str     0x00000000      0x247 main.o
+                                0x27b (size before relaxing)
+ .debug_str     0x00000247       0x37 MCAL/DIO.o
                                 0x1e9 (size before relaxing)
- .debug_str     0x0000026b      0x21c MCAL/Timer.o
+ .debug_str     0x0000027e      0x21c MCAL/Timer.o
                                 0x3c6 (size before relaxing)
- .debug_str     0x00000487      0x132 SL/TMU.o
-                                0x3c0 (size before relaxing)
+ .debug_str     0x0000049a      0x134 SL/TMU.o
+                                0x3d6 (size before relaxing)
 
-.debug_loc      0x00000000     0x1527
+.debug_loc      0x00000000     0x15b6
  *(.debug_loc)
  .debug_loc     0x00000000       0x91 main.o
  .debug_loc     0x00000091      0x551 MCAL/DIO.o
  .debug_loc     0x000005e2      0xc98 MCAL/Timer.o
- .debug_loc     0x0000127a      0x2ad SL/TMU.o
+ .debug_loc     0x0000127a      0x33c SL/TMU.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -750,12 +756,12 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x120
+.debug_ranges   0x00000000      0x130
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x30 main.o
- .debug_ranges  0x00000030       0x28 MCAL/DIO.o
- .debug_ranges  0x00000058       0x98 MCAL/Timer.o
- .debug_ranges  0x000000f0       0x30 SL/TMU.o
+ .debug_ranges  0x00000000       0x38 main.o
+ .debug_ranges  0x00000038       0x28 MCAL/DIO.o
+ .debug_ranges  0x00000060       0x98 MCAL/Timer.o
+ .debug_ranges  0x000000f8       0x38 SL/TMU.o
 
 .debug_macro
  *(.debug_macro)
