@@ -18,7 +18,7 @@ typedef struct Consumer_s{
 } Consumer_s;
 
 static Timer_cfg_s g_TMU_TMR;
-static TMU_cfg_s   g_TMU;
+static TMU_cfg_s   g_TMU = {ZERO, ZERO, DISABLED};
 static Consumer_s  g_RequestBuffer[REQUEST_BUFFER_LEN];
 
 volatile static uint16_t g_ReqBuffer_Index   = ZERO;
@@ -42,6 +42,7 @@ static void TMU_ISR_cbf(void)
 ERROR_STATUS TMU_Init(TMU_cfg_s* a_TMU_s)
 {
 	ERROR_STATUS errorStauts = E_OK;
+	uint16_t index = 0;
 	
 	/*-------------[ Check TMU's Pointer Validity ]-------------*/
 	if(a_TMU_s != NULL)
@@ -82,6 +83,13 @@ ERROR_STATUS TMU_Init(TMU_cfg_s* a_TMU_s)
 		/* Apply The Settings & Start The TMU Timer Hardware Module */
 		Timer_Init(&g_TMU_TMR);
 		Timer_Start(g_TMU_TMR.Timer_CH_NO, TMR_Ticks);	
+		
+		/*  Initialize The Request Buffer  */
+		for(index = 0; index < REQUEST_BUFFER_LEN; index++)
+		{
+			g_RequestBuffer[index].State = INACTIVE;
+			g_RequestBuffer[index].Consumer_Ptr = NULL;
+		}
 	}
 	/*-------------[ In Case Of TMU's Null Pointer ]-------------*/
 	else
@@ -107,7 +115,7 @@ ERROR_STATUS TMU_Start(FunPtr a_ConsumerFun, uint16_t a_ConsumerID, uint8_t a_Pe
 	a_NewConsumer.Count = ZERO;
 	a_NewConsumer.State = ACTIVE;
 	
-	if(g_TMU.State == INACTIVE)
+	if(g_TMU.State == INACTIVE || g_TMU.State == ACTIVE)
 	{
 		/*-------------[ Check Consumer's CBF Pointer Validity ]-------------*/
 		if(a_ConsumerFun != NULL)
@@ -228,7 +236,7 @@ ERROR_STATUS TMU_DeInit(TMU_cfg_s* a_TMU_s)
 	/*-------------[ Check TMU's Pointer Validity ]-------------*/
 	if(a_TMU_s != NULL)
 	{
-		if(g_TMU.State == ACTIVE)
+		if(g_TMU.State == ACTIVE || g_TMU.State == INACTIVE)
 		{
 			/*-------------[ TMU DeInitialization ]-------------*/
 			Timer_Stop(g_TMU.Timer_ID);
