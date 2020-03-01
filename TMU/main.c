@@ -7,24 +7,6 @@
 #include "SL/TMU.h"
 #include "MCAL/DIO.h"
 
-DIO_Cfg_s g_LED1;
-DIO_Cfg_s g_LED2;
-DIO_Cfg_s g_LED3;
-TMU_cfg_s TMU1;
-
-
-void ToggleLED1()
-{
-	DIO_Toggle(g_LED1.GPIO, g_LED1.pins);
-}
-void ToggleLED2()
-{
-	DIO_Toggle(g_LED2.GPIO, g_LED2.pins);
-}
-void ToggleLED3()
-{
-	DIO_Toggle(g_LED3.GPIO, g_LED3.pins);
-}
 
 void StopTasks()
 {
