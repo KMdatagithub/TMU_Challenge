@@ -129,6 +129,24 @@
     <Compile Include="MCAL\Timer.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MCAL\UART.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\UART.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\UART_cfg.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SL\BCM.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SL\BCM.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SL\BCM_cfg.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SL\TMU.c">
       <SubType>compile</SubType>
     </Compile>

@@ -16,7 +16,7 @@
 #define DIO_ERROR	30
 #define PWM_ERROR   40
 #define UART_ERROR  50
-
+#define BCM_ERROR   60
 
 /*-----[ Special Error Codes ]-----*/
 

@@ -10,6 +10,10 @@ MCAL\PWM.c
 
 MCAL\Timer.c
 
+MCAL\UART.c
+
+SL\BCM.c
+
 SL\TMU.c
 
 SL\TMU_PBcfg.c

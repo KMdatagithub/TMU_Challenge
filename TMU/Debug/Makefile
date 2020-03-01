@@ -45,6 +45,8 @@ C_SRCS +=  \
 ../MCAL/DIO.c \
 ../MCAL/PWM.c \
 ../MCAL/Timer.c \
+../MCAL/UART.c \
+../SL/BCM.c \
 ../SL/TMU.c \
 ../SL/TMU_PBcfg.c \
 ../util/softwareDelay.c
@@ -61,6 +63,8 @@ main.o \
 MCAL/DIO.o \
 MCAL/PWM.o \
 MCAL/Timer.o \
+MCAL/UART.o \
+SL/BCM.o \
 SL/TMU.o \
 SL/TMU_PBcfg.o \
 util/softwareDelay.o
@@ -70,6 +74,8 @@ main.o \
 MCAL/DIO.o \
 MCAL/PWM.o \
 MCAL/Timer.o \
+MCAL/UART.o \
+SL/BCM.o \
 SL/TMU.o \
 SL/TMU_PBcfg.o \
 util/softwareDelay.o
@@ -79,6 +85,8 @@ main.d \
 MCAL/DIO.d \
 MCAL/PWM.d \
 MCAL/Timer.d \
+MCAL/UART.d \
+SL/BCM.d \
 SL/TMU.d \
 SL/TMU_PBcfg.d \
 util/softwareDelay.d
@@ -88,6 +96,8 @@ main.d \
 MCAL/DIO.d \
 MCAL/PWM.d \
 MCAL/Timer.d \
+MCAL/UART.d \
+SL/BCM.d \
 SL/TMU.d \
 SL/TMU_PBcfg.d \
 util/softwareDelay.d
@@ -106,6 +116,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 
