@@ -82,8 +82,11 @@ volatile static uint8_t g_CS_Calculated = ZERO;
 /* BCM Transmit ISR Call-Back Function */
 static void BCM_Tx_ISR_cbf(void)
 {
-	/* LOL */
-	TCNT2 = 0x05;
+	
+	g_BCM_EXcfg.Count++;
+	g_BCM_EXcfg.FSM_State = SendComplete_State ;
+	
+	
 }
 
 /* BCM Receive ISR Call-Back Function */
@@ -302,8 +305,6 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 }
 
 
-
-
 /* BCM Setup RX Buffer */
 
 ERROR_STATUS BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len, uint8_t* a_buffer, Notify_FunPtr a_notify)
@@ -350,4 +351,77 @@ ERROR_STATUS BCM_DeInit(BCM_cfg_s* a_BCM)
 	errorStatus= BCM_ERROR + E_OK;
 
 	return errorStatus;
+}
+
+
+ERROR_STATUS BCM_Send(uint8_t* Buffer, uint16_t Buf_Len, BCM_cfg_s* My_BCM, Notify_FunPtr Notify_Ptr ){
+	
+	/* lock the buffer so user can't chance on it  */
+	
+	g_BCM_EXcfg.Lock_State = Buffer_Locked ;
+	
+	/*set the buffer address , length and notification function*/
+	
+	g_BCM_EXcfg.Buffer = Buffer;
+	g_BCM_EXcfg.Buf_Len = Buf_Len;
+	g_BCM_EXcfg.BCM_notify_cbf = Notify_Ptr ;
+	
+	switch(g_BCM_EXcfg.Protocol){
+		
+		case UART_Protocol :
+			UART_Write(g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count]);
+		break;
+		case  SPI_Protocol :
+			_SPITrancevier(& (g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count]));
+		break;
+		
+	}
+	g_BCM_EXcfg.FSM_State = SendingByte_State ;	
+	return 0 ;
+}
+
+void BCM_Tx_Dispatcher(void){
+	
+	switch(g_BCM_EXcfg.FSM_State){
+		case IDLE_State :
+		break;
+		case SendingByte_State :
+		break;
+		case SendComplete_State :
+			if (g_BCM_EXcfg.Count<g_BCM_EXcfg.Buf_Len)
+			{
+				switch(g_BCM_EXcfg.Protocol){
+					g_BCM_EXcfg.CheckSum+=g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count-1];
+					case UART_Protocol :
+					UART_Write(g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count]);
+					break;
+					case  SPI_Protocol :
+					_SPITrancevier(& (g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count]));
+					break;
+				}
+				g_BCM_EXcfg.FSM_State = SendingByte_State ;
+
+			}else if (g_BCM_EXcfg.Count == g_BCM_EXcfg.Buf_Len){
+				
+				switch(g_BCM_EXcfg.Protocol){
+					g_BCM_EXcfg.CheckSum+=g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count-1];
+					case UART_Protocol :
+					UART_Write(g_BCM_EXcfg.CheckSum);
+					break;
+					case  SPI_Protocol :
+					_SPITrancevier(& (g_BCM_EXcfg.CheckSum));
+					break;
+				}
+				g_BCM_EXcfg.FSM_State = SendingByte_State ;		
+					
+			}else{
+				g_BCM_EXcfg.FSM_State = IDLE_State ;	
+			}
+		break;	
+		case OFF_State :
+		break;
+		
+	}
+	
+	
 }
