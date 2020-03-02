@@ -8,9 +8,9 @@
 #include "BCM.h"
 #include "BCM_cfg.h"
 
-/*======================================*/
-/*-----[ BCM Internal Definitions ]-----*/
-/*======================================*/
+/*===================================================================================*/
+/*-----------------------------[ BCM Internal Definitions ]--------------------------*/
+/*===================================================================================*/
 
 /* Finite State Machine States */
 
@@ -23,9 +23,14 @@
 #define ReceivingByte_State		4
 #define ReceiveComplete_State	5
 
-/*=========================================*/
-/*-----[ BCM Internal Configurations ]-----*/
-/*=========================================*/
+/* The BCM Channel Definitions */
+
+#define TX_CH					0
+#define RX_CH					1
+
+/*===================================================================================*/
+/*---------------------------[ BCM Internal Configurations ]-------------------------*/
+/*===================================================================================*/
 
 typedef struct BCM_EXcfg_s{
 	uint8_t  Mode;
@@ -40,29 +45,44 @@ typedef struct BCM_EXcfg_s{
 }BCM_EXcfg_s;
 
 
-/*================================*/
-/*-----[ BCM Static Globals ]-----*/
-/*================================*/
+/*===================================================================================*/
+/*--------------------------------[ BCM Static Globals ]-----------------------------*/
+/*===================================================================================*/
 
 BCM_EXcfg_s g_BCM_EXcfg[BCM_MAX_NUM];	    /* Can Be Array In The Future To Support Multiple Instance OF BCM */
 static volatile uint8_t g_BCM_Index = ZERO;
 
-/*========================================*/
-/*-----[ BCM Functions' Definitions ]-----*/
-/*========================================*/
+/*===================================================================================*/
+/*----------------------------[ BCM Functions' Definitions ]-------------------------*/
+/*===================================================================================*/
 
+/*------------[ BCM CallBacks]------------*/
 /* BCM Transmit ISR Call-Back Function */
 static void BCM_Tx_ISR_cbf(void)
 {
 	/* LOL */
 	TCNT2 = 0x05;
 }
-
 /* BCM Receive ISR Call-Back Function */
 static void BCM_Rx_ISR_cbf(void)
 {
 	/* LOL */
+	
 }
+
+/*------------------------------------*/
+/*---------[ BCM Dispatchers]---------*/
+/* RX Dispatcher */
+void BCM_RxDispatcher(void)
+{
+	
+}
+/* TX Dispatcher */
+void BCM_TxDispatcher(void)
+{
+	
+}
+/*------------------------------------*/
 
 /* BCM Initialization Routine */
 ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
@@ -150,23 +170,25 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 
 
 
+/* BCM Setup RX Buffer */
+ERROR_STATUS BCM_Setup_RxBuffer()
+{
+	
+}
 
 
+/* BCM DeInit */
 ERROR_STATUS BCM_DeInit(BCM_cfg_s* a_BCM)
 {
 	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
 	uint8_t a_index = ZERO;
 	
 	/*--------[ Search For That BCM CFG In The Working List ]--------*/
-	for(a_index = ZERO; a_index < BCM_MAX_NUM; a_index++)
-	{
-		if(a_BCM->BCM_CH_ID == g_BCM_EXcfg[a_index].BCM_CH_ID)
-		{
-			/*--------[ Set That BCM To OFF ]--------*/
-			g_BCM_EXcfg[a_index].FSM_State = OFF_State;
-			errorStatus= BCM_ERROR + E_OK;
-			return errorStatus;
-		}
-	}
+
+	/*--------[ Set That BCM To OFF ]--------*/
+	g_BCM_EXcfg[TX_CH].FSM_State = OFF_State;
+	
+	errorStatus= BCM_ERROR + E_OK;
+
 	return errorStatus;
 }
