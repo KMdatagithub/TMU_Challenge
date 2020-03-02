@@ -8,6 +8,8 @@ MCAL\DIO.c
 
 MCAL\PWM.c
 
+MCAL\SPI__.c
+
 MCAL\Timer.c
 
 MCAL\UART.c
