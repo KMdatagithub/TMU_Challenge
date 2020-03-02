@@ -11,7 +11,7 @@
 
 #include "../MCAL/UART.h"
 #include "../util/error_codes.h"
-
+#include "../MCAL/SPI__.h"
 /*======================================*/
 /*-----[ BCM External Definitions ]-----*/
 /*======================================*/
