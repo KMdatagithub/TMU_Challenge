@@ -459,7 +459,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x6d0
+.text           0x00000000      0x6ea
  *(.vectors)
  .vectors       0x00000000       0x54 E:/Prog_Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -579,16 +579,16 @@ END GROUP
  .text.BCM_Rx_ISR_cbf
                 0x000004b2        0x2 SL/BCM.o
  .text.BCM_Init
-                0x000004b4      0x1d4 SL/BCM.o
+                0x000004b4      0x1ee SL/BCM.o
                 0x000004b4                BCM_Init
  .text.libgcc.div
-                0x00000688       0x44 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_udivmodsi4.o)
-                0x00000688                __udivmodsi4
-                0x000006cc                . = ALIGN (0x2)
+                0x000006a2       0x44 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_udivmodsi4.o)
+                0x000006a2                __udivmodsi4
+                0x000006e6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000006cc        0x0 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                0x000006cc                _exit
-                0x000006cc                exit
+ .fini9         0x000006e6        0x0 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+                0x000006e6                _exit
+                0x000006e6                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -607,11 +607,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000006cc        0x4 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x000006e6        0x4 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000006d0                _etext = .
+                0x000006ea                _etext = .
 
-.data           0x00800060       0x22 load address 0x000006d0
+.data           0x00800060       0x22 load address 0x000006ea
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -658,8 +658,8 @@ END GROUP
  COMMON         0x00800093       0x18 SL/BCM.o
                 0x00800093                g_BCM_EXcfg
                 0x008000ab                PROVIDE (__bss_end, .)
-                0x000006d0                __data_load_start = LOADADDR (.data)
-                0x000006f2                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000006ea                __data_load_start = LOADADDR (.data)
+                0x0000070c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x008000ab        0x0
                 0x008000ab                PROVIDE (__noinit_start, .)
@@ -761,12 +761,12 @@ END GROUP
  .debug_abbrev  0x000002bd      0x140 MCAL/UART.o
  .debug_abbrev  0x000003fd      0x169 SL/BCM.o
 
-.debug_line     0x00000000      0x48d
+.debug_line     0x00000000      0x49c
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000       0x94 main.o
  .debug_line    0x00000094      0x242 MCAL/Timer.o
  .debug_line    0x000002d6       0xdc MCAL/UART.o
- .debug_line    0x000003b2       0xdb SL/BCM.o
+ .debug_line    0x000003b2       0xea SL/BCM.o
 
 .debug_frame    0x00000000      0x504
  *(.debug_frame)
@@ -786,12 +786,12 @@ END GROUP
  .debug_str     0x0000061e       0xad SL/BCM.o
                                 0x463 (size before relaxing)
 
-.debug_loc      0x00000000     0x11c0
+.debug_loc      0x00000000     0x11fa
  *(.debug_loc)
  .debug_loc     0x00000000       0x48 main.o
  .debug_loc     0x00000048      0xc98 MCAL/Timer.o
  .debug_loc     0x00000ce0      0x34b MCAL/UART.o
- .debug_loc     0x0000102b      0x195 SL/BCM.o
+ .debug_loc     0x0000102b      0x1cf SL/BCM.o
 
 .debug_macinfo
  *(.debug_macinfo)

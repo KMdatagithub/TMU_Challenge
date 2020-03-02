@@ -3,31 +3,31 @@ TMU.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000006d0  00000000  00000000  00000094  2**1
+  0 .text         000006ea  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000022  00800060  000006d0  00000764  2**0
+  1 .data         00000022  00800060  000006ea  0000077e  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000029  00800082  00800082  00000786  2**0
+  2 .bss          00000029  00800082  00800082  000007a0  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000786  2**0
+  3 .comment      00000030  00000000  00000000  000007a0  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000007b8  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000007d0  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000150  00000000  00000000  000007f4  2**0
+  5 .debug_aranges 00000150  00000000  00000000  0000080c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000fdd  00000000  00000000  00000944  2**0
+  6 .debug_info   00000fdd  00000000  00000000  0000095c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000566  00000000  00000000  00001921  2**0
+  7 .debug_abbrev 00000566  00000000  00000000  00001939  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000048d  00000000  00000000  00001e87  2**0
+  8 .debug_line   0000049c  00000000  00000000  00001e9f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000504  00000000  00000000  00002314  2**2
+  9 .debug_frame  00000504  00000000  00000000  0000233c  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000006cb  00000000  00000000  00002818  2**0
+ 10 .debug_str    000006cb  00000000  00000000  00002840  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000011c0  00000000  00000000  00002ee3  2**0
+ 11 .debug_loc    000011fa  00000000  00000000  00002f0b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000110  00000000  00000000  000040a3  2**0
+ 12 .debug_ranges 00000110  00000000  00000000  00004105  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -67,7 +67,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e0 ed       	ldi	r30, 0xD0	; 208
+  66:	ea ee       	ldi	r30, 0xEA	; 234
   68:	f6 e0       	ldi	r31, 0x06	; 6
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -90,7 +90,7 @@ Disassembly of section .text:
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
   86:	0e 94 49 00 	call	0x92	; 0x92 <main>
-  8a:	0c 94 66 03 	jmp	0x6cc	; 0x6cc <_exit>
+  8a:	0c 94 73 03 	jmp	0x6e6	; 0x6e6 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -660,7 +660,7 @@ void UART_Init(UART_cfg* uart_cfg)
  33e:	f0 2d       	mov	r31, r0
  340:	c7 01       	movw	r24, r14
  342:	b6 01       	movw	r22, r12
- 344:	0e 94 44 03 	call	0x688	; 0x688 <__udivmodsi4>
+ 344:	0e 94 51 03 	call	0x6a2	; 0x6a2 <__udivmodsi4>
  348:	21 50       	subi	r18, 0x01	; 1
  34a:	29 b9       	out	0x09, r18	; 9
 	UBRRH = ((F_cpu/(16*uart_cfg->baudrate)) - 1)>>8;
@@ -688,7 +688,7 @@ void UART_Init(UART_cfg* uart_cfg)
  376:	55 1f       	adc	r21, r21
  378:	c7 01       	movw	r24, r14
  37a:	b6 01       	movw	r22, r12
- 37c:	0e 94 44 03 	call	0x688	; 0x688 <__udivmodsi4>
+ 37c:	0e 94 51 03 	call	0x6a2	; 0x6a2 <__udivmodsi4>
  380:	da 01       	movw	r26, r20
  382:	c9 01       	movw	r24, r18
  384:	01 97       	sbiw	r24, 0x01	; 1
@@ -912,8 +912,8 @@ ISR(USART_TXC_vect)
  4aa:	18 95       	reti
 
 000004ac <BCM_Tx_ISR_cbf>:
-/*========================================*/
 
+/* BCM Transmit ISR Call-Back Function */
 static void BCM_Tx_ISR_cbf(void)
 {
 	/* LOL */
@@ -925,6 +925,7 @@ static void BCM_Tx_ISR_cbf(void)
 000004b2 <BCM_Rx_ISR_cbf>:
 }
 
+/* BCM Receive ISR Call-Back Function */
 static void BCM_Rx_ISR_cbf(void)
 {
  4b2:	08 95       	ret
@@ -933,7 +934,7 @@ static void BCM_Rx_ISR_cbf(void)
 	/* LOL */
 }
 
-
+/* BCM Initialization Routine */
 ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 {
  4b4:	cf 93       	push	r28
@@ -946,15 +947,16 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
  4c2:	de bf       	out	0x3e, r29	; 62
  4c4:	0f be       	out	0x3f, r0	; 63
  4c6:	cd bf       	out	0x3d, r28	; 61
+ 4c8:	dc 01       	movw	r26, r24
 	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
 	UART_cfg a_BCM_UART;
+	/* spi config as well... */
 	
 	/*-------------[ Check BCM's Pointer Validity ]-------------*/
 	if(a_BCM != NULL)
- 4c8:	00 97       	sbiw	r24, 0x00	; 0
- 4ca:	09 f4       	brne	.+2      	; 0x4ce <BCM_Init+0x1a>
- 4cc:	d3 c0       	rjmp	.+422    	; 0x674 <BCM_Init+0x1c0>
- 4ce:	dc 01       	movw	r26, r24
+ 4ca:	89 2b       	or	r24, r25
+ 4cc:	09 f4       	brne	.+2      	; 0x4d0 <BCM_Init+0x1c>
+ 4ce:	dd c0       	rjmp	.+442    	; 0x68a <BCM_Init+0x1d6>
 	{
 		/*--------[ Add The BCM CFG To The Working List ]--------*/
 		g_BCM_EXcfg[g_BCM_Index].BCM_CH_ID = a_BCM->BCM_CH_ID;
@@ -1073,198 +1075,243 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
  5ae:	ed 56       	subi	r30, 0x6D	; 109
  5b0:	ff 4f       	sbci	r31, 0xFF	; 255
  5b2:	82 81       	ldd	r24, Z+2	; 0x02
- 5b4:	81 11       	cpse	r24, r1
- 5b6:	53 c0       	rjmp	.+166    	; 0x65e <BCM_Init+0x1aa>
+ 5b4:	88 23       	and	r24, r24
+ 5b6:	21 f0       	breq	.+8      	; 0x5c0 <BCM_Init+0x10c>
+ 5b8:	81 30       	cpi	r24, 0x01	; 1
+ 5ba:	09 f4       	brne	.+2      	; 0x5be <BCM_Init+0x10a>
+ 5bc:	5f c0       	rjmp	.+190    	; 0x67c <BCM_Init+0x1c8>
+ 5be:	67 c0       	rjmp	.+206    	; 0x68e <BCM_Init+0x1da>
 		{
 			case UART_Protocol:
 			{
 				a_BCM_UART.baudrate   = BCM_UART_BaudRate;
- 5b8:	80 e8       	ldi	r24, 0x80	; 128
- 5ba:	95 e2       	ldi	r25, 0x25	; 37
- 5bc:	a0 e0       	ldi	r26, 0x00	; 0
- 5be:	b0 e0       	ldi	r27, 0x00	; 0
- 5c0:	88 87       	std	Y+8, r24	; 0x08
- 5c2:	99 87       	std	Y+9, r25	; 0x09
- 5c4:	aa 87       	std	Y+10, r26	; 0x0a
- 5c6:	bb 87       	std	Y+11, r27	; 0x0b
+ 5c0:	80 e8       	ldi	r24, 0x80	; 128
+ 5c2:	95 e2       	ldi	r25, 0x25	; 37
+ 5c4:	a0 e0       	ldi	r26, 0x00	; 0
+ 5c6:	b0 e0       	ldi	r27, 0x00	; 0
+ 5c8:	88 87       	std	Y+8, r24	; 0x08
+ 5ca:	99 87       	std	Y+9, r25	; 0x09
+ 5cc:	aa 87       	std	Y+10, r26	; 0x0a
+ 5ce:	bb 87       	std	Y+11, r27	; 0x0b
 				a_BCM_UART.dataBits   = UART_Bits_8;
- 5c8:	86 e0       	ldi	r24, 0x06	; 6
- 5ca:	8a 83       	std	Y+2, r24	; 0x02
+ 5d0:	86 e0       	ldi	r24, 0x06	; 6
+ 5d2:	8a 83       	std	Y+2, r24	; 0x02
 				a_BCM_UART.stopBits   = StopBits_1;
- 5cc:	1d 82       	std	Y+5, r1	; 0x05
+ 5d4:	1d 82       	std	Y+5, r1	; 0x05
 				a_BCM_UART.parity     = No_Parity;
- 5ce:	1b 82       	std	Y+3, r1	; 0x03
+ 5d6:	1b 82       	std	Y+3, r1	; 0x03
 				a_BCM_UART.sampleEdge = RisingEdg;
- 5d0:	1e 82       	std	Y+6, r1	; 0x06
+ 5d8:	1e 82       	std	Y+6, r1	; 0x06
 				a_BCM_UART.uartSync   = UART_Async;
- 5d2:	1c 82       	std	Y+4, r1	; 0x04
+ 5da:	1c 82       	std	Y+4, r1	; 0x04
 				
 				/*--------[ Check The BCM Mode OF Operation ]--------*/
 				switch(g_BCM_EXcfg[g_BCM_Index].Mode)
- 5d4:	80 91 92 00 	lds	r24, 0x0092
- 5d8:	90 e0       	ldi	r25, 0x00	; 0
- 5da:	fc 01       	movw	r30, r24
- 5dc:	ee 0f       	add	r30, r30
- 5de:	ff 1f       	adc	r31, r31
- 5e0:	e8 0f       	add	r30, r24
- 5e2:	f9 1f       	adc	r31, r25
+ 5dc:	80 91 92 00 	lds	r24, 0x0092
+ 5e0:	90 e0       	ldi	r25, 0x00	; 0
+ 5e2:	fc 01       	movw	r30, r24
  5e4:	ee 0f       	add	r30, r30
  5e6:	ff 1f       	adc	r31, r31
- 5e8:	ee 0f       	add	r30, r30
- 5ea:	ff 1f       	adc	r31, r31
- 5ec:	ed 56       	subi	r30, 0x6D	; 109
- 5ee:	ff 4f       	sbci	r31, 0xFF	; 255
- 5f0:	80 81       	ld	r24, Z
- 5f2:	88 23       	and	r24, r24
- 5f4:	19 f0       	breq	.+6      	; 0x5fc <BCM_Init+0x148>
- 5f6:	81 30       	cpi	r24, 0x01	; 1
- 5f8:	d1 f0       	breq	.+52     	; 0x62e <BCM_Init+0x17a>
- 5fa:	31 c0       	rjmp	.+98     	; 0x65e <BCM_Init+0x1aa>
+ 5e8:	e8 0f       	add	r30, r24
+ 5ea:	f9 1f       	adc	r31, r25
+ 5ec:	ee 0f       	add	r30, r30
+ 5ee:	ff 1f       	adc	r31, r31
+ 5f0:	ee 0f       	add	r30, r30
+ 5f2:	ff 1f       	adc	r31, r31
+ 5f4:	ed 56       	subi	r30, 0x6D	; 109
+ 5f6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5f8:	80 81       	ld	r24, Z
+ 5fa:	88 23       	and	r24, r24
+ 5fc:	19 f0       	breq	.+6      	; 0x604 <BCM_Init+0x150>
+ 5fe:	81 30       	cpi	r24, 0x01	; 1
+ 600:	d1 f0       	breq	.+52     	; 0x636 <BCM_Init+0x182>
+ 602:	31 c0       	rjmp	.+98     	; 0x666 <BCM_Init+0x1b2>
 				{
 					case BCM_Tx_Mode:
 					{
 						a_BCM_UART.mode = UART_TX;
- 5fc:	88 e0       	ldi	r24, 0x08	; 8
- 5fe:	89 83       	std	Y+1, r24	; 0x01
+ 604:	88 e0       	ldi	r24, 0x08	; 8
+ 606:	89 83       	std	Y+1, r24	; 0x01
 						a_BCM_UART.uartInterrupts = OnTx;
- 600:	80 e4       	ldi	r24, 0x40	; 64
- 602:	8f 83       	std	Y+7, r24	; 0x07
+ 608:	80 e4       	ldi	r24, 0x40	; 64
+ 60a:	8f 83       	std	Y+7, r24	; 0x07
 						/*--------[ Set The TX ISR CallBack Function ]--------*/
 						g_BCM_EXcfg[g_BCM_Index].BCM_ISR_cbf = BCM_Tx_ISR_cbf;
- 604:	80 91 92 00 	lds	r24, 0x0092
- 608:	90 e0       	ldi	r25, 0x00	; 0
- 60a:	fc 01       	movw	r30, r24
- 60c:	ee 0f       	add	r30, r30
- 60e:	ff 1f       	adc	r31, r31
- 610:	e8 0f       	add	r30, r24
- 612:	f9 1f       	adc	r31, r25
+ 60c:	80 91 92 00 	lds	r24, 0x0092
+ 610:	90 e0       	ldi	r25, 0x00	; 0
+ 612:	fc 01       	movw	r30, r24
  614:	ee 0f       	add	r30, r30
  616:	ff 1f       	adc	r31, r31
- 618:	ee 0f       	add	r30, r30
- 61a:	ff 1f       	adc	r31, r31
- 61c:	ed 56       	subi	r30, 0x6D	; 109
- 61e:	ff 4f       	sbci	r31, 0xFF	; 255
- 620:	86 e5       	ldi	r24, 0x56	; 86
- 622:	92 e0       	ldi	r25, 0x02	; 2
- 624:	93 87       	std	Z+11, r25	; 0x0b
- 626:	82 87       	std	Z+10, r24	; 0x0a
+ 618:	e8 0f       	add	r30, r24
+ 61a:	f9 1f       	adc	r31, r25
+ 61c:	ee 0f       	add	r30, r30
+ 61e:	ff 1f       	adc	r31, r31
+ 620:	ee 0f       	add	r30, r30
+ 622:	ff 1f       	adc	r31, r31
+ 624:	ed 56       	subi	r30, 0x6D	; 109
+ 626:	ff 4f       	sbci	r31, 0xFF	; 255
+ 628:	86 e5       	ldi	r24, 0x56	; 86
+ 62a:	92 e0       	ldi	r25, 0x02	; 2
+ 62c:	93 87       	std	Z+11, r25	; 0x0b
+ 62e:	82 87       	std	Z+10, r24	; 0x0a
 						UART_SetTX(BCM_Tx_ISR_cbf);
- 628:	0e 94 fa 01 	call	0x3f4	; 0x3f4 <UART_SetTX>
+ 630:	0e 94 fa 01 	call	0x3f4	; 0x3f4 <UART_SetTX>
 						break;
- 62c:	18 c0       	rjmp	.+48     	; 0x65e <BCM_Init+0x1aa>
+ 634:	18 c0       	rjmp	.+48     	; 0x666 <BCM_Init+0x1b2>
 					}
 					case BCM_Rx_Mode:
 					{
 						a_BCM_UART.mode = UART_RX;
- 62e:	80 e1       	ldi	r24, 0x10	; 16
- 630:	89 83       	std	Y+1, r24	; 0x01
+ 636:	80 e1       	ldi	r24, 0x10	; 16
+ 638:	89 83       	std	Y+1, r24	; 0x01
 						a_BCM_UART.uartInterrupts = OnRx;
- 632:	80 e8       	ldi	r24, 0x80	; 128
- 634:	8f 83       	std	Y+7, r24	; 0x07
+ 63a:	80 e8       	ldi	r24, 0x80	; 128
+ 63c:	8f 83       	std	Y+7, r24	; 0x07
 						/*--------[ Set The RX ISR CallBack Function ]--------*/
 						g_BCM_EXcfg[g_BCM_Index].BCM_ISR_cbf = BCM_Rx_ISR_cbf;
- 636:	80 91 92 00 	lds	r24, 0x0092
- 63a:	90 e0       	ldi	r25, 0x00	; 0
- 63c:	fc 01       	movw	r30, r24
- 63e:	ee 0f       	add	r30, r30
- 640:	ff 1f       	adc	r31, r31
- 642:	e8 0f       	add	r30, r24
- 644:	f9 1f       	adc	r31, r25
+ 63e:	80 91 92 00 	lds	r24, 0x0092
+ 642:	90 e0       	ldi	r25, 0x00	; 0
+ 644:	fc 01       	movw	r30, r24
  646:	ee 0f       	add	r30, r30
  648:	ff 1f       	adc	r31, r31
- 64a:	ee 0f       	add	r30, r30
- 64c:	ff 1f       	adc	r31, r31
- 64e:	ed 56       	subi	r30, 0x6D	; 109
- 650:	ff 4f       	sbci	r31, 0xFF	; 255
- 652:	89 e5       	ldi	r24, 0x59	; 89
- 654:	92 e0       	ldi	r25, 0x02	; 2
- 656:	93 87       	std	Z+11, r25	; 0x0b
- 658:	82 87       	std	Z+10, r24	; 0x0a
+ 64a:	e8 0f       	add	r30, r24
+ 64c:	f9 1f       	adc	r31, r25
+ 64e:	ee 0f       	add	r30, r30
+ 650:	ff 1f       	adc	r31, r31
+ 652:	ee 0f       	add	r30, r30
+ 654:	ff 1f       	adc	r31, r31
+ 656:	ed 56       	subi	r30, 0x6D	; 109
+ 658:	ff 4f       	sbci	r31, 0xFF	; 255
+ 65a:	89 e5       	ldi	r24, 0x59	; 89
+ 65c:	92 e0       	ldi	r25, 0x02	; 2
+ 65e:	93 87       	std	Z+11, r25	; 0x0b
+ 660:	82 87       	std	Z+10, r24	; 0x0a
 						UART_SetRX(BCM_Rx_ISR_cbf);
- 65a:	0e 94 ff 01 	call	0x3fe	; 0x3fe <UART_SetRX>
-			default:
-				break;
-		}	
-		
-		/*--------[ Initialize The UART Hardware ]--------*/
-		UART_Init(&a_BCM_UART);
- 65e:	ce 01       	movw	r24, r28
- 660:	01 96       	adiw	r24, 0x01	; 1
- 662:	0e 94 7b 01 	call	0x2f6	; 0x2f6 <UART_Init>
-		g_BCM_Index++;
- 666:	80 91 92 00 	lds	r24, 0x0092
- 66a:	8f 5f       	subi	r24, 0xFF	; 255
- 66c:	80 93 92 00 	sts	0x0092, r24
+ 662:	0e 94 ff 01 	call	0x3fe	; 0x3fe <UART_SetRX>
+					}
+					default:
+						break;
+				}
+				/*--------[ Initialize The UART Hardware ]--------*/
+				UART_Init(&a_BCM_UART);
+ 666:	ce 01       	movw	r24, r28
+ 668:	01 96       	adiw	r24, 0x01	; 1
+ 66a:	0e 94 7b 01 	call	0x2f6	; 0x2f6 <UART_Init>
+				
+				g_BCM_Index++;
+ 66e:	80 91 92 00 	lds	r24, 0x0092
+ 672:	8f 5f       	subi	r24, 0xFF	; 255
+ 674:	80 93 92 00 	sts	0x0092, r24
 	else
 	{
 		errorStatus = NULL_PTR + BCM_ERROR;
 		return errorStatus;
 	}
 	return errorStatus;
- 670:	8c e3       	ldi	r24, 0x3C	; 60
- 672:	01 c0       	rjmp	.+2      	; 0x676 <BCM_Init+0x1c2>
+ 678:	8c e3       	ldi	r24, 0x3C	; 60
+				/*--------[ Initialize The UART Hardware ]--------*/
+				UART_Init(&a_BCM_UART);
+				
+				g_BCM_Index++;
+				errorStatus = BCM_ERROR + E_OK;
+				break;
+ 67a:	0a c0       	rjmp	.+20     	; 0x690 <BCM_Init+0x1dc>
+			}
+			case SPI_Protocol:
+			{
+				/* SPI Init Code Goes Here... */
+				
+				g_BCM_Index++;
+ 67c:	80 91 92 00 	lds	r24, 0x0092
+ 680:	8f 5f       	subi	r24, 0xFF	; 255
+ 682:	80 93 92 00 	sts	0x0092, r24
+	else
+	{
+		errorStatus = NULL_PTR + BCM_ERROR;
+		return errorStatus;
+	}
+	return errorStatus;
+ 686:	8c e3       	ldi	r24, 0x3C	; 60
+			{
+				/* SPI Init Code Goes Here... */
+				
+				g_BCM_Index++;
+				errorStatus = BCM_ERROR + E_OK;
+				break;	
+ 688:	03 c0       	rjmp	.+6      	; 0x690 <BCM_Init+0x1dc>
 	}
 	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
 	else
 	{
 		errorStatus = NULL_PTR + BCM_ERROR;
 		return errorStatus;
- 674:	8d e3       	ldi	r24, 0x3D	; 61
+ 68a:	8d e3       	ldi	r24, 0x3D	; 61
+ 68c:	01 c0       	rjmp	.+2      	; 0x690 <BCM_Init+0x1dc>
+				errorStatus = BCM_ERROR + E_OK;
+				break;	
+			}
+			default:
+				errorStatus = BCM_ERROR + INVALID_IN;
+				return errorStatus;
+ 68e:	80 e4       	ldi	r24, 0x40	; 64
+	{
+		errorStatus = NULL_PTR + BCM_ERROR;
+		return errorStatus;
 	}
 	return errorStatus;
 }
- 676:	2b 96       	adiw	r28, 0x0b	; 11
- 678:	0f b6       	in	r0, 0x3f	; 63
- 67a:	f8 94       	cli
- 67c:	de bf       	out	0x3e, r29	; 62
- 67e:	0f be       	out	0x3f, r0	; 63
- 680:	cd bf       	out	0x3d, r28	; 61
- 682:	df 91       	pop	r29
- 684:	cf 91       	pop	r28
- 686:	08 95       	ret
+ 690:	2b 96       	adiw	r28, 0x0b	; 11
+ 692:	0f b6       	in	r0, 0x3f	; 63
+ 694:	f8 94       	cli
+ 696:	de bf       	out	0x3e, r29	; 62
+ 698:	0f be       	out	0x3f, r0	; 63
+ 69a:	cd bf       	out	0x3d, r28	; 61
+ 69c:	df 91       	pop	r29
+ 69e:	cf 91       	pop	r28
+ 6a0:	08 95       	ret
 
-00000688 <__udivmodsi4>:
- 688:	a1 e2       	ldi	r26, 0x21	; 33
- 68a:	1a 2e       	mov	r1, r26
- 68c:	aa 1b       	sub	r26, r26
- 68e:	bb 1b       	sub	r27, r27
- 690:	fd 01       	movw	r30, r26
- 692:	0d c0       	rjmp	.+26     	; 0x6ae <__udivmodsi4_ep>
+000006a2 <__udivmodsi4>:
+ 6a2:	a1 e2       	ldi	r26, 0x21	; 33
+ 6a4:	1a 2e       	mov	r1, r26
+ 6a6:	aa 1b       	sub	r26, r26
+ 6a8:	bb 1b       	sub	r27, r27
+ 6aa:	fd 01       	movw	r30, r26
+ 6ac:	0d c0       	rjmp	.+26     	; 0x6c8 <__udivmodsi4_ep>
 
-00000694 <__udivmodsi4_loop>:
- 694:	aa 1f       	adc	r26, r26
- 696:	bb 1f       	adc	r27, r27
- 698:	ee 1f       	adc	r30, r30
- 69a:	ff 1f       	adc	r31, r31
- 69c:	a2 17       	cp	r26, r18
- 69e:	b3 07       	cpc	r27, r19
- 6a0:	e4 07       	cpc	r30, r20
- 6a2:	f5 07       	cpc	r31, r21
- 6a4:	20 f0       	brcs	.+8      	; 0x6ae <__udivmodsi4_ep>
- 6a6:	a2 1b       	sub	r26, r18
- 6a8:	b3 0b       	sbc	r27, r19
- 6aa:	e4 0b       	sbc	r30, r20
- 6ac:	f5 0b       	sbc	r31, r21
+000006ae <__udivmodsi4_loop>:
+ 6ae:	aa 1f       	adc	r26, r26
+ 6b0:	bb 1f       	adc	r27, r27
+ 6b2:	ee 1f       	adc	r30, r30
+ 6b4:	ff 1f       	adc	r31, r31
+ 6b6:	a2 17       	cp	r26, r18
+ 6b8:	b3 07       	cpc	r27, r19
+ 6ba:	e4 07       	cpc	r30, r20
+ 6bc:	f5 07       	cpc	r31, r21
+ 6be:	20 f0       	brcs	.+8      	; 0x6c8 <__udivmodsi4_ep>
+ 6c0:	a2 1b       	sub	r26, r18
+ 6c2:	b3 0b       	sbc	r27, r19
+ 6c4:	e4 0b       	sbc	r30, r20
+ 6c6:	f5 0b       	sbc	r31, r21
 
-000006ae <__udivmodsi4_ep>:
- 6ae:	66 1f       	adc	r22, r22
- 6b0:	77 1f       	adc	r23, r23
- 6b2:	88 1f       	adc	r24, r24
- 6b4:	99 1f       	adc	r25, r25
- 6b6:	1a 94       	dec	r1
- 6b8:	69 f7       	brne	.-38     	; 0x694 <__udivmodsi4_loop>
- 6ba:	60 95       	com	r22
- 6bc:	70 95       	com	r23
- 6be:	80 95       	com	r24
- 6c0:	90 95       	com	r25
- 6c2:	9b 01       	movw	r18, r22
- 6c4:	ac 01       	movw	r20, r24
- 6c6:	bd 01       	movw	r22, r26
- 6c8:	cf 01       	movw	r24, r30
- 6ca:	08 95       	ret
+000006c8 <__udivmodsi4_ep>:
+ 6c8:	66 1f       	adc	r22, r22
+ 6ca:	77 1f       	adc	r23, r23
+ 6cc:	88 1f       	adc	r24, r24
+ 6ce:	99 1f       	adc	r25, r25
+ 6d0:	1a 94       	dec	r1
+ 6d2:	69 f7       	brne	.-38     	; 0x6ae <__udivmodsi4_loop>
+ 6d4:	60 95       	com	r22
+ 6d6:	70 95       	com	r23
+ 6d8:	80 95       	com	r24
+ 6da:	90 95       	com	r25
+ 6dc:	9b 01       	movw	r18, r22
+ 6de:	ac 01       	movw	r20, r24
+ 6e0:	bd 01       	movw	r22, r26
+ 6e2:	cf 01       	movw	r24, r30
+ 6e4:	08 95       	ret
 
-000006cc <_exit>:
- 6cc:	f8 94       	cli
+000006e6 <_exit>:
+ 6e6:	f8 94       	cli
 
-000006ce <__stop_program>:
- 6ce:	ff cf       	rjmp	.-2      	; 0x6ce <__stop_program>
+000006e8 <__stop_program>:
+ 6e8:	ff cf       	rjmp	.-2      	; 0x6e8 <__stop_program>

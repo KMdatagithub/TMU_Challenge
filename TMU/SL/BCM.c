@@ -51,22 +51,25 @@ static volatile uint8_t g_BCM_Index = ZERO;
 /*-----[ BCM Functions' Definitions ]-----*/
 /*========================================*/
 
+/* BCM Transmit ISR Call-Back Function */
 static void BCM_Tx_ISR_cbf(void)
 {
 	/* LOL */
 	TCNT2 = 0x05;
 }
 
+/* BCM Receive ISR Call-Back Function */
 static void BCM_Rx_ISR_cbf(void)
 {
 	/* LOL */
 }
 
-
+/* BCM Initialization Routine */
 ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 {
 	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
 	UART_cfg a_BCM_UART;
+	/* spi config as well... */
 	
 	/*-------------[ Check BCM's Pointer Validity ]-------------*/
 	if(a_BCM != NULL)
@@ -115,18 +118,25 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 					default:
 						break;
 				}
+				/*--------[ Initialize The UART Hardware ]--------*/
+				UART_Init(&a_BCM_UART);
+				
+				g_BCM_Index++;
+				errorStatus = BCM_ERROR + E_OK;
 				break;
 			}
 			case SPI_Protocol:
-				break;
+			{
+				/* SPI Init Code Goes Here... */
+				
+				g_BCM_Index++;
+				errorStatus = BCM_ERROR + E_OK;
+				break;	
+			}
 			default:
-				break;
+				errorStatus = BCM_ERROR + INVALID_IN;
+				return errorStatus;
 		}	
-		
-		/*--------[ Initialize The UART Hardware ]--------*/
-		UART_Init(&a_BCM_UART);
-		g_BCM_Index++;
-		errorStatus = BCM_ERROR + E_OK;
 	}
 	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
 	else
