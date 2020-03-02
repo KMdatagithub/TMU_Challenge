@@ -8,7 +8,7 @@
 #include "SPI__.h"
 
  void (*PTR_CALL_BACK)(void);
- volatile uint8_t g_u8_RxFlag = FALSE ;
+ volatile uint8_t g_u8_RxFlag = TRUE;
 
 extern void _SPIInitMaster(SPI_cfg_s * a_SPI_cfg){
 	
@@ -150,11 +150,35 @@ extern void _SPITrancevier(uint8_t* data){
 	}
 	
 	
-	*data = SPDR;
-	while (!g_u8_RxFlag);
+	//*data = SPDR;
+	//while (!g_u8_RxFlag);
 	SPDR = *data;	
 	
 	g_u8_RxFlag = FALSE ;
+}
+
+extern ERROR_STATUS _SPISend(uint8_t data)
+{
+	uint8_t state = E_NOK;	
+	if(g_u8_RxFlag == TRUE)
+	{
+		SPDR = data;
+		g_u8_RxFlag = FALSE;	
+		state = E_OK;
+	}
+	return state;
+}
+
+extern ERROR_STATUS _SPIRead(uint8_t* data)
+{
+	uint8_t state = E_NOK;
+	if(g_u8_RxFlag == TRUE)
+	{
+		*data = SPDR;
+		g_u8_RxFlag = FALSE;
+		state = E_OK;
+	}
+	return state;
 }
 
 
@@ -163,10 +187,10 @@ void SPI_SetCBF(FunPtr isr_ptr)
 	PTR_CALL_BACK = isr_ptr;
 }
 
-ISR(SPI_STC_vect){
-	g_u8_RxFlag = TRUE ;
-	PTR_CALL_BACK() ;
-
+ISR(SPI_STC_vect)
+{
+	g_u8_RxFlag = TRUE;
+	PTR_CALL_BACK();
 }
 
 

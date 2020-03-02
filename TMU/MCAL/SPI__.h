@@ -78,6 +78,9 @@ extern void _SPIInitSlave(SPI_cfg_s*);
 
 extern void _SPITrancevier(uint8_t* data);
 
+extern ERROR_STATUS _SPISend(uint8_t data);
+extern ERROR_STATUS _SPIRead(uint8_t* data);
+
 void SPI_SetCBF(FunPtr isr_ptr);
 
 

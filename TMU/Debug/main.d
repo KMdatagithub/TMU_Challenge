@@ -3,7 +3,7 @@ main.d main.o: .././main.c .././SL/BCM.h .././SL/../util/error_codes.h \
  .././MCAL/../util/registers.h .././MCAL/../util/std_types.h \
  .././MCAL/../util/interrupt.h .././MCAL/../util/registers.h \
  .././MCAL/UART_cfg.h .././MCAL/UART.h .././util/softwareDelay.h \
- .././util/std_types.h .././util/registers.h
+ .././util/std_types.h
 
 .././SL/BCM.h:
 
@@ -28,5 +28,3 @@ main.d main.o: .././main.c .././SL/BCM.h .././SL/../util/error_codes.h \
 .././util/softwareDelay.h:
 
 .././util/std_types.h:
-
-.././util/registers.h:
