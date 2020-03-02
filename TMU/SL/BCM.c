@@ -205,4 +205,6 @@ ERROR_STATUS BCM_DeInit(BCM_cfg_s* a_BCM)
 	errorStatus= BCM_ERROR + E_OK;
 
 	return errorStatus;
+	
+	
 }
