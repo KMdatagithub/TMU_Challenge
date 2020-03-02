@@ -66,7 +66,6 @@ typedef struct BCM_EXcfg_s{
 //static volatile uint8_t g_BCM_Index = ZERO;
 
 BCM_EXcfg_s g_BCM_EXcfg = {ZERO};
-static uint8_t g_RX_Buffer[Rx_Buffer_Size] = {ZERO};
 volatile static uint8_t g_RX_Buffer_Index = ZERO;
 volatile static uint8_t g_Rx_ID = ZERO;
 volatile static uint8_t g_Tx_ID = ZERO;
