@@ -78,7 +78,7 @@ extern void _SPIInitSlave(SPI_cfg_s*);
 
 extern void _SPITrancevier(uint8_t* data);
 
-
+void SPI_SetCBF(FunPtr isr_ptr);
 
 
 #endif /* SPI___H_ */

@@ -44,6 +44,7 @@ C_SRCS +=  \
 ../main.c \
 ../MCAL/DIO.c \
 ../MCAL/PWM.c \
+../MCAL/SPI__.c \
 ../MCAL/Timer.c \
 ../MCAL/UART.c \
 ../SL/BCM.c \
@@ -62,6 +63,7 @@ OBJS +=  \
 main.o \
 MCAL/DIO.o \
 MCAL/PWM.o \
+MCAL/SPI__.o \
 MCAL/Timer.o \
 MCAL/UART.o \
 SL/BCM.o \
@@ -73,6 +75,7 @@ OBJS_AS_ARGS +=  \
 main.o \
 MCAL/DIO.o \
 MCAL/PWM.o \
+MCAL/SPI__.o \
 MCAL/Timer.o \
 MCAL/UART.o \
 SL/BCM.o \
@@ -84,6 +87,7 @@ C_DEPS +=  \
 main.d \
 MCAL/DIO.d \
 MCAL/PWM.d \
+MCAL/SPI__.d \
 MCAL/Timer.d \
 MCAL/UART.d \
 SL/BCM.d \
@@ -95,6 +99,7 @@ C_DEPS_AS_ARGS +=  \
 main.d \
 MCAL/DIO.d \
 MCAL/PWM.d \
+MCAL/SPI__.d \
 MCAL/Timer.d \
 MCAL/UART.d \
 SL/BCM.d \
@@ -116,6 +121,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

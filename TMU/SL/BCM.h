@@ -9,9 +9,10 @@
 #ifndef BCM_H_
 #define BCM_H_
 
-#include "../MCAL/UART.h"
 #include "../util/error_codes.h"
-#include "../MCAL/SPI__.h"
+#include "../util/std_types.h"
+
+
 /*======================================*/
 /*-----[ BCM External Definitions ]-----*/
 /*======================================*/
@@ -52,7 +53,7 @@ ERROR_STATUS BCM_DeInit(BCM_cfg_s*);
 
 ERROR_STATUS BCM_Send(uint8_t* Buffer, uint16_t Buf_Len, BCM_cfg_s* My_BCM, Notify_FunPtr);
 
-uint8_t* BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len);
+ERROR_STATUS BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len, uint8_t* buf, Notify_FunPtr);
 
 ERROR_STATUS BCM_Get_TxBuf_State(uint8_t* Tx_State, BCM_cfg_s*);
 

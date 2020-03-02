@@ -7,6 +7,9 @@
 
 #include "BCM.h"
 #include "BCM_cfg.h"
+#include "../MCAL/UART.h"
+#include "../MCAL/SPI__.h"
+
 
 /*===================================================================================*/
 /*-----------------------------[ BCM Internal Definitions ]--------------------------*/
@@ -32,6 +35,10 @@
 #define TX_CH					0
 #define RX_CH					1
 
+#define S_NOK					0
+#define S_OK					1
+
+
 /*===================================================================================*/
 /*---------------------------[ BCM Internal Configurations ]-------------------------*/
 /*===================================================================================*/
@@ -45,8 +52,9 @@ typedef struct BCM_EXcfg_s{
 	uint8_t  CheckSum;
 	uint8_t* Buffer;
 	uint16_t Buf_Len;
+ 	uint16_t MSG_Len;
 	uint16_t Count;
-	Notify_FunPtr   BCM_notify_cbf;
+	Notify_FunPtr BCM_notify_cbf;
 }BCM_EXcfg_s;
 
 
@@ -58,8 +66,13 @@ typedef struct BCM_EXcfg_s{
 //static volatile uint8_t g_BCM_Index = ZERO;
 
 BCM_EXcfg_s g_BCM_EXcfg = {ZERO};
-static uint8_t g_RX_Buffer[Rx_Buffer_Size] = {ZERO};
-static uint8_t g_RX_Buffer_Index = ZERO;
+volatile static uint8_t g_RX_Buffer_Index = ZERO;
+volatile static uint8_t g_Rx_ID = ZERO;
+volatile static uint8_t g_Tx_ID = ZERO;
+volatile static uint8_t g_ID_State  = S_NOK;
+volatile static uint8_t g_LEN_State = S_NOK;
+volatile static uint8_t g_CS_Calculated = ZERO;
+
 
 /*===================================================================================*/
 /*----------------------------[ BCM Functions' Definitions ]-------------------------*/
@@ -75,14 +88,88 @@ static void BCM_Tx_ISR_cbf(void)
 	
 	
 }
+
 /* BCM Receive ISR Call-Back Function */
 static void BCM_Rx_ISR_cbf(void)
 {
-	/* LOL */
-	g_BCM_EXcfg.Lock_State = Buffer_Locked;
-	g_BCM_EXcfg.FSM_State = ReceivingByte_State;
-	g_RX_Buffer[g_BCM_EXcfg.Count] = UDR;
-	g_BCM_EXcfg.Count++;
+	uint8_t a_RX_Byte;
+	switch(g_BCM_EXcfg.Protocol)
+	{
+		case UART_Protocol:
+		{
+			a_RX_Byte = UDR;
+			break;
+		}
+		case SPI_Protocol:
+		{
+			_SPITrancevier(&a_RX_Byte);
+			break;
+		}
+		default:
+			break;
+	}
+				/* dubug point */
+				TCNT0 = a_RX_Byte;
+				/* dubug point */
+	
+	/* Read & Check The BCM Received ID */
+	if(g_BCM_EXcfg.Count == 0)
+	{
+		g_Rx_ID = a_RX_Byte;
+	
+		if(g_Rx_ID == BCM_ID)
+		{
+			/* dubug point */
+			TCNT2 = a_RX_Byte;
+			/* dubug point */
+			g_ID_State = S_OK;
+			g_BCM_EXcfg.Count++;
+		}
+		else
+		{
+			g_ID_State = S_NOK;
+		}	
+	}
+	/*-------------------[ ID IS CHECKED ]------------------*/
+	/*------------------------------------------------------*/
+	/*-------------------[ Save & CHECK MSG Len ]------------------*/
+	/* Read & Check The BCM Received Data Length */
+	else if(g_BCM_EXcfg.Count == 1)
+	{
+		if(a_RX_Byte > g_BCM_EXcfg.Buf_Len)
+		{
+			g_LEN_State = S_NOK;
+			g_BCM_EXcfg.FSM_State = IDLE_State;
+			g_BCM_EXcfg.Count = ZERO;
+			g_BCM_EXcfg.BCM_notify_cbf(g_LEN_State);
+		}
+		else
+		{
+			/* dubug point */
+			TCNT2 = a_RX_Byte;
+			/* dubug point */
+			g_BCM_EXcfg.MSG_Len = a_RX_Byte;
+			g_BCM_EXcfg.Count++;
+			g_BCM_EXcfg.FSM_State = ReceivingByte_State;
+		}
+	}
+	else if(g_BCM_EXcfg.Count-2 <= g_BCM_EXcfg.MSG_Len)
+	{
+		/* dubug point */
+		TCNT2 = a_RX_Byte;
+		/* dubug point */
+		g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count-2] = a_RX_Byte;
+		g_CS_Calculated += a_RX_Byte;
+		g_BCM_EXcfg.Count++;
+	}
+	else if(g_BCM_EXcfg.Count-2 == g_BCM_EXcfg.MSG_Len+1)
+	{
+		g_BCM_EXcfg.CheckSum = a_RX_Byte;
+		g_BCM_EXcfg.Count++;
+		g_BCM_EXcfg.FSM_State = ReceiveComplete_State;
+	}
+	else
+	{	}
 }
 
 /*------------------------------------*/
@@ -90,25 +177,20 @@ static void BCM_Rx_ISR_cbf(void)
 /* RX Dispatcher */
 void BCM_RxDispatcher(void)
 {
-	/* The BCM ID Is Received */
-	if(g_BCM_EXcfg.Count == 1)
-	{
-		if(g_RX_Buffer[0] == BCM_ID)
-		{
-			g_BCM_EXcfg.FSM_State = ReceiveComplete_State;
-		}
-		else
-		{
-			g_RX_Buffer[0] = ZERO;
-			g_BCM_EXcfg.Count = ZERO;
-			
-		}
-	}
+	
 }
 /* TX Dispatcher */
 void BCM_TxDispatcher(void)
 {
-	
+	if(g_BCM_EXcfg.FSM_State == ReceiveComplete_State)
+	{
+		if(g_BCM_EXcfg.CheckSum == g_CS_Calculated)
+		{
+			g_BCM_EXcfg.Count = ZERO;
+			g_BCM_EXcfg.FSM_State = IDLE_State;
+			g_BCM_EXcfg.BCM_notify_cbf(E_OK);
+		}
+	}
 }
 /*------------------------------------*/
 
@@ -116,8 +198,8 @@ void BCM_TxDispatcher(void)
 ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 {
 	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
-	UART_cfg a_BCM_UART;
-	/* SPI config as well... */
+	UART_cfg  a_BCM_UART;
+	SPI_cfg_s a_BCM_SPI; 
 	
 	/*-------------[ Check BCM's Pointer Validity ]-------------*/
 	if(a_BCM != NULL)
@@ -129,10 +211,13 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 		g_BCM_EXcfg.FSM_State = IDLE_State;
 		g_BCM_EXcfg.Count     = ZERO;
 		g_BCM_EXcfg.CheckSum  = ZERO;
+		g_BCM_EXcfg.Buf_Len   = ZERO;
+		g_BCM_EXcfg.MSG_Len   = ZERO;
 		
 		/*--------[ Check The BCM HW Communication Protocol ]--------*/
 		switch(g_BCM_EXcfg.Protocol)
 		{
+			/*----------------------[ UART CASE START ]---------------------*/
 			case UART_Protocol:
 			{
 				a_BCM_UART.baudrate   = BCM_UART_BaudRate;
@@ -150,7 +235,6 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 						a_BCM_UART.mode = UART_TX;
 						a_BCM_UART.uartInterrupts = OnTx;
 						/*--------[ Set The TX ISR CallBack Function ]--------*/
-						//g_BCM_EXcfg.BCM_ISR_cbf = BCM_Tx_ISR_cbf;
 						UART_SetTX(BCM_Tx_ISR_cbf);
 						break;
 					}
@@ -159,7 +243,6 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 						a_BCM_UART.mode = UART_RX;
 						a_BCM_UART.uartInterrupts = OnRx;
 						/*--------[ Set The RX ISR CallBack Function ]--------*/
-						//g_BCM_EXcfg.BCM_ISR_cbf = BCM_Rx_ISR_cbf;
 						UART_SetRX(BCM_Rx_ISR_cbf);
 						break;
 					}
@@ -172,17 +255,45 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 				errorStatus = BCM_ERROR + E_OK;
 				break;
 			}
+			/*----------------------[ UART CASE END ]---------------------*/
+			/*------------------------------------------------------------*/
+			/*----------------------[ SPI CASE START ]--------------------*/
 			case SPI_Protocol:
 			{
-				/* SPI Init Code Goes Here... */
+				a_BCM_SPI.clockSPI = Fosc128;
+				a_BCM_SPI.dataorder = MSB;
+				a_BCM_SPI.phasePolarityMode = mode0;
 				
+				/*--------[ Check The BCM Mode OF Operation ]--------*/
+				switch(g_BCM_EXcfg.Mode)
+				{
+					case BCM_Tx_Mode:
+					{
+						a_BCM_SPI.ptr_call_back = BCM_Tx_ISR_cbf;
+						_SPIInitMaster(&a_BCM_SPI);
+						/*--------[ Set The TX ISR CallBack Function ]--------*/
+						SPI_SetCBF(BCM_Tx_ISR_cbf);
+						break;
+					}
+					case BCM_Rx_Mode:
+					{
+						a_BCM_SPI.ptr_call_back = BCM_Rx_ISR_cbf;
+						_SPIInitMaster(&a_BCM_SPI);
+						/*--------[ Set The RX ISR CallBack Function ]--------*/
+						SPI_SetCBF(BCM_Rx_ISR_cbf);
+						break;
+					}
+					default:
+					break;
+				}				
 				errorStatus = BCM_ERROR + E_OK;
-				break;	
+				break;
 			}
+			/*----------------------[ SPI CASE END ]---------------------*/
 			default:
 				errorStatus = BCM_ERROR + INVALID_IN;
 				return errorStatus;
-		}	
+		}
 	}
 	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
 	else
@@ -196,11 +307,11 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 
 /* BCM Setup RX Buffer */
 
-uint8_t* BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len)
+ERROR_STATUS BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len, uint8_t* a_buffer, Notify_FunPtr a_notify)
 {
 	/* Needs So Much Improvements & Error Checking & More... */
 	
-	//ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
+	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
 	
 	/*-------------[ Check BCM's Pointer Validity ]-------------*/
 	if(a_BCM != NULL)
@@ -208,6 +319,9 @@ uint8_t* BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len)
 		if(a_Buffer_Len <= Rx_Buffer_Size)
 		{
 			g_BCM_EXcfg.Buf_Len = a_Buffer_Len;
+			g_BCM_EXcfg.Buffer = a_buffer;
+			g_BCM_EXcfg.FSM_State = IDLE_State;
+			g_BCM_EXcfg.BCM_notify_cbf = a_notify;
 		}
 		else
 		{
@@ -220,9 +334,7 @@ uint8_t* BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len)
 		//errorStatus = NULL_PTR + BCM_ERROR;
 		//return errorStatus;
 	}
-	//return errorStatus;
-	
-	return g_RX_Buffer;
+	return errorStatus;
 }
 
 

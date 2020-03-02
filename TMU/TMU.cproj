@@ -123,6 +123,12 @@
     <Compile Include="MCAL\PWM.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MCAL\SPI__.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SPI__.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="MCAL\Timer.c">
       <SubType>compile</SubType>
     </Compile>
