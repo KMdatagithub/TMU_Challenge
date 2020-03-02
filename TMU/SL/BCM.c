@@ -12,6 +12,10 @@
 /*-----------------------------[ BCM Internal Definitions ]--------------------------*/
 /*===================================================================================*/
 
+/* BCM ID */
+
+#define BCM_ID					65
+
 /* Finite State Machine States */
 
 #define OFF_State				0
@@ -39,6 +43,7 @@ typedef struct BCM_EXcfg_s{
 	uint8_t  Lock_State;
 	uint8_t  FSM_State;
 	uint8_t  CheckSum;
+	uint8_t* Buffer;
 	uint16_t Buf_Len;
 	uint16_t Count;
 	FunPtr   BCM_ISR_cbf;
@@ -52,8 +57,9 @@ typedef struct BCM_EXcfg_s{
 // BCM_EXcfg_s g_BCM_EXcfg[BCM_MAX_NUM];	    /* Can Be Array In The Future To Support Multiple Instance OF BCM */
 //static volatile uint8_t g_BCM_Index = ZERO;
 
-BCM_EXcfg_s g_BCM_EXcfg = {0};
-static volatile uint8_t g_RX_Buffer[Rx_Buffer_Size] = {0};
+BCM_EXcfg_s g_BCM_EXcfg = {ZERO};
+static uint8_t g_RX_Buffer[Rx_Buffer_Size] = {ZERO};
+static uint8_t g_RX_Buffer_Index = ZERO;
 
 /*===================================================================================*/
 /*----------------------------[ BCM Functions' Definitions ]-------------------------*/
@@ -70,7 +76,10 @@ static void BCM_Tx_ISR_cbf(void)
 static void BCM_Rx_ISR_cbf(void)
 {
 	/* LOL */
-	
+	g_BCM_EXcfg.Lock_State = Buffer_Locked;
+	g_BCM_EXcfg.FSM_State = ReceivingByte_State;
+	g_RX_Buffer[g_BCM_EXcfg.Count] = UDR;
+	g_BCM_EXcfg.Count++;
 }
 
 /*------------------------------------*/
@@ -78,7 +87,20 @@ static void BCM_Rx_ISR_cbf(void)
 /* RX Dispatcher */
 void BCM_RxDispatcher(void)
 {
-	
+	/* The BCM ID Is Received */
+	if(g_BCM_EXcfg.Count == 1)
+	{
+		if(g_RX_Buffer[0] == BCM_ID)
+		{
+			g_BCM_EXcfg.FSM_State = ReceiveComplete_State;
+		}
+		else
+		{
+			g_RX_Buffer[0] = ZERO;
+			g_BCM_EXcfg.Count = ZERO;
+			
+		}
+	}
 }
 /* TX Dispatcher */
 void BCM_TxDispatcher(void)
@@ -175,20 +197,31 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 
 uint8_t* BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len)
 {
-	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
+	/* Needs So Much Improvements & Error Checking & More... */
+	
+	//ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
 	
 	/*-------------[ Check BCM's Pointer Validity ]-------------*/
 	if(a_BCM != NULL)
 	{
-		
+		if(a_Buffer_Len <= Rx_Buffer_Size)
+		{
+			g_BCM_EXcfg.Buf_Len = a_Buffer_Len;
+		}
+		else
+		{
+			/* OMG plzzz */
+		}
 	}
 	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
 	else
 	{
-		errorStatus = NULL_PTR + BCM_ERROR;
-		return errorStatus;
+		//errorStatus = NULL_PTR + BCM_ERROR;
+		//return errorStatus;
 	}
-	return errorStatus;
+	//return errorStatus;
+	
+	return g_RX_Buffer;
 }
 
 

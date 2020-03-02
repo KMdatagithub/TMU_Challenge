@@ -33,7 +33,7 @@ void UART_Init(UART_cfg* uart_cfg)
 
 void UART_Write(uint8_t data)
 {
-	// Wait For Empty Transmit Budder
+	// Wait For Empty Transmit Buffer
 	while(!(UCSRA & (1<<5)));
 	// Write The Data To The Buffer & Send!
 	UDR = data;
