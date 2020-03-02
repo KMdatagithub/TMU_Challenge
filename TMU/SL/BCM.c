@@ -49,8 +49,11 @@ typedef struct BCM_EXcfg_s{
 /*--------------------------------[ BCM Static Globals ]-----------------------------*/
 /*===================================================================================*/
 
-BCM_EXcfg_s g_BCM_EXcfg[BCM_MAX_NUM];	    /* Can Be Array In The Future To Support Multiple Instance OF BCM */
-static volatile uint8_t g_BCM_Index = ZERO;
+// BCM_EXcfg_s g_BCM_EXcfg[BCM_MAX_NUM];	    /* Can Be Array In The Future To Support Multiple Instance OF BCM */
+//static volatile uint8_t g_BCM_Index = ZERO;
+
+BCM_EXcfg_s g_BCM_EXcfg = {0};
+static volatile uint8_t g_RX_Buffer[Rx_Buffer_Size] = {0};
 
 /*===================================================================================*/
 /*----------------------------[ BCM Functions' Definitions ]-------------------------*/
@@ -95,15 +98,15 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 	if(a_BCM != NULL)
 	{
 		/*--------[ Add The BCM CFG To The Working List ]--------*/
-		g_BCM_EXcfg[g_BCM_Index].BCM_CH_ID = a_BCM->BCM_CH_ID;
-		g_BCM_EXcfg[g_BCM_Index].Mode      = a_BCM->Mode;
-		g_BCM_EXcfg[g_BCM_Index].Protocol  = a_BCM->Protocol;
-		g_BCM_EXcfg[g_BCM_Index].FSM_State = IDLE_State;
-		g_BCM_EXcfg[g_BCM_Index].Count     = ZERO;
-		g_BCM_EXcfg[g_BCM_Index].CheckSum  = ZERO;
+		g_BCM_EXcfg.BCM_CH_ID = a_BCM->BCM_CH_ID;
+		g_BCM_EXcfg.Mode      = a_BCM->Mode;
+		g_BCM_EXcfg.Protocol  = a_BCM->Protocol;
+		g_BCM_EXcfg.FSM_State = IDLE_State;
+		g_BCM_EXcfg.Count     = ZERO;
+		g_BCM_EXcfg.CheckSum  = ZERO;
 		
 		/*--------[ Check The BCM HW Communication Protocol ]--------*/
-		switch(g_BCM_EXcfg[g_BCM_Index].Protocol)
+		switch(g_BCM_EXcfg.Protocol)
 		{
 			case UART_Protocol:
 			{
@@ -115,14 +118,14 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 				a_BCM_UART.uartSync   = UART_Async;
 				
 				/*--------[ Check The BCM Mode OF Operation ]--------*/
-				switch(g_BCM_EXcfg[g_BCM_Index].Mode)
+				switch(g_BCM_EXcfg.Mode)
 				{
 					case BCM_Tx_Mode:
 					{
 						a_BCM_UART.mode = UART_TX;
 						a_BCM_UART.uartInterrupts = OnTx;
 						/*--------[ Set The TX ISR CallBack Function ]--------*/
-						g_BCM_EXcfg[g_BCM_Index].BCM_ISR_cbf = BCM_Tx_ISR_cbf;
+						g_BCM_EXcfg.BCM_ISR_cbf = BCM_Tx_ISR_cbf;
 						UART_SetTX(BCM_Tx_ISR_cbf);
 						break;
 					}
@@ -131,7 +134,7 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 						a_BCM_UART.mode = UART_RX;
 						a_BCM_UART.uartInterrupts = OnRx;
 						/*--------[ Set The RX ISR CallBack Function ]--------*/
-						g_BCM_EXcfg[g_BCM_Index].BCM_ISR_cbf = BCM_Rx_ISR_cbf;
+						g_BCM_EXcfg.BCM_ISR_cbf = BCM_Rx_ISR_cbf;
 						UART_SetRX(BCM_Rx_ISR_cbf);
 						break;
 					}
@@ -141,7 +144,6 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 				/*--------[ Initialize The UART Hardware ]--------*/
 				UART_Init(&a_BCM_UART);
 				
-				g_BCM_Index++;
 				errorStatus = BCM_ERROR + E_OK;
 				break;
 			}
@@ -149,7 +151,6 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 			{
 				/* SPI Init Code Goes Here... */
 				
-				g_BCM_Index++;
 				errorStatus = BCM_ERROR + E_OK;
 				break;	
 			}
@@ -171,9 +172,23 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 
 
 /* BCM Setup RX Buffer */
-ERROR_STATUS BCM_Setup_RxBuffer()
+
+uint8_t* BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len)
 {
+	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
 	
+	/*-------------[ Check BCM's Pointer Validity ]-------------*/
+	if(a_BCM != NULL)
+	{
+		
+	}
+	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
+	else
+	{
+		errorStatus = NULL_PTR + BCM_ERROR;
+		return errorStatus;
+	}
+	return errorStatus;
 }
 
 
@@ -181,12 +196,11 @@ ERROR_STATUS BCM_Setup_RxBuffer()
 ERROR_STATUS BCM_DeInit(BCM_cfg_s* a_BCM)
 {
 	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
-	uint8_t a_index = ZERO;
 	
 	/*--------[ Search For That BCM CFG In The Working List ]--------*/
 
 	/*--------[ Set That BCM To OFF ]--------*/
-	g_BCM_EXcfg[TX_CH].FSM_State = OFF_State;
+	g_BCM_EXcfg.FSM_State = OFF_State;
 	
 	errorStatus= BCM_ERROR + E_OK;
 

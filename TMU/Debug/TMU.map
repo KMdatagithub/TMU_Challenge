@@ -37,11 +37,6 @@ e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/
 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_clear_bss.o)
                               MCAL/Timer.o (__do_clear_bss)
 
-Allocating common symbols
-Common symbol       size              file
-
-g_BCM_EXcfg         0x18              SL/BCM.o
-
 Discarded input sections
 
  .data          0x00000000        0x0 E:/Prog_Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega32/avr5/crtatmega32.o
@@ -130,8 +125,16 @@ Discarded input sections
  .text          0x00000000        0x0 SL/BCM.o
  .data          0x00000000        0x0 SL/BCM.o
  .bss           0x00000000        0x0 SL/BCM.o
+ .text.BCM_RxDispatcher
+                0x00000000        0x2 SL/BCM.o
+ .text.BCM_TxDispatcher
+                0x00000000        0x2 SL/BCM.o
+ .text.BCM_Setup_RxBuffer
+                0x00000000        0x6 SL/BCM.o
  .text.BCM_DeInit
-                0x00000000       0x3e SL/BCM.o
+                0x00000000        0x8 SL/BCM.o
+ .bss.g_RX_Buffer
+                0x00000000       0x19 SL/BCM.o
  .text          0x00000000        0x0 SL/TMU.o
  .data          0x00000000        0x0 SL/TMU.o
  .bss           0x00000000        0x0 SL/TMU.o
@@ -459,7 +462,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x6ea
+.text           0x00000000      0x5c0
  *(.vectors)
  .vectors       0x00000000       0x54 E:/Prog_Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -579,16 +582,16 @@ END GROUP
  .text.BCM_Rx_ISR_cbf
                 0x000004b2        0x2 SL/BCM.o
  .text.BCM_Init
-                0x000004b4      0x1ee SL/BCM.o
+                0x000004b4       0xc4 SL/BCM.o
                 0x000004b4                BCM_Init
  .text.libgcc.div
-                0x000006a2       0x44 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_udivmodsi4.o)
-                0x000006a2                __udivmodsi4
-                0x000006e6                . = ALIGN (0x2)
+                0x00000578       0x44 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_udivmodsi4.o)
+                0x00000578                __udivmodsi4
+                0x000005bc                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000006e6        0x0 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                0x000006e6                _exit
-                0x000006e6                exit
+ .fini9         0x000005bc        0x0 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+                0x000005bc                _exit
+                0x000005bc                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -607,11 +610,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000006e6        0x4 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x000005bc        0x4 e:/prog_files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000006ea                _etext = .
+                0x000005c0                _etext = .
 
-.data           0x00800060       0x22 load address 0x000006ea
+.data           0x00800060       0x22 load address 0x000005c0
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -624,7 +627,7 @@ END GROUP
                 0x00800082                _edata = .
                 0x00800082                PROVIDE (__data_end, .)
 
-.bss            0x00800082       0x29
+.bss            0x00800082       0x1c
                 0x00800082                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
@@ -652,21 +655,20 @@ END GROUP
  .bss.Ptr_UART_TX
                 0x00800090        0x2 MCAL/UART.o
                 0x00800090                Ptr_UART_TX
- .bss.g_BCM_Index
-                0x00800092        0x1 SL/BCM.o
+ .bss.g_BCM_EXcfg
+                0x00800092        0xc SL/BCM.o
+                0x00800092                g_BCM_EXcfg
  *(COMMON)
- COMMON         0x00800093       0x18 SL/BCM.o
-                0x00800093                g_BCM_EXcfg
-                0x008000ab                PROVIDE (__bss_end, .)
-                0x000006ea                __data_load_start = LOADADDR (.data)
-                0x0000070c                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0080009e                PROVIDE (__bss_end, .)
+                0x000005c0                __data_load_start = LOADADDR (.data)
+                0x000005e2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008000ab        0x0
-                0x008000ab                PROVIDE (__noinit_start, .)
+.noinit         0x0080009e        0x0
+                0x0080009e                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008000ab                PROVIDE (__noinit_end, .)
-                0x008000ab                _end = .
-                0x008000ab                PROVIDE (__heap_start, .)
+                0x0080009e                PROVIDE (__noinit_end, .)
+                0x0080009e                _end = .
+                0x0080009e                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -733,7 +735,7 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x150
+.debug_aranges  0x00000000      0x168
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x20 main.o
@@ -742,40 +744,40 @@ END GROUP
  .debug_aranges
                 0x000000c8       0x50 MCAL/UART.o
  .debug_aranges
-                0x00000118       0x38 SL/BCM.o
+                0x00000118       0x50 SL/BCM.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xfdd
+.debug_info     0x00000000     0x1051
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x145 main.o
  .debug_info    0x00000145      0x613 MCAL/Timer.o
  .debug_info    0x00000758      0x3ba MCAL/UART.o
- .debug_info    0x00000b12      0x4cb SL/BCM.o
+ .debug_info    0x00000b12      0x53f SL/BCM.o
 
-.debug_abbrev   0x00000000      0x566
+.debug_abbrev   0x00000000      0x59c
  *(.debug_abbrev)
  .debug_abbrev  0x00000000       0xde main.o
  .debug_abbrev  0x000000de      0x1df MCAL/Timer.o
  .debug_abbrev  0x000002bd      0x140 MCAL/UART.o
- .debug_abbrev  0x000003fd      0x169 SL/BCM.o
+ .debug_abbrev  0x000003fd      0x19f SL/BCM.o
 
-.debug_line     0x00000000      0x49c
+.debug_line     0x00000000      0x4c5
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000       0x94 main.o
  .debug_line    0x00000094      0x242 MCAL/Timer.o
  .debug_line    0x000002d6       0xdc MCAL/UART.o
- .debug_line    0x000003b2       0xea SL/BCM.o
+ .debug_line    0x000003b2      0x113 SL/BCM.o
 
-.debug_frame    0x00000000      0x504
+.debug_frame    0x00000000      0x534
  *(.debug_frame)
  .debug_frame   0x00000000       0x34 main.o
  .debug_frame   0x00000034      0x32c MCAL/Timer.o
  .debug_frame   0x00000360      0x140 MCAL/UART.o
- .debug_frame   0x000004a0       0x64 SL/BCM.o
+ .debug_frame   0x000004a0       0x94 SL/BCM.o
 
-.debug_str      0x00000000      0x6cb
+.debug_str      0x00000000      0x705
  *(.debug_str)
  .debug_str     0x00000000      0x18e main.o
                                 0x1c7 (size before relaxing)
@@ -783,15 +785,15 @@ END GROUP
                                 0x3c6 (size before relaxing)
  .debug_str     0x000003e0      0x23e MCAL/UART.o
                                 0x3f8 (size before relaxing)
- .debug_str     0x0000061e       0xad SL/BCM.o
-                                0x463 (size before relaxing)
+ .debug_str     0x0000061e       0xe7 SL/BCM.o
+                                0x49d (size before relaxing)
 
-.debug_loc      0x00000000     0x11fa
+.debug_loc      0x00000000     0x1191
  *(.debug_loc)
  .debug_loc     0x00000000       0x48 main.o
  .debug_loc     0x00000048      0xc98 MCAL/Timer.o
  .debug_loc     0x00000ce0      0x34b MCAL/UART.o
- .debug_loc     0x0000102b      0x1cf SL/BCM.o
+ .debug_loc     0x0000102b      0x166 SL/BCM.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -811,12 +813,12 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x110
+.debug_ranges   0x00000000      0x128
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x10 main.o
  .debug_ranges  0x00000010       0x98 MCAL/Timer.o
  .debug_ranges  0x000000a8       0x40 MCAL/UART.o
- .debug_ranges  0x000000e8       0x28 SL/BCM.o
+ .debug_ranges  0x000000e8       0x40 SL/BCM.o
 
 .debug_macro
  *(.debug_macro)
