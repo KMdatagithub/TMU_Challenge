@@ -7,7 +7,8 @@
 
 #include "SPI__.h"
 
-volatile void (*PTR_CALL_BACK)(void);
+ void (*PTR_CALL_BACK)(void);
+ volatile uint8_t g_u8_RxFlag = FALSE ;
 
 extern void _SPIInitMaster(SPI_cfg_s * a_SPI_cfg){
 	
@@ -66,6 +67,8 @@ extern void _SPIInitMaster(SPI_cfg_s * a_SPI_cfg){
 	
 		
 	/// enable SPI bit 6
+	
+	sei();
 	SPCR |= Enable_SPI ;
 	
 }
@@ -94,7 +97,7 @@ extern void _SPIInitSlave(SPI_cfg_s * a_SPI_cfg ){
 	
 	//set clock
 	
-	SPCR|=a_SPI_cfg-> clockSPI ;
+	SPCR |= a_SPI_cfg-> clockSPI ;
 	
 	// set phase and polarity
 	SPCR |=a_SPI_cfg -> phasePolarityMode ;
@@ -147,16 +150,18 @@ extern void _SPITrancevier(uint8_t* data){
 	}
 	
 	SPDR = *data;
-
-	//while (!(SPSR&(1<<7)));
-
-	*data = SPDR;
 	
+	while (!g_u8_RxFlag);
+		
+	*data = SPDR;
+	g_u8_RxFlag = FALSE ;
 }
 
+
 ISR(SPI_STC_vect){
-	
+	g_u8_RxFlag = TRUE ;
 	PTR_CALL_BACK() ;
+
 }
 
 

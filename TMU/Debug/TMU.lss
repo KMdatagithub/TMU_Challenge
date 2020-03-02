@@ -3,31 +3,31 @@ TMU.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000060e  00000000  00000000  00000094  2**1
+  0 .text         0000060a  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000022  00800060  0000060e  000006a2  2**0
+  1 .data         00000000  00800060  00800060  0000067e  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          0000001e  00800082  00800082  000006c4  2**0
+  2 .bss          00000013  00800060  00800060  0000067e  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000006c4  2**0
+  3 .comment      00000030  00000000  00000000  0000067e  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000006f4  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000006b0  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000001a0  00000000  00000000  00000730  2**0
+  5 .debug_aranges 000001b0  00000000  00000000  000006ec  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001862  00000000  00000000  000008d0  2**0
+  6 .debug_info   000017a1  00000000  00000000  0000089c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000b56  00000000  00000000  00002132  2**0
+  7 .debug_abbrev 00000b81  00000000  00000000  0000203d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000b5f  00000000  00000000  00002c88  2**0
+  8 .debug_line   00000cac  00000000  00000000  00002bbe  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000005fc  00000000  00000000  000037e8  2**2
+  9 .debug_frame  000005fc  00000000  00000000  0000386c  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000997  00000000  00000000  00003de4  2**0
+ 10 .debug_str    0000091a  00000000  00000000  00003e68  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000013bd  00000000  00000000  0000477b  2**0
+ 11 .debug_loc    00001836  00000000  00000000  00004782  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000150  00000000  00000000  00005b38  2**0
+ 12 .debug_ranges 00000150  00000000  00000000  00005fb8  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -37,18 +37,18 @@ Disassembly of section .text:
    4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
    8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
    c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  10:	0c 94 fe 00 	jmp	0x1fc	; 0x1fc <__vector_4>
-  14:	0c 94 d5 00 	jmp	0x1aa	; 0x1aa <__vector_5>
+  10:	0c 94 ec 01 	jmp	0x3d8	; 0x3d8 <__vector_4>
+  14:	0c 94 c3 01 	jmp	0x386	; 0x386 <__vector_5>
   18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  1c:	0c 94 50 01 	jmp	0x2a0	; 0x2a0 <__vector_7>
-  20:	0c 94 79 01 	jmp	0x2f2	; 0x2f2 <__vector_8>
-  24:	0c 94 27 01 	jmp	0x24e	; 0x24e <__vector_9>
-  28:	0c 94 ac 00 	jmp	0x158	; 0x158 <__vector_10>
-  2c:	0c 94 83 00 	jmp	0x106	; 0x106 <__vector_11>
-  30:	0c 94 5c 00 	jmp	0xb8	; 0xb8 <__vector_12>
-  34:	0c 94 2b 02 	jmp	0x456	; 0x456 <__vector_13>
+  1c:	0c 94 3e 02 	jmp	0x47c	; 0x47c <__vector_7>
+  20:	0c 94 67 02 	jmp	0x4ce	; 0x4ce <__vector_8>
+  24:	0c 94 15 02 	jmp	0x42a	; 0x42a <__vector_9>
+  28:	0c 94 9a 01 	jmp	0x334	; 0x334 <__vector_10>
+  2c:	0c 94 71 01 	jmp	0x2e2	; 0x2e2 <__vector_11>
+  30:	0c 94 47 01 	jmp	0x28e	; 0x28e <__vector_12>
+  34:	0c 94 90 02 	jmp	0x520	; 0x520 <__vector_13>
   38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  3c:	0c 94 54 02 	jmp	0x4a8	; 0x4a8 <__vector_15>
+  3c:	0c 94 b9 02 	jmp	0x572	; 0x572 <__vector_15>
   40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
@@ -67,18 +67,18 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ee e0       	ldi	r30, 0x0E	; 14
+  66:	ea e0       	ldi	r30, 0x0A	; 10
   68:	f6 e0       	ldi	r31, 0x06	; 6
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
-  70:	a2 38       	cpi	r26, 0x82	; 130
+  70:	a0 36       	cpi	r26, 0x60	; 96
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
 
 00000076 <__do_clear_bss>:
   76:	20 e0       	ldi	r18, 0x00	; 0
-  78:	a2 e8       	ldi	r26, 0x82	; 130
+  78:	a0 e6       	ldi	r26, 0x60	; 96
   7a:	b0 e0       	ldi	r27, 0x00	; 0
   7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
 
@@ -86,980 +86,1016 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	a0 3a       	cpi	r26, 0xA0	; 160
+  80:	a3 37       	cpi	r26, 0x73	; 115
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-  86:	0e 94 49 00 	call	0x92	; 0x92 <main>
-  8a:	0c 94 05 03 	jmp	0x60a	; 0x60a <_exit>
+  86:	0e 94 4a 00 	call	0x94	; 0x94 <main>
+  8a:	0c 94 03 03 	jmp	0x606	; 0x606 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000092 <main>:
+00000092 <test_SPI>:
+#include "SL/BCM.h"
+#include "MCAL/UART.h"
+#include "MCAL/SPI__.h"
+#include "util/softwareDelay.h"
 
+void test_SPI(){
+  92:	08 95       	ret
+
+00000094 <main>:
+}
 
 
 
 int main(void)
 {
-  92:	cf 93       	push	r28
-  94:	df 93       	push	r29
-  96:	00 d0       	rcall	.+0      	; 0x98 <main+0x6>
-  98:	1f 92       	push	r1
-  9a:	cd b7       	in	r28, 0x3d	; 61
-  9c:	de b7       	in	r29, 0x3e	; 62
-	/*-------------[ BCM Initialization ]-------------*/
-	BCM_cfg_s BCM1;
-	BCM1.BCM_CH_ID = 1;
-  9e:	81 e0       	ldi	r24, 0x01	; 1
-  a0:	8a 83       	std	Y+2, r24	; 0x02
-	BCM1.Mode = BCM_Tx_Mode;
-  a2:	19 82       	std	Y+1, r1	; 0x01
-	BCM1.Protocol = UART_Protocol;
-  a4:	1b 82       	std	Y+3, r1	; 0x03
-	BCM_Init(&BCM1);
-  a6:	ce 01       	movw	r24, r28
-  a8:	01 96       	adiw	r24, 0x01	; 1
-  aa:	0e 94 81 02 	call	0x502	; 0x502 <BCM_Init>
-    
-	UART_Write_String((uint8_t*)"OMG Plzzz Report My Noob Team! \r\n");
-  ae:	80 e6       	ldi	r24, 0x60	; 96
-  b0:	90 e0       	ldi	r25, 0x00	; 0
-  b2:	0e 94 12 02 	call	0x424	; 0x424 <UART_Write_String>
-  b6:	ff cf       	rjmp	.-2      	; 0xb6 <main+0x24>
+  94:	cf 93       	push	r28
+  96:	df 93       	push	r29
+  98:	cd b7       	in	r28, 0x3d	; 61
+  9a:	de b7       	in	r29, 0x3e	; 62
+  9c:	28 97       	sbiw	r28, 0x08	; 8
+  9e:	0f b6       	in	r0, 0x3f	; 63
+  a0:	f8 94       	cli
+  a2:	de bf       	out	0x3e, r29	; 62
+  a4:	0f be       	out	0x3f, r0	; 63
+  a6:	cd bf       	out	0x3d, r28	; 61
+	uint8_t test2 ;
 
-000000b8 <__vector_12>:
 
-	*data = SPDR;
+	
+	SPI_cfg_s cfg ;
+	cfg.clockSPI = Fosc128 ;
+  a8:	83 e0       	ldi	r24, 0x03	; 3
+  aa:	8c 83       	std	Y+4, r24	; 0x04
+	cfg.phasePolarityMode = mode0 ;
+  ac:	1d 82       	std	Y+5, r1	; 0x05
+	cfg.dataorder = LSB ;
+  ae:	80 e2       	ldi	r24, 0x20	; 32
+  b0:	8e 83       	std	Y+6, r24	; 0x06
+	cfg.ptr_call_back=test_SPI;
+  b2:	89 e4       	ldi	r24, 0x49	; 73
+  b4:	90 e0       	ldi	r25, 0x00	; 0
+  b6:	98 87       	std	Y+8, r25	; 0x08
+  b8:	8f 83       	std	Y+7, r24	; 0x07
+	_SPIInitSlave(&cfg);
+  ba:	ce 01       	movw	r24, r28
+  bc:	04 96       	adiw	r24, 0x04	; 4
+  be:	0e 94 f4 00 	call	0x1e8	; 0x1e8 <_SPIInitSlave>
+	softwareDelayMs(1000);
+  c2:	68 ee       	ldi	r22, 0xE8	; 232
+  c4:	73 e0       	ldi	r23, 0x03	; 3
+  c6:	80 e0       	ldi	r24, 0x00	; 0
+  c8:	90 e0       	ldi	r25, 0x00	; 0
+  ca:	0e 94 e2 02 	call	0x5c4	; 0x5c4 <softwareDelayMs>
+	_SPITrancevier(&test);
+  ce:	ce 01       	movw	r24, r28
+  d0:	01 96       	adiw	r24, 0x01	; 1
+  d2:	0e 94 30 01 	call	0x260	; 0x260 <_SPITrancevier>
+		TCNT0 = test ;
+  d6:	89 81       	ldd	r24, Y+1	; 0x01
+  d8:	82 bf       	out	0x32, r24	; 50
+		
+	softwareDelayMs(1000);
+  da:	68 ee       	ldi	r22, 0xE8	; 232
+  dc:	73 e0       	ldi	r23, 0x03	; 3
+  de:	80 e0       	ldi	r24, 0x00	; 0
+  e0:	90 e0       	ldi	r25, 0x00	; 0
+  e2:	0e 94 e2 02 	call	0x5c4	; 0x5c4 <softwareDelayMs>
+	_SPITrancevier(&test1);
+  e6:	ce 01       	movw	r24, r28
+  e8:	02 96       	adiw	r24, 0x02	; 2
+  ea:	0e 94 30 01 	call	0x260	; 0x260 <_SPITrancevier>
+	
+		TCNT2 = test1 ;
+  ee:	8a 81       	ldd	r24, Y+2	; 0x02
+  f0:	84 bd       	out	0x24, r24	; 36
+	softwareDelayMs(1000);
+  f2:	68 ee       	ldi	r22, 0xE8	; 232
+  f4:	73 e0       	ldi	r23, 0x03	; 3
+  f6:	80 e0       	ldi	r24, 0x00	; 0
+  f8:	90 e0       	ldi	r25, 0x00	; 0
+  fa:	0e 94 e2 02 	call	0x5c4	; 0x5c4 <softwareDelayMs>
+	_SPITrancevier(&test2);
+  fe:	ce 01       	movw	r24, r28
+ 100:	03 96       	adiw	r24, 0x03	; 3
+ 102:	0e 94 30 01 	call	0x260	; 0x260 <_SPITrancevier>
+	
+	TCNT1L = test2 ;
+ 106:	8b 81       	ldd	r24, Y+3	; 0x03
+ 108:	8c bd       	out	0x2c, r24	; 44
+ 10a:	ff cf       	rjmp	.-2      	; 0x10a <main+0x76>
+
+0000010c <DIO_init>:
+*In/Out:
+*Description: This function can set the direction of a full port, a nibble
+* 			  or even one pin.
+*/
+ERROR_STATUS DIO_init (DIO_Cfg_s *DIO_info)
+{
+ 10c:	fc 01       	movw	r30, r24
+	ERROR_STATUS errorStatus = E_NOK;
+	if(DIO_info != NULL)
+ 10e:	89 2b       	or	r24, r25
+ 110:	c9 f1       	breq	.+114    	; 0x184 <DIO_init+0x78>
+	{
+		switch(DIO_info->GPIO)
+ 112:	80 81       	ld	r24, Z
+ 114:	81 30       	cpi	r24, 0x01	; 1
+ 116:	91 f0       	breq	.+36     	; 0x13c <DIO_init+0x30>
+ 118:	28 f0       	brcs	.+10     	; 0x124 <DIO_init+0x18>
+ 11a:	82 30       	cpi	r24, 0x02	; 2
+ 11c:	d9 f0       	breq	.+54     	; 0x154 <DIO_init+0x48>
+ 11e:	83 30       	cpi	r24, 0x03	; 3
+ 120:	29 f1       	breq	.+74     	; 0x16c <DIO_init+0x60>
+ 122:	32 c0       	rjmp	.+100    	; 0x188 <DIO_init+0x7c>
+		{
+			case GPIOA :
+			PORTA_DIR = (DIO_info->dir & DIO_info->pins) | (~(DIO_info->pins) & PORTA_DIR);
+ 124:	21 81       	ldd	r18, Z+1	; 0x01
+ 126:	9a b3       	in	r25, 0x1a	; 26
+ 128:	82 81       	ldd	r24, Z+2	; 0x02
+ 12a:	32 2f       	mov	r19, r18
+ 12c:	38 23       	and	r19, r24
+ 12e:	82 2f       	mov	r24, r18
+ 130:	80 95       	com	r24
+ 132:	89 23       	and	r24, r25
+ 134:	83 2b       	or	r24, r19
+ 136:	8a bb       	out	0x1a, r24	; 26
+			errorStatus = E_OK;
+ 138:	80 e0       	ldi	r24, 0x00	; 0
+			break;
+ 13a:	08 95       	ret
+			case GPIOB :
+			PORTB_DIR = (DIO_info->dir & DIO_info->pins) | (~(DIO_info->pins) & PORTB_DIR);
+ 13c:	21 81       	ldd	r18, Z+1	; 0x01
+ 13e:	97 b3       	in	r25, 0x17	; 23
+ 140:	82 81       	ldd	r24, Z+2	; 0x02
+ 142:	32 2f       	mov	r19, r18
+ 144:	38 23       	and	r19, r24
+ 146:	82 2f       	mov	r24, r18
+ 148:	80 95       	com	r24
+ 14a:	89 23       	and	r24, r25
+ 14c:	83 2b       	or	r24, r19
+ 14e:	87 bb       	out	0x17, r24	; 23
+			errorStatus = E_OK;
+ 150:	80 e0       	ldi	r24, 0x00	; 0
+			break;
+ 152:	08 95       	ret
+			case GPIOC :
+			PORTC_DIR = (DIO_info->dir & DIO_info->pins) | (~(DIO_info->pins) & PORTC_DIR);
+ 154:	21 81       	ldd	r18, Z+1	; 0x01
+ 156:	94 b3       	in	r25, 0x14	; 20
+ 158:	82 81       	ldd	r24, Z+2	; 0x02
+ 15a:	32 2f       	mov	r19, r18
+ 15c:	38 23       	and	r19, r24
+ 15e:	82 2f       	mov	r24, r18
+ 160:	80 95       	com	r24
+ 162:	89 23       	and	r24, r25
+ 164:	83 2b       	or	r24, r19
+ 166:	84 bb       	out	0x14, r24	; 20
+			errorStatus = E_OK;
+ 168:	80 e0       	ldi	r24, 0x00	; 0
+			break;
+ 16a:	08 95       	ret
+			case GPIOD :
+			PORTD_DIR = (DIO_info->dir & DIO_info->pins) | (~(DIO_info->pins) & PORTD_DIR);
+ 16c:	21 81       	ldd	r18, Z+1	; 0x01
+ 16e:	91 b3       	in	r25, 0x11	; 17
+ 170:	82 81       	ldd	r24, Z+2	; 0x02
+ 172:	32 2f       	mov	r19, r18
+ 174:	38 23       	and	r19, r24
+ 176:	82 2f       	mov	r24, r18
+ 178:	80 95       	com	r24
+ 17a:	89 23       	and	r24, r25
+ 17c:	83 2b       	or	r24, r19
+ 17e:	81 bb       	out	0x11, r24	; 17
+			errorStatus = E_OK;
+ 180:	80 e0       	ldi	r24, 0x00	; 0
+			break;
+ 182:	08 95       	ret
+			break;
+		}
+	}
+	else
+	{
+		errorStatus = E_NOK;
+ 184:	81 e0       	ldi	r24, 0x01	; 1
+ 186:	08 95       	ret
+			case GPIOD :
+			PORTD_DIR = (DIO_info->dir & DIO_info->pins) | (~(DIO_info->pins) & PORTD_DIR);
+			errorStatus = E_OK;
+			break;
+			default :
+			errorStatus = E_NOK;
+ 188:	81 e0       	ldi	r24, 0x01	; 1
+	else
+	{
+		errorStatus = E_NOK;
+	}
+	return errorStatus;
+}
+ 18a:	08 95       	ret
+
+0000018c <DIO_Write>:
+* 			  or even one pin.
+*/
+ERROR_STATUS DIO_Write(uint8_t GPIO, uint8_t pins, uint8_t value)
+{
+	ERROR_STATUS errorStatus = E_NOK;
+	switch(GPIO)
+ 18c:	81 30       	cpi	r24, 0x01	; 1
+ 18e:	79 f0       	breq	.+30     	; 0x1ae <DIO_Write+0x22>
+ 190:	28 f0       	brcs	.+10     	; 0x19c <DIO_Write+0x10>
+ 192:	82 30       	cpi	r24, 0x02	; 2
+ 194:	a9 f0       	breq	.+42     	; 0x1c0 <DIO_Write+0x34>
+ 196:	83 30       	cpi	r24, 0x03	; 3
+ 198:	e1 f0       	breq	.+56     	; 0x1d2 <DIO_Write+0x46>
+ 19a:	24 c0       	rjmp	.+72     	; 0x1e4 <DIO_Write+0x58>
+	{
+		case GPIOA :
+		PORTA_DATA = (pins & value) | (~pins & PORTA_DATA);
+ 19c:	8b b3       	in	r24, 0x1b	; 27
+ 19e:	96 2f       	mov	r25, r22
+ 1a0:	90 95       	com	r25
+ 1a2:	89 23       	and	r24, r25
+ 1a4:	46 23       	and	r20, r22
+ 1a6:	48 2b       	or	r20, r24
+ 1a8:	4b bb       	out	0x1b, r20	; 27
+		errorStatus = E_OK;
+ 1aa:	80 e0       	ldi	r24, 0x00	; 0
+		break;
+ 1ac:	08 95       	ret
+		case GPIOB :
+		PORTB_DATA = (pins & value) | (~pins & PORTB_DATA);
+ 1ae:	88 b3       	in	r24, 0x18	; 24
+ 1b0:	96 2f       	mov	r25, r22
+ 1b2:	90 95       	com	r25
+ 1b4:	89 23       	and	r24, r25
+ 1b6:	46 23       	and	r20, r22
+ 1b8:	48 2b       	or	r20, r24
+ 1ba:	48 bb       	out	0x18, r20	; 24
+		errorStatus = E_OK;
+ 1bc:	80 e0       	ldi	r24, 0x00	; 0
+		break;
+ 1be:	08 95       	ret
+		case GPIOC :
+		PORTC_DATA = (pins & value) | (~pins & PORTC_DATA);
+ 1c0:	85 b3       	in	r24, 0x15	; 21
+ 1c2:	96 2f       	mov	r25, r22
+ 1c4:	90 95       	com	r25
+ 1c6:	89 23       	and	r24, r25
+ 1c8:	46 23       	and	r20, r22
+ 1ca:	48 2b       	or	r20, r24
+ 1cc:	45 bb       	out	0x15, r20	; 21
+		errorStatus = E_OK;
+ 1ce:	80 e0       	ldi	r24, 0x00	; 0
+		break;
+ 1d0:	08 95       	ret
+		case GPIOD :
+		PORTD_DATA = (pins & value) | (~pins & PORTD_DATA);
+ 1d2:	82 b3       	in	r24, 0x12	; 18
+ 1d4:	96 2f       	mov	r25, r22
+ 1d6:	90 95       	com	r25
+ 1d8:	89 23       	and	r24, r25
+ 1da:	46 23       	and	r20, r22
+ 1dc:	48 2b       	or	r20, r24
+ 1de:	42 bb       	out	0x12, r20	; 18
+		errorStatus = E_OK;
+ 1e0:	80 e0       	ldi	r24, 0x00	; 0
+		break;
+ 1e2:	08 95       	ret
+		default :
+		errorStatus = E_NOK;
+ 1e4:	81 e0       	ldi	r24, 0x01	; 1
+		break;
+	}
+	return errorStatus;
+}
+ 1e6:	08 95       	ret
+
+000001e8 <_SPIInitSlave>:
+	sei();
+	SPCR |= Enable_SPI ;
 	
 }
+
+extern void _SPIInitSlave(SPI_cfg_s * a_SPI_cfg ){
+ 1e8:	cf 93       	push	r28
+ 1ea:	df 93       	push	r29
+ 1ec:	00 d0       	rcall	.+0      	; 0x1ee <_SPIInitSlave+0x6>
+ 1ee:	00 d0       	rcall	.+0      	; 0x1f0 <_SPIInitSlave+0x8>
+ 1f0:	00 d0       	rcall	.+0      	; 0x1f2 <_SPIInitSlave+0xa>
+ 1f2:	cd b7       	in	r28, 0x3d	; 61
+ 1f4:	de b7       	in	r29, 0x3e	; 62
+ 1f6:	fc 01       	movw	r30, r24
+	DIO_Cfg_s SPI_output_pins ;
+			
+			
+	
+	//// clear status register
+	SPSR = ZERO ;
+ 1f8:	1e b8       	out	0x0e, r1	; 14
+	
+	/// clear control mode
+	
+	SPCR = ZERO ;
+ 1fa:	1d b8       	out	0x0d, r1	; 13
+	
+	
+	// master or slave bit 4
+	SPCR |= Slave_SPI ;
+ 1fc:	8d b1       	in	r24, 0x0d	; 13
+ 1fe:	8d b9       	out	0x0d, r24	; 13
+	
+	/// data order update
+	
+	SPCR|=a_SPI_cfg-> dataorder ;
+ 200:	9d b1       	in	r25, 0x0d	; 13
+ 202:	82 81       	ldd	r24, Z+2	; 0x02
+ 204:	89 2b       	or	r24, r25
+ 206:	8d b9       	out	0x0d, r24	; 13
+	
+	//set clock
+	
+	SPCR |= a_SPI_cfg-> clockSPI ;
+ 208:	9d b1       	in	r25, 0x0d	; 13
+ 20a:	80 81       	ld	r24, Z
+ 20c:	89 2b       	or	r24, r25
+ 20e:	8d b9       	out	0x0d, r24	; 13
+	
+	// set phase and polarity
+	SPCR |=a_SPI_cfg -> phasePolarityMode ;
+ 210:	9d b1       	in	r25, 0x0d	; 13
+ 212:	81 81       	ldd	r24, Z+1	; 0x01
+ 214:	89 2b       	or	r24, r25
+ 216:	8d b9       	out	0x0d, r24	; 13
+	
+	/* set interrupt  */
+	SPCR |= INTERRUPT_SPI ;
+ 218:	6f 9a       	sbi	0x0d, 7	; 13
+	
+	/*set interrupt call back function */
+		
+	PTR_CALL_BACK = a_SPI_cfg->ptr_call_back ;
+ 21a:	83 81       	ldd	r24, Z+3	; 0x03
+ 21c:	94 81       	ldd	r25, Z+4	; 0x04
+ 21e:	90 93 72 00 	sts	0x0072, r25	; 0x800072 <PTR_CALL_BACK+0x1>
+ 222:	80 93 71 00 	sts	0x0071, r24	; 0x800071 <PTR_CALL_BACK>
+	//SS   bit4 INPUT
+	//MOSI bit5 INPUT
+	//MISO bit6 OUTPUT
+	//SCK  bit7 INPUT
+
+	SPI_input_pins.GPIO = SPI_PORT ;
+ 226:	81 e0       	ldi	r24, 0x01	; 1
+ 228:	89 83       	std	Y+1, r24	; 0x01
+	SPI_input_pins.pins =  SCK_PIN|MOSI_PIN|SS_PIN ;
+ 22a:	90 eb       	ldi	r25, 0xB0	; 176
+ 22c:	9a 83       	std	Y+2, r25	; 0x02
+	SPI_input_pins.dir = INPUT ;
+ 22e:	1b 82       	std	Y+3, r1	; 0x03
+
+	SPI_output_pins.GPIO = SPI_PORT ;
+ 230:	8c 83       	std	Y+4, r24	; 0x04
+	SPI_output_pins.pins = MISO_PIN ;
+ 232:	80 e4       	ldi	r24, 0x40	; 64
+ 234:	8d 83       	std	Y+5, r24	; 0x05
+	SPI_output_pins.dir = OUTPUT ;
+ 236:	8f ef       	ldi	r24, 0xFF	; 255
+ 238:	8e 83       	std	Y+6, r24	; 0x06
+
+
+	DIO_init(&SPI_output_pins);
+ 23a:	ce 01       	movw	r24, r28
+ 23c:	04 96       	adiw	r24, 0x04	; 4
+ 23e:	0e 94 86 00 	call	0x10c	; 0x10c <DIO_init>
+	DIO_init(&SPI_input_pins);
+ 242:	ce 01       	movw	r24, r28
+ 244:	01 96       	adiw	r24, 0x01	; 1
+ 246:	0e 94 86 00 	call	0x10c	; 0x10c <DIO_init>
+	
+
+	/// enable SPI bit 6
+	sei();
+ 24a:	78 94       	sei
+	
+	SPCR |= Enable_SPI ;
+ 24c:	6e 9a       	sbi	0x0d, 6	; 13
+	
+		
+	
+}
+ 24e:	26 96       	adiw	r28, 0x06	; 6
+ 250:	0f b6       	in	r0, 0x3f	; 63
+ 252:	f8 94       	cli
+ 254:	de bf       	out	0x3e, r29	; 62
+ 256:	0f be       	out	0x3f, r0	; 63
+ 258:	cd bf       	out	0x3d, r28	; 61
+ 25a:	df 91       	pop	r29
+ 25c:	cf 91       	pop	r28
+ 25e:	08 95       	ret
+
+00000260 <_SPITrancevier>:
+
+extern void _SPITrancevier(uint8_t* data){
+ 260:	cf 93       	push	r28
+ 262:	df 93       	push	r29
+ 264:	ec 01       	movw	r28, r24
+	
+	if(SPCR&Master_SPI){
+ 266:	6c 9b       	sbis	0x0d, 4	; 13
+ 268:	05 c0       	rjmp	.+10     	; 0x274 <_SPITrancevier+0x14>
+		
+		/*Select the slave By pull down the SS pin */
+		
+		DIO_Write(SPI_PORT,BIT4,ZERO );
+ 26a:	40 e0       	ldi	r20, 0x00	; 0
+ 26c:	60 e1       	ldi	r22, 0x10	; 16
+ 26e:	81 e0       	ldi	r24, 0x01	; 1
+ 270:	0e 94 c6 00 	call	0x18c	; 0x18c <DIO_Write>
+		
+	}
+	
+	SPDR = *data;
+ 274:	88 81       	ld	r24, Y
+ 276:	8f b9       	out	0x0f, r24	; 15
+	
+	while (!g_u8_RxFlag);
+ 278:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 27c:	88 23       	and	r24, r24
+ 27e:	e1 f3       	breq	.-8      	; 0x278 <_SPITrancevier+0x18>
+		
+	*data = SPDR;
+ 280:	8f b1       	in	r24, 0x0f	; 15
+ 282:	88 83       	st	Y, r24
+	g_u8_RxFlag = FALSE ;
+ 284:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+}
+ 288:	df 91       	pop	r29
+ 28a:	cf 91       	pop	r28
+ 28c:	08 95       	ret
+
+0000028e <__vector_12>:
+
 
 ISR(SPI_STC_vect){
-  b8:	1f 92       	push	r1
-  ba:	0f 92       	push	r0
-  bc:	0f b6       	in	r0, 0x3f	; 63
-  be:	0f 92       	push	r0
-  c0:	11 24       	eor	r1, r1
-  c2:	2f 93       	push	r18
-  c4:	3f 93       	push	r19
-  c6:	4f 93       	push	r20
-  c8:	5f 93       	push	r21
-  ca:	6f 93       	push	r22
-  cc:	7f 93       	push	r23
-  ce:	8f 93       	push	r24
-  d0:	9f 93       	push	r25
-  d2:	af 93       	push	r26
-  d4:	bf 93       	push	r27
-  d6:	ef 93       	push	r30
-  d8:	ff 93       	push	r31
-	
+ 28e:	1f 92       	push	r1
+ 290:	0f 92       	push	r0
+ 292:	0f b6       	in	r0, 0x3f	; 63
+ 294:	0f 92       	push	r0
+ 296:	11 24       	eor	r1, r1
+ 298:	2f 93       	push	r18
+ 29a:	3f 93       	push	r19
+ 29c:	4f 93       	push	r20
+ 29e:	5f 93       	push	r21
+ 2a0:	6f 93       	push	r22
+ 2a2:	7f 93       	push	r23
+ 2a4:	8f 93       	push	r24
+ 2a6:	9f 93       	push	r25
+ 2a8:	af 93       	push	r26
+ 2aa:	bf 93       	push	r27
+ 2ac:	ef 93       	push	r30
+ 2ae:	ff 93       	push	r31
+	g_u8_RxFlag = TRUE ;
+ 2b0:	81 e0       	ldi	r24, 0x01	; 1
+ 2b2:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
 	PTR_CALL_BACK() ;
-  da:	e0 91 9e 00 	lds	r30, 0x009E	; 0x80009e <PTR_CALL_BACK>
-  de:	f0 91 9f 00 	lds	r31, 0x009F	; 0x80009f <PTR_CALL_BACK+0x1>
-  e2:	09 95       	icall
-}
-  e4:	ff 91       	pop	r31
-  e6:	ef 91       	pop	r30
-  e8:	bf 91       	pop	r27
-  ea:	af 91       	pop	r26
-  ec:	9f 91       	pop	r25
-  ee:	8f 91       	pop	r24
-  f0:	7f 91       	pop	r23
-  f2:	6f 91       	pop	r22
-  f4:	5f 91       	pop	r21
-  f6:	4f 91       	pop	r20
-  f8:	3f 91       	pop	r19
-  fa:	2f 91       	pop	r18
-  fc:	0f 90       	pop	r0
-  fe:	0f be       	out	0x3f, r0	; 63
- 100:	0f 90       	pop	r0
- 102:	1f 90       	pop	r1
- 104:	18 95       	reti
+ 2b6:	e0 91 71 00 	lds	r30, 0x0071	; 0x800071 <PTR_CALL_BACK>
+ 2ba:	f0 91 72 00 	lds	r31, 0x0072	; 0x800072 <PTR_CALL_BACK+0x1>
+ 2be:	09 95       	icall
 
-00000106 <__vector_11>:
+}
+ 2c0:	ff 91       	pop	r31
+ 2c2:	ef 91       	pop	r30
+ 2c4:	bf 91       	pop	r27
+ 2c6:	af 91       	pop	r26
+ 2c8:	9f 91       	pop	r25
+ 2ca:	8f 91       	pop	r24
+ 2cc:	7f 91       	pop	r23
+ 2ce:	6f 91       	pop	r22
+ 2d0:	5f 91       	pop	r21
+ 2d2:	4f 91       	pop	r20
+ 2d4:	3f 91       	pop	r19
+ 2d6:	2f 91       	pop	r18
+ 2d8:	0f 90       	pop	r0
+ 2da:	0f be       	out	0x3f, r0	; 63
+ 2dc:	0f 90       	pop	r0
+ 2de:	1f 90       	pop	r1
+ 2e0:	18 95       	reti
+
+000002e2 <__vector_11>:
 /*===================================================*/
 /*---------------[ Timers ISR Handlers ]-------------*/
 /*===================================================*/
 
 ISR(TIMER0_OVF_vect)
 {
- 106:	1f 92       	push	r1
- 108:	0f 92       	push	r0
- 10a:	0f b6       	in	r0, 0x3f	; 63
- 10c:	0f 92       	push	r0
- 10e:	11 24       	eor	r1, r1
- 110:	2f 93       	push	r18
- 112:	3f 93       	push	r19
- 114:	4f 93       	push	r20
- 116:	5f 93       	push	r21
- 118:	6f 93       	push	r22
- 11a:	7f 93       	push	r23
- 11c:	8f 93       	push	r24
- 11e:	9f 93       	push	r25
- 120:	af 93       	push	r26
- 122:	bf 93       	push	r27
- 124:	ef 93       	push	r30
- 126:	ff 93       	push	r31
+ 2e2:	1f 92       	push	r1
+ 2e4:	0f 92       	push	r0
+ 2e6:	0f b6       	in	r0, 0x3f	; 63
+ 2e8:	0f 92       	push	r0
+ 2ea:	11 24       	eor	r1, r1
+ 2ec:	2f 93       	push	r18
+ 2ee:	3f 93       	push	r19
+ 2f0:	4f 93       	push	r20
+ 2f2:	5f 93       	push	r21
+ 2f4:	6f 93       	push	r22
+ 2f6:	7f 93       	push	r23
+ 2f8:	8f 93       	push	r24
+ 2fa:	9f 93       	push	r25
+ 2fc:	af 93       	push	r26
+ 2fe:	bf 93       	push	r27
+ 300:	ef 93       	push	r30
+ 302:	ff 93       	push	r31
 	if(Ptr_Timer0_OV != NULL)
- 128:	e0 91 8c 00 	lds	r30, 0x008C	; 0x80008c <Ptr_Timer0_OV>
- 12c:	f0 91 8d 00 	lds	r31, 0x008D	; 0x80008d <Ptr_Timer0_OV+0x1>
- 130:	30 97       	sbiw	r30, 0x00	; 0
- 132:	09 f0       	breq	.+2      	; 0x136 <__vector_11+0x30>
+ 304:	e0 91 6b 00 	lds	r30, 0x006B	; 0x80006b <Ptr_Timer0_OV>
+ 308:	f0 91 6c 00 	lds	r31, 0x006C	; 0x80006c <Ptr_Timer0_OV+0x1>
+ 30c:	30 97       	sbiw	r30, 0x00	; 0
+ 30e:	09 f0       	breq	.+2      	; 0x312 <__vector_11+0x30>
 	{
 		Ptr_Timer0_OV();
- 134:	09 95       	icall
+ 310:	09 95       	icall
 	}
 }
- 136:	ff 91       	pop	r31
- 138:	ef 91       	pop	r30
- 13a:	bf 91       	pop	r27
- 13c:	af 91       	pop	r26
- 13e:	9f 91       	pop	r25
- 140:	8f 91       	pop	r24
- 142:	7f 91       	pop	r23
- 144:	6f 91       	pop	r22
- 146:	5f 91       	pop	r21
- 148:	4f 91       	pop	r20
- 14a:	3f 91       	pop	r19
- 14c:	2f 91       	pop	r18
- 14e:	0f 90       	pop	r0
- 150:	0f be       	out	0x3f, r0	; 63
- 152:	0f 90       	pop	r0
- 154:	1f 90       	pop	r1
- 156:	18 95       	reti
+ 312:	ff 91       	pop	r31
+ 314:	ef 91       	pop	r30
+ 316:	bf 91       	pop	r27
+ 318:	af 91       	pop	r26
+ 31a:	9f 91       	pop	r25
+ 31c:	8f 91       	pop	r24
+ 31e:	7f 91       	pop	r23
+ 320:	6f 91       	pop	r22
+ 322:	5f 91       	pop	r21
+ 324:	4f 91       	pop	r20
+ 326:	3f 91       	pop	r19
+ 328:	2f 91       	pop	r18
+ 32a:	0f 90       	pop	r0
+ 32c:	0f be       	out	0x3f, r0	; 63
+ 32e:	0f 90       	pop	r0
+ 330:	1f 90       	pop	r1
+ 332:	18 95       	reti
 
-00000158 <__vector_10>:
+00000334 <__vector_10>:
 
 ISR(TIMER0_COMP_vect)
 {
- 158:	1f 92       	push	r1
- 15a:	0f 92       	push	r0
- 15c:	0f b6       	in	r0, 0x3f	; 63
- 15e:	0f 92       	push	r0
- 160:	11 24       	eor	r1, r1
- 162:	2f 93       	push	r18
- 164:	3f 93       	push	r19
- 166:	4f 93       	push	r20
- 168:	5f 93       	push	r21
- 16a:	6f 93       	push	r22
- 16c:	7f 93       	push	r23
- 16e:	8f 93       	push	r24
- 170:	9f 93       	push	r25
- 172:	af 93       	push	r26
- 174:	bf 93       	push	r27
- 176:	ef 93       	push	r30
- 178:	ff 93       	push	r31
+ 334:	1f 92       	push	r1
+ 336:	0f 92       	push	r0
+ 338:	0f b6       	in	r0, 0x3f	; 63
+ 33a:	0f 92       	push	r0
+ 33c:	11 24       	eor	r1, r1
+ 33e:	2f 93       	push	r18
+ 340:	3f 93       	push	r19
+ 342:	4f 93       	push	r20
+ 344:	5f 93       	push	r21
+ 346:	6f 93       	push	r22
+ 348:	7f 93       	push	r23
+ 34a:	8f 93       	push	r24
+ 34c:	9f 93       	push	r25
+ 34e:	af 93       	push	r26
+ 350:	bf 93       	push	r27
+ 352:	ef 93       	push	r30
+ 354:	ff 93       	push	r31
 	if(Ptr_Timer0_CM != NULL)
- 17a:	e0 91 8a 00 	lds	r30, 0x008A	; 0x80008a <Ptr_Timer0_CM>
- 17e:	f0 91 8b 00 	lds	r31, 0x008B	; 0x80008b <Ptr_Timer0_CM+0x1>
- 182:	30 97       	sbiw	r30, 0x00	; 0
- 184:	09 f0       	breq	.+2      	; 0x188 <__vector_10+0x30>
+ 356:	e0 91 69 00 	lds	r30, 0x0069	; 0x800069 <Ptr_Timer0_CM>
+ 35a:	f0 91 6a 00 	lds	r31, 0x006A	; 0x80006a <Ptr_Timer0_CM+0x1>
+ 35e:	30 97       	sbiw	r30, 0x00	; 0
+ 360:	09 f0       	breq	.+2      	; 0x364 <__vector_10+0x30>
 	{
 		Ptr_Timer0_CM();
- 186:	09 95       	icall
+ 362:	09 95       	icall
 	}
 }
- 188:	ff 91       	pop	r31
- 18a:	ef 91       	pop	r30
- 18c:	bf 91       	pop	r27
- 18e:	af 91       	pop	r26
- 190:	9f 91       	pop	r25
- 192:	8f 91       	pop	r24
- 194:	7f 91       	pop	r23
- 196:	6f 91       	pop	r22
- 198:	5f 91       	pop	r21
- 19a:	4f 91       	pop	r20
- 19c:	3f 91       	pop	r19
- 19e:	2f 91       	pop	r18
- 1a0:	0f 90       	pop	r0
- 1a2:	0f be       	out	0x3f, r0	; 63
- 1a4:	0f 90       	pop	r0
- 1a6:	1f 90       	pop	r1
- 1a8:	18 95       	reti
+ 364:	ff 91       	pop	r31
+ 366:	ef 91       	pop	r30
+ 368:	bf 91       	pop	r27
+ 36a:	af 91       	pop	r26
+ 36c:	9f 91       	pop	r25
+ 36e:	8f 91       	pop	r24
+ 370:	7f 91       	pop	r23
+ 372:	6f 91       	pop	r22
+ 374:	5f 91       	pop	r21
+ 376:	4f 91       	pop	r20
+ 378:	3f 91       	pop	r19
+ 37a:	2f 91       	pop	r18
+ 37c:	0f 90       	pop	r0
+ 37e:	0f be       	out	0x3f, r0	; 63
+ 380:	0f 90       	pop	r0
+ 382:	1f 90       	pop	r1
+ 384:	18 95       	reti
 
-000001aa <__vector_5>:
+00000386 <__vector_5>:
 
 ISR(TIMER2_OVF_vect)
 {
- 1aa:	1f 92       	push	r1
- 1ac:	0f 92       	push	r0
- 1ae:	0f b6       	in	r0, 0x3f	; 63
- 1b0:	0f 92       	push	r0
- 1b2:	11 24       	eor	r1, r1
- 1b4:	2f 93       	push	r18
- 1b6:	3f 93       	push	r19
- 1b8:	4f 93       	push	r20
- 1ba:	5f 93       	push	r21
- 1bc:	6f 93       	push	r22
- 1be:	7f 93       	push	r23
- 1c0:	8f 93       	push	r24
- 1c2:	9f 93       	push	r25
- 1c4:	af 93       	push	r26
- 1c6:	bf 93       	push	r27
- 1c8:	ef 93       	push	r30
- 1ca:	ff 93       	push	r31
+ 386:	1f 92       	push	r1
+ 388:	0f 92       	push	r0
+ 38a:	0f b6       	in	r0, 0x3f	; 63
+ 38c:	0f 92       	push	r0
+ 38e:	11 24       	eor	r1, r1
+ 390:	2f 93       	push	r18
+ 392:	3f 93       	push	r19
+ 394:	4f 93       	push	r20
+ 396:	5f 93       	push	r21
+ 398:	6f 93       	push	r22
+ 39a:	7f 93       	push	r23
+ 39c:	8f 93       	push	r24
+ 39e:	9f 93       	push	r25
+ 3a0:	af 93       	push	r26
+ 3a2:	bf 93       	push	r27
+ 3a4:	ef 93       	push	r30
+ 3a6:	ff 93       	push	r31
 	if (Ptr_Timer2_OV != NULL)
- 1cc:	e0 91 84 00 	lds	r30, 0x0084	; 0x800084 <Ptr_Timer2_OV>
- 1d0:	f0 91 85 00 	lds	r31, 0x0085	; 0x800085 <Ptr_Timer2_OV+0x1>
- 1d4:	30 97       	sbiw	r30, 0x00	; 0
- 1d6:	09 f0       	breq	.+2      	; 0x1da <__vector_5+0x30>
+ 3a8:	e0 91 63 00 	lds	r30, 0x0063	; 0x800063 <Ptr_Timer2_OV>
+ 3ac:	f0 91 64 00 	lds	r31, 0x0064	; 0x800064 <Ptr_Timer2_OV+0x1>
+ 3b0:	30 97       	sbiw	r30, 0x00	; 0
+ 3b2:	09 f0       	breq	.+2      	; 0x3b6 <__vector_5+0x30>
 	{
 		Ptr_Timer2_OV();
- 1d8:	09 95       	icall
+ 3b4:	09 95       	icall
 	}
 }
- 1da:	ff 91       	pop	r31
- 1dc:	ef 91       	pop	r30
- 1de:	bf 91       	pop	r27
- 1e0:	af 91       	pop	r26
- 1e2:	9f 91       	pop	r25
- 1e4:	8f 91       	pop	r24
- 1e6:	7f 91       	pop	r23
- 1e8:	6f 91       	pop	r22
- 1ea:	5f 91       	pop	r21
- 1ec:	4f 91       	pop	r20
- 1ee:	3f 91       	pop	r19
- 1f0:	2f 91       	pop	r18
- 1f2:	0f 90       	pop	r0
- 1f4:	0f be       	out	0x3f, r0	; 63
- 1f6:	0f 90       	pop	r0
- 1f8:	1f 90       	pop	r1
- 1fa:	18 95       	reti
+ 3b6:	ff 91       	pop	r31
+ 3b8:	ef 91       	pop	r30
+ 3ba:	bf 91       	pop	r27
+ 3bc:	af 91       	pop	r26
+ 3be:	9f 91       	pop	r25
+ 3c0:	8f 91       	pop	r24
+ 3c2:	7f 91       	pop	r23
+ 3c4:	6f 91       	pop	r22
+ 3c6:	5f 91       	pop	r21
+ 3c8:	4f 91       	pop	r20
+ 3ca:	3f 91       	pop	r19
+ 3cc:	2f 91       	pop	r18
+ 3ce:	0f 90       	pop	r0
+ 3d0:	0f be       	out	0x3f, r0	; 63
+ 3d2:	0f 90       	pop	r0
+ 3d4:	1f 90       	pop	r1
+ 3d6:	18 95       	reti
 
-000001fc <__vector_4>:
+000003d8 <__vector_4>:
 
 ISR(TIMER2_COMP_vect)
 {
- 1fc:	1f 92       	push	r1
- 1fe:	0f 92       	push	r0
- 200:	0f b6       	in	r0, 0x3f	; 63
- 202:	0f 92       	push	r0
- 204:	11 24       	eor	r1, r1
- 206:	2f 93       	push	r18
- 208:	3f 93       	push	r19
- 20a:	4f 93       	push	r20
- 20c:	5f 93       	push	r21
- 20e:	6f 93       	push	r22
- 210:	7f 93       	push	r23
- 212:	8f 93       	push	r24
- 214:	9f 93       	push	r25
- 216:	af 93       	push	r26
- 218:	bf 93       	push	r27
- 21a:	ef 93       	push	r30
- 21c:	ff 93       	push	r31
+ 3d8:	1f 92       	push	r1
+ 3da:	0f 92       	push	r0
+ 3dc:	0f b6       	in	r0, 0x3f	; 63
+ 3de:	0f 92       	push	r0
+ 3e0:	11 24       	eor	r1, r1
+ 3e2:	2f 93       	push	r18
+ 3e4:	3f 93       	push	r19
+ 3e6:	4f 93       	push	r20
+ 3e8:	5f 93       	push	r21
+ 3ea:	6f 93       	push	r22
+ 3ec:	7f 93       	push	r23
+ 3ee:	8f 93       	push	r24
+ 3f0:	9f 93       	push	r25
+ 3f2:	af 93       	push	r26
+ 3f4:	bf 93       	push	r27
+ 3f6:	ef 93       	push	r30
+ 3f8:	ff 93       	push	r31
 	if (Ptr_Timer2_CM != NULL)
- 21e:	e0 91 82 00 	lds	r30, 0x0082	; 0x800082 <__data_end>
- 222:	f0 91 83 00 	lds	r31, 0x0083	; 0x800083 <__data_end+0x1>
- 226:	30 97       	sbiw	r30, 0x00	; 0
- 228:	09 f0       	breq	.+2      	; 0x22c <__vector_4+0x30>
+ 3fa:	e0 91 61 00 	lds	r30, 0x0061	; 0x800061 <Ptr_Timer2_CM>
+ 3fe:	f0 91 62 00 	lds	r31, 0x0062	; 0x800062 <Ptr_Timer2_CM+0x1>
+ 402:	30 97       	sbiw	r30, 0x00	; 0
+ 404:	09 f0       	breq	.+2      	; 0x408 <__EEPROM_REGION_LENGTH__+0x8>
 	{
 		Ptr_Timer2_CM();
- 22a:	09 95       	icall
+ 406:	09 95       	icall
 	}
 }
- 22c:	ff 91       	pop	r31
- 22e:	ef 91       	pop	r30
- 230:	bf 91       	pop	r27
- 232:	af 91       	pop	r26
- 234:	9f 91       	pop	r25
- 236:	8f 91       	pop	r24
- 238:	7f 91       	pop	r23
- 23a:	6f 91       	pop	r22
- 23c:	5f 91       	pop	r21
- 23e:	4f 91       	pop	r20
- 240:	3f 91       	pop	r19
- 242:	2f 91       	pop	r18
- 244:	0f 90       	pop	r0
- 246:	0f be       	out	0x3f, r0	; 63
- 248:	0f 90       	pop	r0
- 24a:	1f 90       	pop	r1
- 24c:	18 95       	reti
+ 408:	ff 91       	pop	r31
+ 40a:	ef 91       	pop	r30
+ 40c:	bf 91       	pop	r27
+ 40e:	af 91       	pop	r26
+ 410:	9f 91       	pop	r25
+ 412:	8f 91       	pop	r24
+ 414:	7f 91       	pop	r23
+ 416:	6f 91       	pop	r22
+ 418:	5f 91       	pop	r21
+ 41a:	4f 91       	pop	r20
+ 41c:	3f 91       	pop	r19
+ 41e:	2f 91       	pop	r18
+ 420:	0f 90       	pop	r0
+ 422:	0f be       	out	0x3f, r0	; 63
+ 424:	0f 90       	pop	r0
+ 426:	1f 90       	pop	r1
+ 428:	18 95       	reti
 
-0000024e <__vector_9>:
+0000042a <__vector_9>:
 
 ISR(TIMER1_OVF_vect)
 {
- 24e:	1f 92       	push	r1
- 250:	0f 92       	push	r0
- 252:	0f b6       	in	r0, 0x3f	; 63
- 254:	0f 92       	push	r0
- 256:	11 24       	eor	r1, r1
- 258:	2f 93       	push	r18
- 25a:	3f 93       	push	r19
- 25c:	4f 93       	push	r20
- 25e:	5f 93       	push	r21
- 260:	6f 93       	push	r22
- 262:	7f 93       	push	r23
- 264:	8f 93       	push	r24
- 266:	9f 93       	push	r25
- 268:	af 93       	push	r26
- 26a:	bf 93       	push	r27
- 26c:	ef 93       	push	r30
- 26e:	ff 93       	push	r31
+ 42a:	1f 92       	push	r1
+ 42c:	0f 92       	push	r0
+ 42e:	0f b6       	in	r0, 0x3f	; 63
+ 430:	0f 92       	push	r0
+ 432:	11 24       	eor	r1, r1
+ 434:	2f 93       	push	r18
+ 436:	3f 93       	push	r19
+ 438:	4f 93       	push	r20
+ 43a:	5f 93       	push	r21
+ 43c:	6f 93       	push	r22
+ 43e:	7f 93       	push	r23
+ 440:	8f 93       	push	r24
+ 442:	9f 93       	push	r25
+ 444:	af 93       	push	r26
+ 446:	bf 93       	push	r27
+ 448:	ef 93       	push	r30
+ 44a:	ff 93       	push	r31
 	if (Ptr_Timer1_OV != NULL)
- 270:	e0 91 88 00 	lds	r30, 0x0088	; 0x800088 <Ptr_Timer1_OV>
- 274:	f0 91 89 00 	lds	r31, 0x0089	; 0x800089 <Ptr_Timer1_OV+0x1>
- 278:	30 97       	sbiw	r30, 0x00	; 0
- 27a:	09 f0       	breq	.+2      	; 0x27e <__vector_9+0x30>
+ 44c:	e0 91 67 00 	lds	r30, 0x0067	; 0x800067 <Ptr_Timer1_OV>
+ 450:	f0 91 68 00 	lds	r31, 0x0068	; 0x800068 <Ptr_Timer1_OV+0x1>
+ 454:	30 97       	sbiw	r30, 0x00	; 0
+ 456:	09 f0       	breq	.+2      	; 0x45a <__vector_9+0x30>
 	{
 		Ptr_Timer1_OV();
- 27c:	09 95       	icall
+ 458:	09 95       	icall
 	}
 }
- 27e:	ff 91       	pop	r31
- 280:	ef 91       	pop	r30
- 282:	bf 91       	pop	r27
- 284:	af 91       	pop	r26
- 286:	9f 91       	pop	r25
- 288:	8f 91       	pop	r24
- 28a:	7f 91       	pop	r23
- 28c:	6f 91       	pop	r22
- 28e:	5f 91       	pop	r21
- 290:	4f 91       	pop	r20
- 292:	3f 91       	pop	r19
- 294:	2f 91       	pop	r18
- 296:	0f 90       	pop	r0
- 298:	0f be       	out	0x3f, r0	; 63
- 29a:	0f 90       	pop	r0
- 29c:	1f 90       	pop	r1
- 29e:	18 95       	reti
+ 45a:	ff 91       	pop	r31
+ 45c:	ef 91       	pop	r30
+ 45e:	bf 91       	pop	r27
+ 460:	af 91       	pop	r26
+ 462:	9f 91       	pop	r25
+ 464:	8f 91       	pop	r24
+ 466:	7f 91       	pop	r23
+ 468:	6f 91       	pop	r22
+ 46a:	5f 91       	pop	r21
+ 46c:	4f 91       	pop	r20
+ 46e:	3f 91       	pop	r19
+ 470:	2f 91       	pop	r18
+ 472:	0f 90       	pop	r0
+ 474:	0f be       	out	0x3f, r0	; 63
+ 476:	0f 90       	pop	r0
+ 478:	1f 90       	pop	r1
+ 47a:	18 95       	reti
 
-000002a0 <__vector_7>:
+0000047c <__vector_7>:
 
 ISR(TIMER1_COMPA_vect)
 {
- 2a0:	1f 92       	push	r1
- 2a2:	0f 92       	push	r0
- 2a4:	0f b6       	in	r0, 0x3f	; 63
- 2a6:	0f 92       	push	r0
- 2a8:	11 24       	eor	r1, r1
- 2aa:	2f 93       	push	r18
- 2ac:	3f 93       	push	r19
- 2ae:	4f 93       	push	r20
- 2b0:	5f 93       	push	r21
- 2b2:	6f 93       	push	r22
- 2b4:	7f 93       	push	r23
- 2b6:	8f 93       	push	r24
- 2b8:	9f 93       	push	r25
- 2ba:	af 93       	push	r26
- 2bc:	bf 93       	push	r27
- 2be:	ef 93       	push	r30
- 2c0:	ff 93       	push	r31
+ 47c:	1f 92       	push	r1
+ 47e:	0f 92       	push	r0
+ 480:	0f b6       	in	r0, 0x3f	; 63
+ 482:	0f 92       	push	r0
+ 484:	11 24       	eor	r1, r1
+ 486:	2f 93       	push	r18
+ 488:	3f 93       	push	r19
+ 48a:	4f 93       	push	r20
+ 48c:	5f 93       	push	r21
+ 48e:	6f 93       	push	r22
+ 490:	7f 93       	push	r23
+ 492:	8f 93       	push	r24
+ 494:	9f 93       	push	r25
+ 496:	af 93       	push	r26
+ 498:	bf 93       	push	r27
+ 49a:	ef 93       	push	r30
+ 49c:	ff 93       	push	r31
 	if (Ptr_Timer1_CM != NULL)
- 2c2:	e0 91 86 00 	lds	r30, 0x0086	; 0x800086 <Ptr_Timer1_CM>
- 2c6:	f0 91 87 00 	lds	r31, 0x0087	; 0x800087 <Ptr_Timer1_CM+0x1>
- 2ca:	30 97       	sbiw	r30, 0x00	; 0
- 2cc:	09 f0       	breq	.+2      	; 0x2d0 <__vector_7+0x30>
+ 49e:	e0 91 65 00 	lds	r30, 0x0065	; 0x800065 <Ptr_Timer1_CM>
+ 4a2:	f0 91 66 00 	lds	r31, 0x0066	; 0x800066 <Ptr_Timer1_CM+0x1>
+ 4a6:	30 97       	sbiw	r30, 0x00	; 0
+ 4a8:	09 f0       	breq	.+2      	; 0x4ac <__vector_7+0x30>
 	{
 		Ptr_Timer1_CM();
- 2ce:	09 95       	icall
+ 4aa:	09 95       	icall
 	}	
 }
- 2d0:	ff 91       	pop	r31
- 2d2:	ef 91       	pop	r30
- 2d4:	bf 91       	pop	r27
- 2d6:	af 91       	pop	r26
- 2d8:	9f 91       	pop	r25
- 2da:	8f 91       	pop	r24
- 2dc:	7f 91       	pop	r23
- 2de:	6f 91       	pop	r22
- 2e0:	5f 91       	pop	r21
- 2e2:	4f 91       	pop	r20
- 2e4:	3f 91       	pop	r19
- 2e6:	2f 91       	pop	r18
- 2e8:	0f 90       	pop	r0
- 2ea:	0f be       	out	0x3f, r0	; 63
- 2ec:	0f 90       	pop	r0
- 2ee:	1f 90       	pop	r1
- 2f0:	18 95       	reti
+ 4ac:	ff 91       	pop	r31
+ 4ae:	ef 91       	pop	r30
+ 4b0:	bf 91       	pop	r27
+ 4b2:	af 91       	pop	r26
+ 4b4:	9f 91       	pop	r25
+ 4b6:	8f 91       	pop	r24
+ 4b8:	7f 91       	pop	r23
+ 4ba:	6f 91       	pop	r22
+ 4bc:	5f 91       	pop	r21
+ 4be:	4f 91       	pop	r20
+ 4c0:	3f 91       	pop	r19
+ 4c2:	2f 91       	pop	r18
+ 4c4:	0f 90       	pop	r0
+ 4c6:	0f be       	out	0x3f, r0	; 63
+ 4c8:	0f 90       	pop	r0
+ 4ca:	1f 90       	pop	r1
+ 4cc:	18 95       	reti
 
-000002f2 <__vector_8>:
+000004ce <__vector_8>:
 
 ISR(TIMER1_COMPB_vect)
 {
- 2f2:	1f 92       	push	r1
- 2f4:	0f 92       	push	r0
- 2f6:	0f b6       	in	r0, 0x3f	; 63
- 2f8:	0f 92       	push	r0
- 2fa:	11 24       	eor	r1, r1
- 2fc:	2f 93       	push	r18
- 2fe:	3f 93       	push	r19
- 300:	4f 93       	push	r20
- 302:	5f 93       	push	r21
- 304:	6f 93       	push	r22
- 306:	7f 93       	push	r23
- 308:	8f 93       	push	r24
- 30a:	9f 93       	push	r25
- 30c:	af 93       	push	r26
- 30e:	bf 93       	push	r27
- 310:	ef 93       	push	r30
- 312:	ff 93       	push	r31
+ 4ce:	1f 92       	push	r1
+ 4d0:	0f 92       	push	r0
+ 4d2:	0f b6       	in	r0, 0x3f	; 63
+ 4d4:	0f 92       	push	r0
+ 4d6:	11 24       	eor	r1, r1
+ 4d8:	2f 93       	push	r18
+ 4da:	3f 93       	push	r19
+ 4dc:	4f 93       	push	r20
+ 4de:	5f 93       	push	r21
+ 4e0:	6f 93       	push	r22
+ 4e2:	7f 93       	push	r23
+ 4e4:	8f 93       	push	r24
+ 4e6:	9f 93       	push	r25
+ 4e8:	af 93       	push	r26
+ 4ea:	bf 93       	push	r27
+ 4ec:	ef 93       	push	r30
+ 4ee:	ff 93       	push	r31
 	if (Ptr_Timer1_CM != NULL)
- 314:	e0 91 86 00 	lds	r30, 0x0086	; 0x800086 <Ptr_Timer1_CM>
- 318:	f0 91 87 00 	lds	r31, 0x0087	; 0x800087 <Ptr_Timer1_CM+0x1>
- 31c:	30 97       	sbiw	r30, 0x00	; 0
- 31e:	09 f0       	breq	.+2      	; 0x322 <__vector_8+0x30>
+ 4f0:	e0 91 65 00 	lds	r30, 0x0065	; 0x800065 <Ptr_Timer1_CM>
+ 4f4:	f0 91 66 00 	lds	r31, 0x0066	; 0x800066 <Ptr_Timer1_CM+0x1>
+ 4f8:	30 97       	sbiw	r30, 0x00	; 0
+ 4fa:	09 f0       	breq	.+2      	; 0x4fe <__vector_8+0x30>
 	{
 		Ptr_Timer1_CM();
- 320:	09 95       	icall
+ 4fc:	09 95       	icall
 	}
 }
- 322:	ff 91       	pop	r31
- 324:	ef 91       	pop	r30
- 326:	bf 91       	pop	r27
- 328:	af 91       	pop	r26
- 32a:	9f 91       	pop	r25
- 32c:	8f 91       	pop	r24
- 32e:	7f 91       	pop	r23
- 330:	6f 91       	pop	r22
- 332:	5f 91       	pop	r21
- 334:	4f 91       	pop	r20
- 336:	3f 91       	pop	r19
- 338:	2f 91       	pop	r18
- 33a:	0f 90       	pop	r0
- 33c:	0f be       	out	0x3f, r0	; 63
- 33e:	0f 90       	pop	r0
- 340:	1f 90       	pop	r1
- 342:	18 95       	reti
+ 4fe:	ff 91       	pop	r31
+ 500:	ef 91       	pop	r30
+ 502:	bf 91       	pop	r27
+ 504:	af 91       	pop	r26
+ 506:	9f 91       	pop	r25
+ 508:	8f 91       	pop	r24
+ 50a:	7f 91       	pop	r23
+ 50c:	6f 91       	pop	r22
+ 50e:	5f 91       	pop	r21
+ 510:	4f 91       	pop	r20
+ 512:	3f 91       	pop	r19
+ 514:	2f 91       	pop	r18
+ 516:	0f 90       	pop	r0
+ 518:	0f be       	out	0x3f, r0	; 63
+ 51a:	0f 90       	pop	r0
+ 51c:	1f 90       	pop	r1
+ 51e:	18 95       	reti
 
-00000344 <UART_Init>:
-FunPtr Ptr_UART_TX = NULL;
-FunPtr Ptr_UART_RX = NULL;
-
-
-void UART_Init(UART_cfg* uart_cfg)
-{
- 344:	cf 92       	push	r12
- 346:	df 92       	push	r13
- 348:	ef 92       	push	r14
- 34a:	ff 92       	push	r15
- 34c:	cf 93       	push	r28
- 34e:	df 93       	push	r29
- 350:	ec 01       	movw	r28, r24
-	uint8_t uart_control = 0x80;
-	// Set The UART Baud Rate
-	UBRRL = ((F_cpu/(16*uart_cfg->baudrate)) - 1);
- 352:	8f 81       	ldd	r24, Y+7	; 0x07
- 354:	98 85       	ldd	r25, Y+8	; 0x08
- 356:	a9 85       	ldd	r26, Y+9	; 0x09
- 358:	ba 85       	ldd	r27, Y+10	; 0x0a
- 35a:	88 0f       	add	r24, r24
- 35c:	99 1f       	adc	r25, r25
- 35e:	aa 1f       	adc	r26, r26
- 360:	bb 1f       	adc	r27, r27
- 362:	88 0f       	add	r24, r24
- 364:	99 1f       	adc	r25, r25
- 366:	aa 1f       	adc	r26, r26
- 368:	bb 1f       	adc	r27, r27
- 36a:	9c 01       	movw	r18, r24
- 36c:	ad 01       	movw	r20, r26
- 36e:	22 0f       	add	r18, r18
- 370:	33 1f       	adc	r19, r19
- 372:	44 1f       	adc	r20, r20
- 374:	55 1f       	adc	r21, r21
- 376:	22 0f       	add	r18, r18
- 378:	33 1f       	adc	r19, r19
- 37a:	44 1f       	adc	r20, r20
- 37c:	55 1f       	adc	r21, r21
- 37e:	0f 2e       	mov	r0, r31
- 380:	c1 2c       	mov	r12, r1
- 382:	f4 e2       	ldi	r31, 0x24	; 36
- 384:	df 2e       	mov	r13, r31
- 386:	f4 ef       	ldi	r31, 0xF4	; 244
- 388:	ef 2e       	mov	r14, r31
- 38a:	f1 2c       	mov	r15, r1
- 38c:	f0 2d       	mov	r31, r0
- 38e:	c7 01       	movw	r24, r14
- 390:	b6 01       	movw	r22, r12
- 392:	0e 94 e3 02 	call	0x5c6	; 0x5c6 <__udivmodsi4>
- 396:	21 50       	subi	r18, 0x01	; 1
- 398:	29 b9       	out	0x09, r18	; 9
-	UBRRH = ((F_cpu/(16*uart_cfg->baudrate)) - 1)>>8;
- 39a:	8f 81       	ldd	r24, Y+7	; 0x07
- 39c:	98 85       	ldd	r25, Y+8	; 0x08
- 39e:	a9 85       	ldd	r26, Y+9	; 0x09
- 3a0:	ba 85       	ldd	r27, Y+10	; 0x0a
- 3a2:	88 0f       	add	r24, r24
- 3a4:	99 1f       	adc	r25, r25
- 3a6:	aa 1f       	adc	r26, r26
- 3a8:	bb 1f       	adc	r27, r27
- 3aa:	88 0f       	add	r24, r24
- 3ac:	99 1f       	adc	r25, r25
- 3ae:	aa 1f       	adc	r26, r26
- 3b0:	bb 1f       	adc	r27, r27
- 3b2:	9c 01       	movw	r18, r24
- 3b4:	ad 01       	movw	r20, r26
- 3b6:	22 0f       	add	r18, r18
- 3b8:	33 1f       	adc	r19, r19
- 3ba:	44 1f       	adc	r20, r20
- 3bc:	55 1f       	adc	r21, r21
- 3be:	22 0f       	add	r18, r18
- 3c0:	33 1f       	adc	r19, r19
- 3c2:	44 1f       	adc	r20, r20
- 3c4:	55 1f       	adc	r21, r21
- 3c6:	c7 01       	movw	r24, r14
- 3c8:	b6 01       	movw	r22, r12
- 3ca:	0e 94 e3 02 	call	0x5c6	; 0x5c6 <__udivmodsi4>
- 3ce:	da 01       	movw	r26, r20
- 3d0:	c9 01       	movw	r24, r18
- 3d2:	01 97       	sbiw	r24, 0x01	; 1
- 3d4:	a1 09       	sbc	r26, r1
- 3d6:	b1 09       	sbc	r27, r1
- 3d8:	89 2f       	mov	r24, r25
- 3da:	9a 2f       	mov	r25, r26
- 3dc:	ab 2f       	mov	r26, r27
- 3de:	bb 27       	eor	r27, r27
- 3e0:	80 bd       	out	0x20, r24	; 32
-	// Set The UART Mode OF Operation
-	UCSRB |= (uart_cfg->mode | uart_cfg->uartInterrupts);
- 3e2:	9a b1       	in	r25, 0x0a	; 10
- 3e4:	88 81       	ld	r24, Y
- 3e6:	89 2b       	or	r24, r25
- 3e8:	9e 81       	ldd	r25, Y+6	; 0x06
- 3ea:	89 2b       	or	r24, r25
- 3ec:	8a b9       	out	0x0a, r24	; 10
-	// Set The UART Data Bits
-	// Set The UART Parity Option
-	// Set The UART Stop Bits
-	// Set The UART Interrupt Mode
-	uart_control |= (uart_cfg->uartSync | uart_cfg->sampleEdge | uart_cfg->dataBits | uart_cfg->parity | uart_cfg->stopBits);
-	UCSRC |= uart_control;
- 3ee:	20 b5       	in	r18, 0x20	; 32
- 3f0:	8b 81       	ldd	r24, Y+3	; 0x03
- 3f2:	9d 81       	ldd	r25, Y+5	; 0x05
- 3f4:	89 2b       	or	r24, r25
- 3f6:	80 68       	ori	r24, 0x80	; 128
- 3f8:	99 81       	ldd	r25, Y+1	; 0x01
- 3fa:	89 2b       	or	r24, r25
- 3fc:	9a 81       	ldd	r25, Y+2	; 0x02
- 3fe:	89 2b       	or	r24, r25
- 400:	9c 81       	ldd	r25, Y+4	; 0x04
- 402:	89 2b       	or	r24, r25
- 404:	82 2b       	or	r24, r18
- 406:	80 bd       	out	0x20, r24	; 32
-	SREG  |= (0x80);
- 408:	8f b7       	in	r24, 0x3f	; 63
- 40a:	80 68       	ori	r24, 0x80	; 128
- 40c:	8f bf       	out	0x3f, r24	; 63
-}
- 40e:	df 91       	pop	r29
- 410:	cf 91       	pop	r28
- 412:	ff 90       	pop	r15
- 414:	ef 90       	pop	r14
- 416:	df 90       	pop	r13
- 418:	cf 90       	pop	r12
- 41a:	08 95       	ret
-
-0000041c <UART_Write>:
-
-void UART_Write(uint8_t data)
-{
-	// Wait For Empty Transmit Budder
-	while(!(UCSRA & (1<<5)));
- 41c:	5d 9b       	sbis	0x0b, 5	; 11
- 41e:	fe cf       	rjmp	.-4      	; 0x41c <UART_Write>
-	// Write The Data To The Buffer & Send!
-	UDR = data;
- 420:	8c b9       	out	0x0c, r24	; 12
- 422:	08 95       	ret
-
-00000424 <UART_Write_String>:
-}
-
-void UART_Write_String(uint8_t* str)
-{
- 424:	cf 93       	push	r28
- 426:	df 93       	push	r29
- 428:	ec 01       	movw	r28, r24
-	uint16_t i=0;
-	while(str[i] != '\0')
- 42a:	88 81       	ld	r24, Y
- 42c:	88 23       	and	r24, r24
- 42e:	31 f0       	breq	.+12     	; 0x43c <UART_Write_String+0x18>
- 430:	21 96       	adiw	r28, 0x01	; 1
-		UART_Write(str[i++]);
- 432:	0e 94 0e 02 	call	0x41c	; 0x41c <UART_Write>
-}
-
-void UART_Write_String(uint8_t* str)
-{
-	uint16_t i=0;
-	while(str[i] != '\0')
- 436:	89 91       	ld	r24, Y+
- 438:	81 11       	cpse	r24, r1
- 43a:	fb cf       	rjmp	.-10     	; 0x432 <UART_Write_String+0xe>
-		UART_Write(str[i++]);
-}
- 43c:	df 91       	pop	r29
- 43e:	cf 91       	pop	r28
- 440:	08 95       	ret
-
-00000442 <UART_SetTX>:
-/*-----------[ Timers Set CallBack Functions ]-----------*/
-/*=======================================================*/
-
-void UART_SetTX(FunPtr Ptr_ISR)
-{
-	Ptr_UART_TX = Ptr_ISR;
- 442:	90 93 91 00 	sts	0x0091, r25	; 0x800091 <Ptr_UART_TX+0x1>
- 446:	80 93 90 00 	sts	0x0090, r24	; 0x800090 <Ptr_UART_TX>
- 44a:	08 95       	ret
-
-0000044c <UART_SetRX>:
-}
-
-void UART_SetRX(FunPtr Ptr_ISR)
-{
-	Ptr_UART_RX = Ptr_ISR;
- 44c:	90 93 8f 00 	sts	0x008F, r25	; 0x80008f <Ptr_UART_RX+0x1>
- 450:	80 93 8e 00 	sts	0x008E, r24	; 0x80008e <Ptr_UART_RX>
- 454:	08 95       	ret
-
-00000456 <__vector_13>:
+00000520 <__vector_13>:
 /*=================================================*/
 /*---------------[ UART ISR Handlers ]-------------*/
 /*=================================================*/
 
 ISR(USART_RXC_vect)
 {
- 456:	1f 92       	push	r1
- 458:	0f 92       	push	r0
- 45a:	0f b6       	in	r0, 0x3f	; 63
- 45c:	0f 92       	push	r0
- 45e:	11 24       	eor	r1, r1
- 460:	2f 93       	push	r18
- 462:	3f 93       	push	r19
- 464:	4f 93       	push	r20
- 466:	5f 93       	push	r21
- 468:	6f 93       	push	r22
- 46a:	7f 93       	push	r23
- 46c:	8f 93       	push	r24
- 46e:	9f 93       	push	r25
- 470:	af 93       	push	r26
- 472:	bf 93       	push	r27
- 474:	ef 93       	push	r30
- 476:	ff 93       	push	r31
+ 520:	1f 92       	push	r1
+ 522:	0f 92       	push	r0
+ 524:	0f b6       	in	r0, 0x3f	; 63
+ 526:	0f 92       	push	r0
+ 528:	11 24       	eor	r1, r1
+ 52a:	2f 93       	push	r18
+ 52c:	3f 93       	push	r19
+ 52e:	4f 93       	push	r20
+ 530:	5f 93       	push	r21
+ 532:	6f 93       	push	r22
+ 534:	7f 93       	push	r23
+ 536:	8f 93       	push	r24
+ 538:	9f 93       	push	r25
+ 53a:	af 93       	push	r26
+ 53c:	bf 93       	push	r27
+ 53e:	ef 93       	push	r30
+ 540:	ff 93       	push	r31
 	if(Ptr_UART_RX != NULL)
- 478:	e0 91 8e 00 	lds	r30, 0x008E	; 0x80008e <Ptr_UART_RX>
- 47c:	f0 91 8f 00 	lds	r31, 0x008F	; 0x80008f <Ptr_UART_RX+0x1>
- 480:	30 97       	sbiw	r30, 0x00	; 0
- 482:	09 f0       	breq	.+2      	; 0x486 <__vector_13+0x30>
+ 542:	e0 91 6d 00 	lds	r30, 0x006D	; 0x80006d <Ptr_UART_RX>
+ 546:	f0 91 6e 00 	lds	r31, 0x006E	; 0x80006e <Ptr_UART_RX+0x1>
+ 54a:	30 97       	sbiw	r30, 0x00	; 0
+ 54c:	09 f0       	breq	.+2      	; 0x550 <__vector_13+0x30>
 	{
 		Ptr_UART_RX();
- 484:	09 95       	icall
+ 54e:	09 95       	icall
 	}
 }
- 486:	ff 91       	pop	r31
- 488:	ef 91       	pop	r30
- 48a:	bf 91       	pop	r27
- 48c:	af 91       	pop	r26
- 48e:	9f 91       	pop	r25
- 490:	8f 91       	pop	r24
- 492:	7f 91       	pop	r23
- 494:	6f 91       	pop	r22
- 496:	5f 91       	pop	r21
- 498:	4f 91       	pop	r20
- 49a:	3f 91       	pop	r19
- 49c:	2f 91       	pop	r18
- 49e:	0f 90       	pop	r0
- 4a0:	0f be       	out	0x3f, r0	; 63
- 4a2:	0f 90       	pop	r0
- 4a4:	1f 90       	pop	r1
- 4a6:	18 95       	reti
+ 550:	ff 91       	pop	r31
+ 552:	ef 91       	pop	r30
+ 554:	bf 91       	pop	r27
+ 556:	af 91       	pop	r26
+ 558:	9f 91       	pop	r25
+ 55a:	8f 91       	pop	r24
+ 55c:	7f 91       	pop	r23
+ 55e:	6f 91       	pop	r22
+ 560:	5f 91       	pop	r21
+ 562:	4f 91       	pop	r20
+ 564:	3f 91       	pop	r19
+ 566:	2f 91       	pop	r18
+ 568:	0f 90       	pop	r0
+ 56a:	0f be       	out	0x3f, r0	; 63
+ 56c:	0f 90       	pop	r0
+ 56e:	1f 90       	pop	r1
+ 570:	18 95       	reti
 
-000004a8 <__vector_15>:
+00000572 <__vector_15>:
 
 ISR(USART_TXC_vect)
 {
- 4a8:	1f 92       	push	r1
- 4aa:	0f 92       	push	r0
- 4ac:	0f b6       	in	r0, 0x3f	; 63
- 4ae:	0f 92       	push	r0
- 4b0:	11 24       	eor	r1, r1
- 4b2:	2f 93       	push	r18
- 4b4:	3f 93       	push	r19
- 4b6:	4f 93       	push	r20
- 4b8:	5f 93       	push	r21
- 4ba:	6f 93       	push	r22
- 4bc:	7f 93       	push	r23
- 4be:	8f 93       	push	r24
- 4c0:	9f 93       	push	r25
- 4c2:	af 93       	push	r26
- 4c4:	bf 93       	push	r27
- 4c6:	ef 93       	push	r30
- 4c8:	ff 93       	push	r31
+ 572:	1f 92       	push	r1
+ 574:	0f 92       	push	r0
+ 576:	0f b6       	in	r0, 0x3f	; 63
+ 578:	0f 92       	push	r0
+ 57a:	11 24       	eor	r1, r1
+ 57c:	2f 93       	push	r18
+ 57e:	3f 93       	push	r19
+ 580:	4f 93       	push	r20
+ 582:	5f 93       	push	r21
+ 584:	6f 93       	push	r22
+ 586:	7f 93       	push	r23
+ 588:	8f 93       	push	r24
+ 58a:	9f 93       	push	r25
+ 58c:	af 93       	push	r26
+ 58e:	bf 93       	push	r27
+ 590:	ef 93       	push	r30
+ 592:	ff 93       	push	r31
 	if(Ptr_UART_TX != NULL)
- 4ca:	e0 91 90 00 	lds	r30, 0x0090	; 0x800090 <Ptr_UART_TX>
- 4ce:	f0 91 91 00 	lds	r31, 0x0091	; 0x800091 <Ptr_UART_TX+0x1>
- 4d2:	30 97       	sbiw	r30, 0x00	; 0
- 4d4:	09 f0       	breq	.+2      	; 0x4d8 <__vector_15+0x30>
+ 594:	e0 91 6f 00 	lds	r30, 0x006F	; 0x80006f <Ptr_UART_TX>
+ 598:	f0 91 70 00 	lds	r31, 0x0070	; 0x800070 <Ptr_UART_TX+0x1>
+ 59c:	30 97       	sbiw	r30, 0x00	; 0
+ 59e:	09 f0       	breq	.+2      	; 0x5a2 <__vector_15+0x30>
 	{
 		Ptr_UART_TX();
- 4d6:	09 95       	icall
+ 5a0:	09 95       	icall
 	}
- 4d8:	ff 91       	pop	r31
- 4da:	ef 91       	pop	r30
- 4dc:	bf 91       	pop	r27
- 4de:	af 91       	pop	r26
- 4e0:	9f 91       	pop	r25
- 4e2:	8f 91       	pop	r24
- 4e4:	7f 91       	pop	r23
- 4e6:	6f 91       	pop	r22
- 4e8:	5f 91       	pop	r21
- 4ea:	4f 91       	pop	r20
- 4ec:	3f 91       	pop	r19
- 4ee:	2f 91       	pop	r18
- 4f0:	0f 90       	pop	r0
- 4f2:	0f be       	out	0x3f, r0	; 63
- 4f4:	0f 90       	pop	r0
- 4f6:	1f 90       	pop	r1
- 4f8:	18 95       	reti
-
-000004fa <BCM_Tx_ISR_cbf>:
-{
-	
-}
-/* TX Dispatcher */
-void BCM_TxDispatcher(void)
-{
- 4fa:	85 e0       	ldi	r24, 0x05	; 5
- 4fc:	84 bd       	out	0x24, r24	; 36
- 4fe:	08 95       	ret
-
-00000500 <BCM_Rx_ISR_cbf>:
- 500:	08 95       	ret
-
-00000502 <BCM_Init>:
-}
-/*------------------------------------*/
-
-/* BCM Initialization Routine */
-ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
-{
- 502:	cf 93       	push	r28
- 504:	df 93       	push	r29
- 506:	cd b7       	in	r28, 0x3d	; 61
- 508:	de b7       	in	r29, 0x3e	; 62
- 50a:	2b 97       	sbiw	r28, 0x0b	; 11
- 50c:	0f b6       	in	r0, 0x3f	; 63
- 50e:	f8 94       	cli
- 510:	de bf       	out	0x3e, r29	; 62
- 512:	0f be       	out	0x3f, r0	; 63
- 514:	cd bf       	out	0x3d, r28	; 61
- 516:	dc 01       	movw	r26, r24
-	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
-	UART_cfg a_BCM_UART;
-	/* spi config as well... */
-	
-	/*-------------[ Check BCM's Pointer Validity ]-------------*/
-	if(a_BCM != NULL)
- 518:	89 2b       	or	r24, r25
- 51a:	09 f4       	brne	.+2      	; 0x51e <BCM_Init+0x1c>
- 51c:	48 c0       	rjmp	.+144    	; 0x5ae <BCM_Init+0xac>
-	{
-		/*--------[ Add The BCM CFG To The Working List ]--------*/
-		g_BCM_EXcfg.BCM_CH_ID = a_BCM->BCM_CH_ID;
- 51e:	11 96       	adiw	r26, 0x01	; 1
- 520:	8c 91       	ld	r24, X
- 522:	11 97       	sbiw	r26, 0x01	; 1
- 524:	e2 e9       	ldi	r30, 0x92	; 146
- 526:	f0 e0       	ldi	r31, 0x00	; 0
- 528:	81 83       	std	Z+1, r24	; 0x01
-		g_BCM_EXcfg.Mode      = a_BCM->Mode;
- 52a:	9c 91       	ld	r25, X
- 52c:	90 83       	st	Z, r25
-		g_BCM_EXcfg.Protocol  = a_BCM->Protocol;
- 52e:	12 96       	adiw	r26, 0x02	; 2
- 530:	8c 91       	ld	r24, X
- 532:	82 83       	std	Z+2, r24	; 0x02
-		g_BCM_EXcfg.FSM_State = IDLE_State;
- 534:	21 e0       	ldi	r18, 0x01	; 1
- 536:	24 83       	std	Z+4, r18	; 0x04
-		g_BCM_EXcfg.Count     = ZERO;
- 538:	11 86       	std	Z+9, r1	; 0x09
- 53a:	10 86       	std	Z+8, r1	; 0x08
-		g_BCM_EXcfg.CheckSum  = ZERO;
- 53c:	15 82       	std	Z+5, r1	; 0x05
-		
-		/*--------[ Check The BCM HW Communication Protocol ]--------*/
-		switch(g_BCM_EXcfg.Protocol)
- 53e:	88 23       	and	r24, r24
- 540:	21 f0       	breq	.+8      	; 0x54a <BCM_Init+0x48>
- 542:	81 30       	cpi	r24, 0x01	; 1
- 544:	b1 f5       	brne	.+108    	; 0x5b2 <BCM_Init+0xb0>
-	else
-	{
-		errorStatus = NULL_PTR + BCM_ERROR;
-		return errorStatus;
-	}
-	return errorStatus;
- 546:	8c e3       	ldi	r24, 0x3C	; 60
- 548:	35 c0       	rjmp	.+106    	; 0x5b4 <BCM_Init+0xb2>
-		/*--------[ Check The BCM HW Communication Protocol ]--------*/
-		switch(g_BCM_EXcfg.Protocol)
-		{
-			case UART_Protocol:
-			{
-				a_BCM_UART.baudrate   = BCM_UART_BaudRate;
- 54a:	40 e8       	ldi	r20, 0x80	; 128
- 54c:	55 e2       	ldi	r21, 0x25	; 37
- 54e:	60 e0       	ldi	r22, 0x00	; 0
- 550:	70 e0       	ldi	r23, 0x00	; 0
- 552:	48 87       	std	Y+8, r20	; 0x08
- 554:	59 87       	std	Y+9, r21	; 0x09
- 556:	6a 87       	std	Y+10, r22	; 0x0a
- 558:	7b 87       	std	Y+11, r23	; 0x0b
-				a_BCM_UART.dataBits   = UART_Bits_8;
- 55a:	86 e0       	ldi	r24, 0x06	; 6
- 55c:	8a 83       	std	Y+2, r24	; 0x02
-				a_BCM_UART.stopBits   = StopBits_1;
- 55e:	1d 82       	std	Y+5, r1	; 0x05
-				a_BCM_UART.parity     = No_Parity;
- 560:	1b 82       	std	Y+3, r1	; 0x03
-				a_BCM_UART.sampleEdge = RisingEdg;
- 562:	1e 82       	std	Y+6, r1	; 0x06
-				a_BCM_UART.uartSync   = UART_Async;
- 564:	1c 82       	std	Y+4, r1	; 0x04
-				
-				/*--------[ Check The BCM Mode OF Operation ]--------*/
-				switch(g_BCM_EXcfg.Mode)
- 566:	99 23       	and	r25, r25
- 568:	19 f0       	breq	.+6      	; 0x570 <BCM_Init+0x6e>
- 56a:	91 30       	cpi	r25, 0x01	; 1
- 56c:	71 f0       	breq	.+28     	; 0x58a <BCM_Init+0x88>
- 56e:	19 c0       	rjmp	.+50     	; 0x5a2 <BCM_Init+0xa0>
-				{
-					case BCM_Tx_Mode:
-					{
-						a_BCM_UART.mode = UART_TX;
- 570:	88 e0       	ldi	r24, 0x08	; 8
- 572:	89 83       	std	Y+1, r24	; 0x01
-						a_BCM_UART.uartInterrupts = OnTx;
- 574:	80 e4       	ldi	r24, 0x40	; 64
- 576:	8f 83       	std	Y+7, r24	; 0x07
-						/*--------[ Set The TX ISR CallBack Function ]--------*/
-						g_BCM_EXcfg.BCM_ISR_cbf = BCM_Tx_ISR_cbf;
- 578:	8d e7       	ldi	r24, 0x7D	; 125
- 57a:	92 e0       	ldi	r25, 0x02	; 2
- 57c:	90 93 9d 00 	sts	0x009D, r25	; 0x80009d <g_BCM_EXcfg+0xb>
- 580:	80 93 9c 00 	sts	0x009C, r24	; 0x80009c <g_BCM_EXcfg+0xa>
-						UART_SetTX(BCM_Tx_ISR_cbf);
- 584:	0e 94 21 02 	call	0x442	; 0x442 <UART_SetTX>
-						break;
- 588:	0c c0       	rjmp	.+24     	; 0x5a2 <BCM_Init+0xa0>
-					}
-					case BCM_Rx_Mode:
-					{
-						a_BCM_UART.mode = UART_RX;
- 58a:	80 e1       	ldi	r24, 0x10	; 16
- 58c:	89 83       	std	Y+1, r24	; 0x01
-						a_BCM_UART.uartInterrupts = OnRx;
- 58e:	80 e8       	ldi	r24, 0x80	; 128
- 590:	8f 83       	std	Y+7, r24	; 0x07
-						/*--------[ Set The RX ISR CallBack Function ]--------*/
-						g_BCM_EXcfg.BCM_ISR_cbf = BCM_Rx_ISR_cbf;
- 592:	80 e8       	ldi	r24, 0x80	; 128
- 594:	92 e0       	ldi	r25, 0x02	; 2
- 596:	90 93 9d 00 	sts	0x009D, r25	; 0x80009d <g_BCM_EXcfg+0xb>
- 59a:	80 93 9c 00 	sts	0x009C, r24	; 0x80009c <g_BCM_EXcfg+0xa>
-						UART_SetRX(BCM_Rx_ISR_cbf);
- 59e:	0e 94 26 02 	call	0x44c	; 0x44c <UART_SetRX>
-					}
-					default:
-						break;
-				}
-				/*--------[ Initialize The UART Hardware ]--------*/
-				UART_Init(&a_BCM_UART);
- 5a2:	ce 01       	movw	r24, r28
- 5a4:	01 96       	adiw	r24, 0x01	; 1
- 5a6:	0e 94 a2 01 	call	0x344	; 0x344 <UART_Init>
-	else
-	{
-		errorStatus = NULL_PTR + BCM_ERROR;
-		return errorStatus;
-	}
-	return errorStatus;
- 5aa:	8c e3       	ldi	r24, 0x3C	; 60
-				}
-				/*--------[ Initialize The UART Hardware ]--------*/
-				UART_Init(&a_BCM_UART);
-				
-				errorStatus = BCM_ERROR + E_OK;
-				break;
- 5ac:	03 c0       	rjmp	.+6      	; 0x5b4 <BCM_Init+0xb2>
-	}
-	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
-	else
-	{
-		errorStatus = NULL_PTR + BCM_ERROR;
-		return errorStatus;
- 5ae:	8d e3       	ldi	r24, 0x3D	; 61
- 5b0:	01 c0       	rjmp	.+2      	; 0x5b4 <BCM_Init+0xb2>
-				errorStatus = BCM_ERROR + E_OK;
-				break;	
-			}
-			default:
-				errorStatus = BCM_ERROR + INVALID_IN;
-				return errorStatus;
- 5b2:	80 e4       	ldi	r24, 0x40	; 64
-	{
-		errorStatus = NULL_PTR + BCM_ERROR;
-		return errorStatus;
-	}
-	return errorStatus;
-}
- 5b4:	2b 96       	adiw	r28, 0x0b	; 11
- 5b6:	0f b6       	in	r0, 0x3f	; 63
- 5b8:	f8 94       	cli
- 5ba:	de bf       	out	0x3e, r29	; 62
+ 5a2:	ff 91       	pop	r31
+ 5a4:	ef 91       	pop	r30
+ 5a6:	bf 91       	pop	r27
+ 5a8:	af 91       	pop	r26
+ 5aa:	9f 91       	pop	r25
+ 5ac:	8f 91       	pop	r24
+ 5ae:	7f 91       	pop	r23
+ 5b0:	6f 91       	pop	r22
+ 5b2:	5f 91       	pop	r21
+ 5b4:	4f 91       	pop	r20
+ 5b6:	3f 91       	pop	r19
+ 5b8:	2f 91       	pop	r18
+ 5ba:	0f 90       	pop	r0
  5bc:	0f be       	out	0x3f, r0	; 63
- 5be:	cd bf       	out	0x3d, r28	; 61
- 5c0:	df 91       	pop	r29
- 5c2:	cf 91       	pop	r28
- 5c4:	08 95       	ret
+ 5be:	0f 90       	pop	r0
+ 5c0:	1f 90       	pop	r1
+ 5c2:	18 95       	reti
 
-000005c6 <__udivmodsi4>:
- 5c6:	a1 e2       	ldi	r26, 0x21	; 33
- 5c8:	1a 2e       	mov	r1, r26
- 5ca:	aa 1b       	sub	r26, r26
- 5cc:	bb 1b       	sub	r27, r27
- 5ce:	fd 01       	movw	r30, r26
- 5d0:	0d c0       	rjmp	.+26     	; 0x5ec <__udivmodsi4_ep>
+000005c4 <softwareDelayMs>:
+ */ 
+#include "softwareDelay.h"
+#include "std_types.h"
 
-000005d2 <__udivmodsi4_loop>:
- 5d2:	aa 1f       	adc	r26, r26
- 5d4:	bb 1f       	adc	r27, r27
- 5d6:	ee 1f       	adc	r30, r30
- 5d8:	ff 1f       	adc	r31, r31
- 5da:	a2 17       	cp	r26, r18
- 5dc:	b3 07       	cpc	r27, r19
- 5de:	e4 07       	cpc	r30, r20
- 5e0:	f5 07       	cpc	r31, r21
- 5e2:	20 f0       	brcs	.+8      	; 0x5ec <__udivmodsi4_ep>
- 5e4:	a2 1b       	sub	r26, r18
- 5e6:	b3 0b       	sbc	r27, r19
- 5e8:	e4 0b       	sbc	r30, r20
- 5ea:	f5 0b       	sbc	r31, r21
+void softwareDelayMs(uint32_t u32_delay_in_ms)
+{
+ 5c4:	0f 93       	push	r16
+ 5c6:	1f 93       	push	r17
+ 5c8:	8b 01       	movw	r16, r22
+ 5ca:	9c 01       	movw	r18, r24
+  uint32_t ticks = 2290, i, j;
+  for(j=0; j<u32_delay_in_ms; j++)
+ 5cc:	67 2b       	or	r22, r23
+ 5ce:	68 2b       	or	r22, r24
+ 5d0:	69 2b       	or	r22, r25
+ 5d2:	81 f4       	brne	.+32     	; 0x5f4 <softwareDelayMs+0x30>
+ 5d4:	15 c0       	rjmp	.+42     	; 0x600 <softwareDelayMs+0x3c>
+ 5d6:	01 96       	adiw	r24, 0x01	; 1
+  {
+    for(i=0; i<ticks; i++)
+ 5d8:	82 3f       	cpi	r24, 0xF2	; 242
+ 5da:	e8 e0       	ldi	r30, 0x08	; 8
+ 5dc:	9e 07       	cpc	r25, r30
+ 5de:	d9 f7       	brne	.-10     	; 0x5d6 <softwareDelayMs+0x12>
+#include "std_types.h"
 
-000005ec <__udivmodsi4_ep>:
- 5ec:	66 1f       	adc	r22, r22
- 5ee:	77 1f       	adc	r23, r23
- 5f0:	88 1f       	adc	r24, r24
- 5f2:	99 1f       	adc	r25, r25
- 5f4:	1a 94       	dec	r1
- 5f6:	69 f7       	brne	.-38     	; 0x5d2 <__udivmodsi4_loop>
- 5f8:	60 95       	com	r22
- 5fa:	70 95       	com	r23
- 5fc:	80 95       	com	r24
- 5fe:	90 95       	com	r25
- 600:	9b 01       	movw	r18, r22
- 602:	ac 01       	movw	r20, r24
- 604:	bd 01       	movw	r22, r26
- 606:	cf 01       	movw	r24, r30
- 608:	08 95       	ret
+void softwareDelayMs(uint32_t u32_delay_in_ms)
+{
+  uint32_t ticks = 2290, i, j;
+  for(j=0; j<u32_delay_in_ms; j++)
+ 5e0:	4f 5f       	subi	r20, 0xFF	; 255
+ 5e2:	5f 4f       	sbci	r21, 0xFF	; 255
+ 5e4:	6f 4f       	sbci	r22, 0xFF	; 255
+ 5e6:	7f 4f       	sbci	r23, 0xFF	; 255
+ 5e8:	04 17       	cp	r16, r20
+ 5ea:	15 07       	cpc	r17, r21
+ 5ec:	26 07       	cpc	r18, r22
+ 5ee:	37 07       	cpc	r19, r23
+ 5f0:	21 f4       	brne	.+8      	; 0x5fa <softwareDelayMs+0x36>
+ 5f2:	06 c0       	rjmp	.+12     	; 0x600 <softwareDelayMs+0x3c>
+ 5f4:	40 e0       	ldi	r20, 0x00	; 0
+ 5f6:	50 e0       	ldi	r21, 0x00	; 0
+ 5f8:	ba 01       	movw	r22, r20
+ */ 
+#include "softwareDelay.h"
+#include "std_types.h"
 
-0000060a <_exit>:
- 60a:	f8 94       	cli
+void softwareDelayMs(uint32_t u32_delay_in_ms)
+{
+ 5fa:	80 e0       	ldi	r24, 0x00	; 0
+ 5fc:	90 e0       	ldi	r25, 0x00	; 0
+ 5fe:	eb cf       	rjmp	.-42     	; 0x5d6 <softwareDelayMs+0x12>
+  for(j=0; j<u32_delay_in_ms; j++)
+  {
+    for(i=0; i<ticks; i++)
+    { }
+  }
+}
+ 600:	1f 91       	pop	r17
+ 602:	0f 91       	pop	r16
+ 604:	08 95       	ret
 
-0000060c <__stop_program>:
- 60c:	ff cf       	rjmp	.-2      	; 0x60c <__stop_program>
+00000606 <_exit>:
+ 606:	f8 94       	cli
+
+00000608 <__stop_program>:
+ 608:	ff cf       	rjmp	.-2      	; 0x608 <__stop_program>

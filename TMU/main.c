@@ -6,10 +6,11 @@
  */ 
 #include "SL/BCM.h"
 #include "MCAL/UART.h"
-
+#include "MCAL/SPI__.h"
+#include "util/softwareDelay.h"
 
 void test_SPI(){
-	TCNT1 = 5 ;
+	
 	
 }
 
@@ -27,10 +28,31 @@ int main(void)
     
 	UART_Write_String((uint8_t*)"OMG Plzzz Report My Noob Team! \r\n");
 	*/
+	
+	uint8_t test ;
+	uint8_t test1 ;
+	uint8_t test2 ;
+
+
+	
 	SPI_cfg_s cfg ;
-	cfg.clockSPI = Fosc4 ;
+	cfg.clockSPI = Fosc128 ;
 	cfg.phasePolarityMode = mode0 ;
-	cfg.dataorder
+	cfg.dataorder = LSB ;
+	cfg.ptr_call_back=test_SPI;
+	_SPIInitSlave(&cfg);
+	softwareDelayMs(1000);
+	_SPITrancevier(&test);
+		TCNT0 = test ;
+		
+	softwareDelayMs(1000);
+	_SPITrancevier(&test1);
+	
+		TCNT2 = test1 ;
+	softwareDelayMs(1000);
+	_SPITrancevier(&test2);
+	
+	TCNT1L = test2 ;
 	while (1) 
     {
 
