@@ -3,31 +3,31 @@ TMU.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000005b0  00000000  00000000  00000094  2**1
+  0 .text         000006d0  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000022  00800060  000005b0  00000644  2**0
+  1 .data         00000022  00800060  000006d0  00000764  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          0000001c  00800082  00800082  00000666  2**0
+  2 .bss          00000029  00800082  00800082  00000786  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000666  2**0
+  3 .comment      00000030  00000000  00000000  00000786  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000698  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000007b8  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000150  00000000  00000000  000006d4  2**0
+  5 .debug_aranges 00000150  00000000  00000000  000007f4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000fb1  00000000  00000000  00000824  2**0
+  6 .debug_info   00000fdd  00000000  00000000  00000944  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000563  00000000  00000000  000017d5  2**0
+  7 .debug_abbrev 00000566  00000000  00000000  00001921  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000481  00000000  00000000  00001d38  2**0
+  8 .debug_line   0000048d  00000000  00000000  00001e87  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000504  00000000  00000000  000021bc  2**2
+  9 .debug_frame  00000504  00000000  00000000  00002314  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000006ae  00000000  00000000  000026c0  2**0
+ 10 .debug_str    000006cb  00000000  00000000  00002818  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001139  00000000  00000000  00002d6e  2**0
+ 11 .debug_loc    000011c0  00000000  00000000  00002ee3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000110  00000000  00000000  00003ea7  2**0
+ 12 .debug_ranges 00000110  00000000  00000000  000040a3  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -67,8 +67,8 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e0 eb       	ldi	r30, 0xB0	; 176
-  68:	f5 e0       	ldi	r31, 0x05	; 5
+  66:	e0 ed       	ldi	r30, 0xD0	; 208
+  68:	f6 e0       	ldi	r31, 0x06	; 6
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
@@ -86,11 +86,11 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	ae 39       	cpi	r26, 0x9E	; 158
+  80:	ab 3a       	cpi	r26, 0xAB	; 171
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
   86:	0e 94 49 00 	call	0x92	; 0x92 <main>
-  8a:	0c 94 d6 02 	jmp	0x5ac	; 0x5ac <_exit>
+  8a:	0c 94 66 03 	jmp	0x6cc	; 0x6cc <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -122,7 +122,7 @@ int main(void)
   a8:	01 96       	adiw	r24, 0x01	; 1
   aa:	0e 94 5a 02 	call	0x4b4	; 0x4b4 <BCM_Init>
     
-	UART_Write_String("OMG Plzzz Report My Noob Team! \r\n");
+	UART_Write_String((uint8_t*)"OMG Plzzz Report My Noob Team! \r\n");
   ae:	80 e6       	ldi	r24, 0x60	; 96
   b0:	90 e0       	ldi	r25, 0x00	; 0
   b2:	0e 94 eb 01 	call	0x3d6	; 0x3d6 <UART_Write_String>
@@ -660,7 +660,7 @@ void UART_Init(UART_cfg* uart_cfg)
  33e:	f0 2d       	mov	r31, r0
  340:	c7 01       	movw	r24, r14
  342:	b6 01       	movw	r22, r12
- 344:	0e 94 b4 02 	call	0x568	; 0x568 <__udivmodsi4>
+ 344:	0e 94 44 03 	call	0x688	; 0x688 <__udivmodsi4>
  348:	21 50       	subi	r18, 0x01	; 1
  34a:	29 b9       	out	0x09, r18	; 9
 	UBRRH = ((F_cpu/(16*uart_cfg->baudrate)) - 1)>>8;
@@ -688,7 +688,7 @@ void UART_Init(UART_cfg* uart_cfg)
  376:	55 1f       	adc	r21, r21
  378:	c7 01       	movw	r24, r14
  37a:	b6 01       	movw	r22, r12
- 37c:	0e 94 b4 02 	call	0x568	; 0x568 <__udivmodsi4>
+ 37c:	0e 94 44 03 	call	0x688	; 0x688 <__udivmodsi4>
  380:	da 01       	movw	r26, r20
  382:	c9 01       	movw	r24, r18
  384:	01 97       	sbiw	r24, 0x01	; 1
@@ -762,7 +762,7 @@ void UART_Write(uint8_t data)
 000003d6 <UART_Write_String>:
 }
 
-void UART_Write_String(char* str)
+void UART_Write_String(uint8_t* str)
 {
  3d6:	cf 93       	push	r28
  3d8:	df 93       	push	r29
@@ -777,7 +777,7 @@ void UART_Write_String(char* str)
  3e4:	0e 94 e7 01 	call	0x3ce	; 0x3ce <UART_Write>
 }
 
-void UART_Write_String(char* str)
+void UART_Write_String(uint8_t* str)
 {
 	uint16_t i=0;
 	while(str[i] != '\0')
@@ -953,183 +953,318 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 	if(a_BCM != NULL)
  4c8:	00 97       	sbiw	r24, 0x00	; 0
  4ca:	09 f4       	brne	.+2      	; 0x4ce <BCM_Init+0x1a>
- 4cc:	43 c0       	rjmp	.+134    	; 0x554 <BCM_Init+0xa0>
- 4ce:	fc 01       	movw	r30, r24
+ 4cc:	d3 c0       	rjmp	.+422    	; 0x674 <BCM_Init+0x1c0>
+ 4ce:	dc 01       	movw	r26, r24
 	{
 		/*--------[ Add The BCM CFG To The Working List ]--------*/
-		g_BCM_EXcfg.BCM_CH_ID = a_BCM->BCM_CH_ID;
- 4d0:	81 81       	ldd	r24, Z+1	; 0x01
- 4d2:	a2 e9       	ldi	r26, 0x92	; 146
- 4d4:	b0 e0       	ldi	r27, 0x00	; 0
- 4d6:	11 96       	adiw	r26, 0x01	; 1
- 4d8:	8c 93       	st	X, r24
- 4da:	11 97       	sbiw	r26, 0x01	; 1
-		g_BCM_EXcfg.Mode      = a_BCM->Mode;
- 4dc:	90 81       	ld	r25, Z
- 4de:	9c 93       	st	X, r25
-		g_BCM_EXcfg.Protocol  = a_BCM->Protocol;
- 4e0:	82 81       	ldd	r24, Z+2	; 0x02
- 4e2:	12 96       	adiw	r26, 0x02	; 2
- 4e4:	8c 93       	st	X, r24
- 4e6:	12 97       	sbiw	r26, 0x02	; 2
-		g_BCM_EXcfg.FSM_State = IDLE_State;
- 4e8:	21 e0       	ldi	r18, 0x01	; 1
- 4ea:	14 96       	adiw	r26, 0x04	; 4
- 4ec:	2c 93       	st	X, r18
- 4ee:	14 97       	sbiw	r26, 0x04	; 4
-		g_BCM_EXcfg.Count     = ZERO;
- 4f0:	19 96       	adiw	r26, 0x09	; 9
- 4f2:	1c 92       	st	X, r1
- 4f4:	1e 92       	st	-X, r1
- 4f6:	18 97       	sbiw	r26, 0x08	; 8
-		g_BCM_EXcfg.CheckSum  = ZERO;
- 4f8:	15 96       	adiw	r26, 0x05	; 5
- 4fa:	1c 92       	st	X, r1
+		g_BCM_EXcfg[g_BCM_Index].BCM_CH_ID = a_BCM->BCM_CH_ID;
+ 4d0:	20 91 92 00 	lds	r18, 0x0092
+ 4d4:	11 96       	adiw	r26, 0x01	; 1
+ 4d6:	8c 91       	ld	r24, X
+ 4d8:	11 97       	sbiw	r26, 0x01	; 1
+ 4da:	30 e0       	ldi	r19, 0x00	; 0
+ 4dc:	f9 01       	movw	r30, r18
+ 4de:	ee 0f       	add	r30, r30
+ 4e0:	ff 1f       	adc	r31, r31
+ 4e2:	e2 0f       	add	r30, r18
+ 4e4:	f3 1f       	adc	r31, r19
+ 4e6:	ee 0f       	add	r30, r30
+ 4e8:	ff 1f       	adc	r31, r31
+ 4ea:	ee 0f       	add	r30, r30
+ 4ec:	ff 1f       	adc	r31, r31
+ 4ee:	ed 56       	subi	r30, 0x6D	; 109
+ 4f0:	ff 4f       	sbci	r31, 0xFF	; 255
+ 4f2:	81 83       	std	Z+1, r24	; 0x01
+		g_BCM_EXcfg[g_BCM_Index].Mode      = a_BCM->Mode;
+ 4f4:	20 91 92 00 	lds	r18, 0x0092
+ 4f8:	8c 91       	ld	r24, X
+ 4fa:	30 e0       	ldi	r19, 0x00	; 0
+ 4fc:	f9 01       	movw	r30, r18
+ 4fe:	ee 0f       	add	r30, r30
+ 500:	ff 1f       	adc	r31, r31
+ 502:	e2 0f       	add	r30, r18
+ 504:	f3 1f       	adc	r31, r19
+ 506:	ee 0f       	add	r30, r30
+ 508:	ff 1f       	adc	r31, r31
+ 50a:	ee 0f       	add	r30, r30
+ 50c:	ff 1f       	adc	r31, r31
+ 50e:	ed 56       	subi	r30, 0x6D	; 109
+ 510:	ff 4f       	sbci	r31, 0xFF	; 255
+ 512:	80 83       	st	Z, r24
+		g_BCM_EXcfg[g_BCM_Index].Protocol  = a_BCM->Protocol;
+ 514:	90 91 92 00 	lds	r25, 0x0092
+ 518:	12 96       	adiw	r26, 0x02	; 2
+ 51a:	2c 91       	ld	r18, X
+ 51c:	89 2f       	mov	r24, r25
+ 51e:	90 e0       	ldi	r25, 0x00	; 0
+ 520:	fc 01       	movw	r30, r24
+ 522:	ee 0f       	add	r30, r30
+ 524:	ff 1f       	adc	r31, r31
+ 526:	e8 0f       	add	r30, r24
+ 528:	f9 1f       	adc	r31, r25
+ 52a:	ee 0f       	add	r30, r30
+ 52c:	ff 1f       	adc	r31, r31
+ 52e:	ee 0f       	add	r30, r30
+ 530:	ff 1f       	adc	r31, r31
+ 532:	ed 56       	subi	r30, 0x6D	; 109
+ 534:	ff 4f       	sbci	r31, 0xFF	; 255
+ 536:	22 83       	std	Z+2, r18	; 0x02
+		g_BCM_EXcfg[g_BCM_Index].FSM_State = IDLE_State;
+ 538:	80 91 92 00 	lds	r24, 0x0092
+ 53c:	90 e0       	ldi	r25, 0x00	; 0
+ 53e:	fc 01       	movw	r30, r24
+ 540:	ee 0f       	add	r30, r30
+ 542:	ff 1f       	adc	r31, r31
+ 544:	e8 0f       	add	r30, r24
+ 546:	f9 1f       	adc	r31, r25
+ 548:	ee 0f       	add	r30, r30
+ 54a:	ff 1f       	adc	r31, r31
+ 54c:	ee 0f       	add	r30, r30
+ 54e:	ff 1f       	adc	r31, r31
+ 550:	ed 56       	subi	r30, 0x6D	; 109
+ 552:	ff 4f       	sbci	r31, 0xFF	; 255
+ 554:	81 e0       	ldi	r24, 0x01	; 1
+ 556:	84 83       	std	Z+4, r24	; 0x04
+		g_BCM_EXcfg[g_BCM_Index].Count     = ZERO;
+ 558:	80 91 92 00 	lds	r24, 0x0092
+ 55c:	90 e0       	ldi	r25, 0x00	; 0
+ 55e:	fc 01       	movw	r30, r24
+ 560:	ee 0f       	add	r30, r30
+ 562:	ff 1f       	adc	r31, r31
+ 564:	e8 0f       	add	r30, r24
+ 566:	f9 1f       	adc	r31, r25
+ 568:	ee 0f       	add	r30, r30
+ 56a:	ff 1f       	adc	r31, r31
+ 56c:	ee 0f       	add	r30, r30
+ 56e:	ff 1f       	adc	r31, r31
+ 570:	ed 56       	subi	r30, 0x6D	; 109
+ 572:	ff 4f       	sbci	r31, 0xFF	; 255
+ 574:	11 86       	std	Z+9, r1	; 0x09
+ 576:	10 86       	std	Z+8, r1	; 0x08
+		g_BCM_EXcfg[g_BCM_Index].CheckSum  = ZERO;
+ 578:	80 91 92 00 	lds	r24, 0x0092
+ 57c:	90 e0       	ldi	r25, 0x00	; 0
+ 57e:	fc 01       	movw	r30, r24
+ 580:	ee 0f       	add	r30, r30
+ 582:	ff 1f       	adc	r31, r31
+ 584:	e8 0f       	add	r30, r24
+ 586:	f9 1f       	adc	r31, r25
+ 588:	ee 0f       	add	r30, r30
+ 58a:	ff 1f       	adc	r31, r31
+ 58c:	ee 0f       	add	r30, r30
+ 58e:	ff 1f       	adc	r31, r31
+ 590:	ed 56       	subi	r30, 0x6D	; 109
+ 592:	ff 4f       	sbci	r31, 0xFF	; 255
+ 594:	15 82       	std	Z+5, r1	; 0x05
 		
 		/*--------[ Check The BCM HW Communication Protocol ]--------*/
-		switch(g_BCM_EXcfg.Protocol)
- 4fc:	81 11       	cpse	r24, r1
- 4fe:	24 c0       	rjmp	.+72     	; 0x548 <BCM_Init+0x94>
+		switch(g_BCM_EXcfg[g_BCM_Index].Protocol)
+ 596:	80 91 92 00 	lds	r24, 0x0092
+ 59a:	90 e0       	ldi	r25, 0x00	; 0
+ 59c:	fc 01       	movw	r30, r24
+ 59e:	ee 0f       	add	r30, r30
+ 5a0:	ff 1f       	adc	r31, r31
+ 5a2:	e8 0f       	add	r30, r24
+ 5a4:	f9 1f       	adc	r31, r25
+ 5a6:	ee 0f       	add	r30, r30
+ 5a8:	ff 1f       	adc	r31, r31
+ 5aa:	ee 0f       	add	r30, r30
+ 5ac:	ff 1f       	adc	r31, r31
+ 5ae:	ed 56       	subi	r30, 0x6D	; 109
+ 5b0:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5b2:	82 81       	ldd	r24, Z+2	; 0x02
+ 5b4:	81 11       	cpse	r24, r1
+ 5b6:	53 c0       	rjmp	.+166    	; 0x65e <BCM_Init+0x1aa>
 		{
 			case UART_Protocol:
 			{
 				a_BCM_UART.baudrate   = BCM_UART_BaudRate;
- 500:	40 e8       	ldi	r20, 0x80	; 128
- 502:	55 e2       	ldi	r21, 0x25	; 37
- 504:	60 e0       	ldi	r22, 0x00	; 0
- 506:	70 e0       	ldi	r23, 0x00	; 0
- 508:	48 87       	std	Y+8, r20	; 0x08
- 50a:	59 87       	std	Y+9, r21	; 0x09
- 50c:	6a 87       	std	Y+10, r22	; 0x0a
- 50e:	7b 87       	std	Y+11, r23	; 0x0b
+ 5b8:	80 e8       	ldi	r24, 0x80	; 128
+ 5ba:	95 e2       	ldi	r25, 0x25	; 37
+ 5bc:	a0 e0       	ldi	r26, 0x00	; 0
+ 5be:	b0 e0       	ldi	r27, 0x00	; 0
+ 5c0:	88 87       	std	Y+8, r24	; 0x08
+ 5c2:	99 87       	std	Y+9, r25	; 0x09
+ 5c4:	aa 87       	std	Y+10, r26	; 0x0a
+ 5c6:	bb 87       	std	Y+11, r27	; 0x0b
 				a_BCM_UART.dataBits   = UART_Bits_8;
- 510:	86 e0       	ldi	r24, 0x06	; 6
- 512:	8a 83       	std	Y+2, r24	; 0x02
+ 5c8:	86 e0       	ldi	r24, 0x06	; 6
+ 5ca:	8a 83       	std	Y+2, r24	; 0x02
 				a_BCM_UART.stopBits   = StopBits_1;
- 514:	1d 82       	std	Y+5, r1	; 0x05
+ 5cc:	1d 82       	std	Y+5, r1	; 0x05
 				a_BCM_UART.parity     = No_Parity;
- 516:	1b 82       	std	Y+3, r1	; 0x03
+ 5ce:	1b 82       	std	Y+3, r1	; 0x03
 				a_BCM_UART.sampleEdge = RisingEdg;
- 518:	1e 82       	std	Y+6, r1	; 0x06
+ 5d0:	1e 82       	std	Y+6, r1	; 0x06
 				a_BCM_UART.uartSync   = UART_Async;
- 51a:	1c 82       	std	Y+4, r1	; 0x04
+ 5d2:	1c 82       	std	Y+4, r1	; 0x04
 				
 				/*--------[ Check The BCM Mode OF Operation ]--------*/
-				switch(g_BCM_EXcfg.Mode)
- 51c:	99 23       	and	r25, r25
- 51e:	19 f0       	breq	.+6      	; 0x526 <BCM_Init+0x72>
- 520:	91 30       	cpi	r25, 0x01	; 1
- 522:	51 f0       	breq	.+20     	; 0x538 <BCM_Init+0x84>
- 524:	11 c0       	rjmp	.+34     	; 0x548 <BCM_Init+0x94>
+				switch(g_BCM_EXcfg[g_BCM_Index].Mode)
+ 5d4:	80 91 92 00 	lds	r24, 0x0092
+ 5d8:	90 e0       	ldi	r25, 0x00	; 0
+ 5da:	fc 01       	movw	r30, r24
+ 5dc:	ee 0f       	add	r30, r30
+ 5de:	ff 1f       	adc	r31, r31
+ 5e0:	e8 0f       	add	r30, r24
+ 5e2:	f9 1f       	adc	r31, r25
+ 5e4:	ee 0f       	add	r30, r30
+ 5e6:	ff 1f       	adc	r31, r31
+ 5e8:	ee 0f       	add	r30, r30
+ 5ea:	ff 1f       	adc	r31, r31
+ 5ec:	ed 56       	subi	r30, 0x6D	; 109
+ 5ee:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5f0:	80 81       	ld	r24, Z
+ 5f2:	88 23       	and	r24, r24
+ 5f4:	19 f0       	breq	.+6      	; 0x5fc <BCM_Init+0x148>
+ 5f6:	81 30       	cpi	r24, 0x01	; 1
+ 5f8:	d1 f0       	breq	.+52     	; 0x62e <BCM_Init+0x17a>
+ 5fa:	31 c0       	rjmp	.+98     	; 0x65e <BCM_Init+0x1aa>
 				{
 					case BCM_Tx_Mode:
 					{
 						a_BCM_UART.mode = UART_TX;
- 526:	88 e0       	ldi	r24, 0x08	; 8
- 528:	89 83       	std	Y+1, r24	; 0x01
+ 5fc:	88 e0       	ldi	r24, 0x08	; 8
+ 5fe:	89 83       	std	Y+1, r24	; 0x01
 						a_BCM_UART.uartInterrupts = OnTx;
- 52a:	80 e4       	ldi	r24, 0x40	; 64
- 52c:	8f 83       	std	Y+7, r24	; 0x07
+ 600:	80 e4       	ldi	r24, 0x40	; 64
+ 602:	8f 83       	std	Y+7, r24	; 0x07
 						/*--------[ Set The TX ISR CallBack Function ]--------*/
+						g_BCM_EXcfg[g_BCM_Index].BCM_ISR_cbf = BCM_Tx_ISR_cbf;
+ 604:	80 91 92 00 	lds	r24, 0x0092
+ 608:	90 e0       	ldi	r25, 0x00	; 0
+ 60a:	fc 01       	movw	r30, r24
+ 60c:	ee 0f       	add	r30, r30
+ 60e:	ff 1f       	adc	r31, r31
+ 610:	e8 0f       	add	r30, r24
+ 612:	f9 1f       	adc	r31, r25
+ 614:	ee 0f       	add	r30, r30
+ 616:	ff 1f       	adc	r31, r31
+ 618:	ee 0f       	add	r30, r30
+ 61a:	ff 1f       	adc	r31, r31
+ 61c:	ed 56       	subi	r30, 0x6D	; 109
+ 61e:	ff 4f       	sbci	r31, 0xFF	; 255
+ 620:	86 e5       	ldi	r24, 0x56	; 86
+ 622:	92 e0       	ldi	r25, 0x02	; 2
+ 624:	93 87       	std	Z+11, r25	; 0x0b
+ 626:	82 87       	std	Z+10, r24	; 0x0a
 						UART_SetTX(BCM_Tx_ISR_cbf);
- 52e:	86 e5       	ldi	r24, 0x56	; 86
- 530:	92 e0       	ldi	r25, 0x02	; 2
- 532:	0e 94 fa 01 	call	0x3f4	; 0x3f4 <UART_SetTX>
+ 628:	0e 94 fa 01 	call	0x3f4	; 0x3f4 <UART_SetTX>
 						break;
- 536:	08 c0       	rjmp	.+16     	; 0x548 <BCM_Init+0x94>
+ 62c:	18 c0       	rjmp	.+48     	; 0x65e <BCM_Init+0x1aa>
 					}
 					case BCM_Rx_Mode:
 					{
 						a_BCM_UART.mode = UART_RX;
- 538:	80 e1       	ldi	r24, 0x10	; 16
- 53a:	89 83       	std	Y+1, r24	; 0x01
+ 62e:	80 e1       	ldi	r24, 0x10	; 16
+ 630:	89 83       	std	Y+1, r24	; 0x01
 						a_BCM_UART.uartInterrupts = OnRx;
- 53c:	80 e8       	ldi	r24, 0x80	; 128
- 53e:	8f 83       	std	Y+7, r24	; 0x07
+ 632:	80 e8       	ldi	r24, 0x80	; 128
+ 634:	8f 83       	std	Y+7, r24	; 0x07
 						/*--------[ Set The RX ISR CallBack Function ]--------*/
+						g_BCM_EXcfg[g_BCM_Index].BCM_ISR_cbf = BCM_Rx_ISR_cbf;
+ 636:	80 91 92 00 	lds	r24, 0x0092
+ 63a:	90 e0       	ldi	r25, 0x00	; 0
+ 63c:	fc 01       	movw	r30, r24
+ 63e:	ee 0f       	add	r30, r30
+ 640:	ff 1f       	adc	r31, r31
+ 642:	e8 0f       	add	r30, r24
+ 644:	f9 1f       	adc	r31, r25
+ 646:	ee 0f       	add	r30, r30
+ 648:	ff 1f       	adc	r31, r31
+ 64a:	ee 0f       	add	r30, r30
+ 64c:	ff 1f       	adc	r31, r31
+ 64e:	ed 56       	subi	r30, 0x6D	; 109
+ 650:	ff 4f       	sbci	r31, 0xFF	; 255
+ 652:	89 e5       	ldi	r24, 0x59	; 89
+ 654:	92 e0       	ldi	r25, 0x02	; 2
+ 656:	93 87       	std	Z+11, r25	; 0x0b
+ 658:	82 87       	std	Z+10, r24	; 0x0a
 						UART_SetRX(BCM_Rx_ISR_cbf);
- 540:	89 e5       	ldi	r24, 0x59	; 89
- 542:	92 e0       	ldi	r25, 0x02	; 2
- 544:	0e 94 ff 01 	call	0x3fe	; 0x3fe <UART_SetRX>
+ 65a:	0e 94 ff 01 	call	0x3fe	; 0x3fe <UART_SetRX>
 			default:
 				break;
 		}	
 		
 		/*--------[ Initialize The UART Hardware ]--------*/
 		UART_Init(&a_BCM_UART);
- 548:	ce 01       	movw	r24, r28
- 54a:	01 96       	adiw	r24, 0x01	; 1
- 54c:	0e 94 7b 01 	call	0x2f6	; 0x2f6 <UART_Init>
+ 65e:	ce 01       	movw	r24, r28
+ 660:	01 96       	adiw	r24, 0x01	; 1
+ 662:	0e 94 7b 01 	call	0x2f6	; 0x2f6 <UART_Init>
+		g_BCM_Index++;
+ 666:	80 91 92 00 	lds	r24, 0x0092
+ 66a:	8f 5f       	subi	r24, 0xFF	; 255
+ 66c:	80 93 92 00 	sts	0x0092, r24
 	else
 	{
 		errorStatus = NULL_PTR + BCM_ERROR;
 		return errorStatus;
 	}
 	return errorStatus;
- 550:	8c e3       	ldi	r24, 0x3C	; 60
- 552:	01 c0       	rjmp	.+2      	; 0x556 <BCM_Init+0xa2>
+ 670:	8c e3       	ldi	r24, 0x3C	; 60
+ 672:	01 c0       	rjmp	.+2      	; 0x676 <BCM_Init+0x1c2>
 	}
 	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
 	else
 	{
 		errorStatus = NULL_PTR + BCM_ERROR;
 		return errorStatus;
- 554:	8d e3       	ldi	r24, 0x3D	; 61
+ 674:	8d e3       	ldi	r24, 0x3D	; 61
 	}
 	return errorStatus;
 }
- 556:	2b 96       	adiw	r28, 0x0b	; 11
- 558:	0f b6       	in	r0, 0x3f	; 63
- 55a:	f8 94       	cli
- 55c:	de bf       	out	0x3e, r29	; 62
- 55e:	0f be       	out	0x3f, r0	; 63
- 560:	cd bf       	out	0x3d, r28	; 61
- 562:	df 91       	pop	r29
- 564:	cf 91       	pop	r28
- 566:	08 95       	ret
+ 676:	2b 96       	adiw	r28, 0x0b	; 11
+ 678:	0f b6       	in	r0, 0x3f	; 63
+ 67a:	f8 94       	cli
+ 67c:	de bf       	out	0x3e, r29	; 62
+ 67e:	0f be       	out	0x3f, r0	; 63
+ 680:	cd bf       	out	0x3d, r28	; 61
+ 682:	df 91       	pop	r29
+ 684:	cf 91       	pop	r28
+ 686:	08 95       	ret
 
-00000568 <__udivmodsi4>:
- 568:	a1 e2       	ldi	r26, 0x21	; 33
- 56a:	1a 2e       	mov	r1, r26
- 56c:	aa 1b       	sub	r26, r26
- 56e:	bb 1b       	sub	r27, r27
- 570:	fd 01       	movw	r30, r26
- 572:	0d c0       	rjmp	.+26     	; 0x58e <__udivmodsi4_ep>
+00000688 <__udivmodsi4>:
+ 688:	a1 e2       	ldi	r26, 0x21	; 33
+ 68a:	1a 2e       	mov	r1, r26
+ 68c:	aa 1b       	sub	r26, r26
+ 68e:	bb 1b       	sub	r27, r27
+ 690:	fd 01       	movw	r30, r26
+ 692:	0d c0       	rjmp	.+26     	; 0x6ae <__udivmodsi4_ep>
 
-00000574 <__udivmodsi4_loop>:
- 574:	aa 1f       	adc	r26, r26
- 576:	bb 1f       	adc	r27, r27
- 578:	ee 1f       	adc	r30, r30
- 57a:	ff 1f       	adc	r31, r31
- 57c:	a2 17       	cp	r26, r18
- 57e:	b3 07       	cpc	r27, r19
- 580:	e4 07       	cpc	r30, r20
- 582:	f5 07       	cpc	r31, r21
- 584:	20 f0       	brcs	.+8      	; 0x58e <__udivmodsi4_ep>
- 586:	a2 1b       	sub	r26, r18
- 588:	b3 0b       	sbc	r27, r19
- 58a:	e4 0b       	sbc	r30, r20
- 58c:	f5 0b       	sbc	r31, r21
+00000694 <__udivmodsi4_loop>:
+ 694:	aa 1f       	adc	r26, r26
+ 696:	bb 1f       	adc	r27, r27
+ 698:	ee 1f       	adc	r30, r30
+ 69a:	ff 1f       	adc	r31, r31
+ 69c:	a2 17       	cp	r26, r18
+ 69e:	b3 07       	cpc	r27, r19
+ 6a0:	e4 07       	cpc	r30, r20
+ 6a2:	f5 07       	cpc	r31, r21
+ 6a4:	20 f0       	brcs	.+8      	; 0x6ae <__udivmodsi4_ep>
+ 6a6:	a2 1b       	sub	r26, r18
+ 6a8:	b3 0b       	sbc	r27, r19
+ 6aa:	e4 0b       	sbc	r30, r20
+ 6ac:	f5 0b       	sbc	r31, r21
 
-0000058e <__udivmodsi4_ep>:
- 58e:	66 1f       	adc	r22, r22
- 590:	77 1f       	adc	r23, r23
- 592:	88 1f       	adc	r24, r24
- 594:	99 1f       	adc	r25, r25
- 596:	1a 94       	dec	r1
- 598:	69 f7       	brne	.-38     	; 0x574 <__udivmodsi4_loop>
- 59a:	60 95       	com	r22
- 59c:	70 95       	com	r23
- 59e:	80 95       	com	r24
- 5a0:	90 95       	com	r25
- 5a2:	9b 01       	movw	r18, r22
- 5a4:	ac 01       	movw	r20, r24
- 5a6:	bd 01       	movw	r22, r26
- 5a8:	cf 01       	movw	r24, r30
- 5aa:	08 95       	ret
+000006ae <__udivmodsi4_ep>:
+ 6ae:	66 1f       	adc	r22, r22
+ 6b0:	77 1f       	adc	r23, r23
+ 6b2:	88 1f       	adc	r24, r24
+ 6b4:	99 1f       	adc	r25, r25
+ 6b6:	1a 94       	dec	r1
+ 6b8:	69 f7       	brne	.-38     	; 0x694 <__udivmodsi4_loop>
+ 6ba:	60 95       	com	r22
+ 6bc:	70 95       	com	r23
+ 6be:	80 95       	com	r24
+ 6c0:	90 95       	com	r25
+ 6c2:	9b 01       	movw	r18, r22
+ 6c4:	ac 01       	movw	r20, r24
+ 6c6:	bd 01       	movw	r22, r26
+ 6c8:	cf 01       	movw	r24, r30
+ 6ca:	08 95       	ret
 
-000005ac <_exit>:
- 5ac:	f8 94       	cli
+000006cc <_exit>:
+ 6cc:	f8 94       	cli
 
-000005ae <__stop_program>:
- 5ae:	ff cf       	rjmp	.-2      	; 0x5ae <__stop_program>
+000006ce <__stop_program>:
+ 6ce:	ff cf       	rjmp	.-2      	; 0x6ce <__stop_program>

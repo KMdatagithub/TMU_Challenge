@@ -10,7 +10,9 @@
 #define BCM_CFG_H_
 
 
-#define Rx_Buffer_Size	25
+#define BCM_MAX_NUM			2
+
+#define Rx_Buffer_Size		25
 
 #define BCM_UART_BaudRate	9600
 

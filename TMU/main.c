@@ -20,7 +20,7 @@ int main(void)
 	BCM1.Protocol = UART_Protocol;
 	BCM_Init(&BCM1);
     
-	UART_Write_String("OMG Plzzz Report My Noob Team! \r\n");
+	UART_Write_String((uint8_t*)"OMG Plzzz Report My Noob Team! \r\n");
 	
 	while (1) 
     {

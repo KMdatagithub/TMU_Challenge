@@ -61,7 +61,7 @@ typedef struct UART_cfg{
 
 void UART_Init(UART_cfg*);
 void UART_Write(uint8_t);
-void UART_Write_String(char*);
+void UART_Write_String(uint8_t*);
 
 void UART_SetTX(FunPtr Ptr_ISR);
 void UART_SetRX(FunPtr Ptr_ISR);

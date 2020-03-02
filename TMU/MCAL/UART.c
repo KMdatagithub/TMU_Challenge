@@ -39,7 +39,7 @@ void UART_Write(uint8_t data)
 	UDR = data;
 }
 
-void UART_Write_String(char* str)
+void UART_Write_String(uint8_t* str)
 {
 	uint16_t i=0;
 	while(str[i] != '\0')
