@@ -59,7 +59,7 @@ typedef struct BCM_EXcfg_s{
 
 BCM_EXcfg_s g_BCM_EXcfg = {ZERO};
 static uint8_t g_RX_Buffer[Rx_Buffer_Size] = {ZERO};
-static uint8_t g_RX_Buffer_Index = ZERO;
+volatile static uint8_t g_RX_Buffer_Index = ZERO;
 
 /*===================================================================================*/
 /*----------------------------[ BCM Functions' Definitions ]-------------------------*/
