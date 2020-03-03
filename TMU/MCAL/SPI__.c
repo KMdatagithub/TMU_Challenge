@@ -150,9 +150,9 @@ extern void _SPITrancevier(uint8_t* data){
 	}
 	
 	
-	//*data = SPDR;
-	//while (!g_u8_RxFlag);
-	SPDR = *data;	
+	SPDR = *data;
+	while (!g_u8_RxFlag);
+	*data = SPDR;	
 	
 	g_u8_RxFlag = FALSE ;
 }
@@ -189,8 +189,9 @@ void SPI_SetCBF(FunPtr isr_ptr)
 
 ISR(SPI_STC_vect)
 {
-	g_u8_RxFlag = TRUE;
-	PTR_CALL_BACK();
+	//g_u8_RxFlag = TRUE;
+	//PTR_CALL_BACK();
+	TCNT1L = SPDR;
 }
 
 

@@ -8,10 +8,11 @@
 #include "MCAL/UART.h"
 #include "MCAL/SPI__.h"
 #include "util/softwareDelay.h"
+#include "util/registers.h"
 
-void omgplzzz(enum_BcmStatus n)
+void omgplzzz(void)
 {
-	//TCNT0 = 5;
+	//TCNT1L = SPDR;
 }
 
 int main(void)
@@ -29,10 +30,11 @@ int main(void)
 	*/
 	uint8_t data;
 	SPI_cfg_s mySPI;
-	mySPI.clockSPI = Fosc128;
+	//mySPI.clockSPI = Fosc128;
 	mySPI.dataorder = MSB;
 	mySPI.phasePolarityMode = mode0;
-	_SPIInitMaster(&mySPI);
+	mySPI.ptr_call_back = omgplzzz;
+	_SPIInitSlave(&mySPI);
 	
 	//softwareDelayMs(2500);
 	
@@ -63,9 +65,9 @@ int main(void)
 		//BCM_Tx_Dispatcher();
 		//BCM_Rx_Dispatcher();
 	//	_SPIRead(&data);
-		TCNT0 = data;
-		softwareDelayMs(1500);
-		_SPIRead(&data);
+		//TCNT0 = data;
+		//softwareDelayMs(1500);
+		//_SPIRead(&data);
     }
 }
 

@@ -6,7 +6,7 @@ main.d main.o: .././main.c .././SL/BCM.h .././SL/../util/error_codes.h \
  .././MCAL/../util/std_types.h .././MCAL/../MCAL/DIO.h \
  .././MCAL/../MCAL/../util/std_types.h \
  .././MCAL/../MCAL/../util/registers.h .././util/softwareDelay.h \
- .././util/std_types.h
+ .././util/std_types.h .././util/registers.h
 
 .././SL/BCM.h:
 
@@ -41,3 +41,5 @@ main.d main.o: .././main.c .././SL/BCM.h .././SL/../util/error_codes.h \
 .././util/softwareDelay.h:
 
 .././util/std_types.h:
+
+.././util/registers.h:
