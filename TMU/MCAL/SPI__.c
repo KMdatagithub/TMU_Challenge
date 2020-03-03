@@ -189,9 +189,8 @@ void SPI_SetCBF(FunPtr isr_ptr)
 
 ISR(SPI_STC_vect)
 {
-	//g_u8_RxFlag = TRUE;
-	//PTR_CALL_BACK();
-	TCNT1L = SPDR;
+	g_u8_RxFlag = TRUE;
+	PTR_CALL_BACK();
 }
 
 

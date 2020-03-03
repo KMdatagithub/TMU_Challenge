@@ -10,64 +10,46 @@
 #include "util/softwareDelay.h"
 #include "util/registers.h"
 
-void omgplzzz(void)
+
+BCM_cfg_s BCM1;
+uint8_t rxBuffer[50];
+//uint8_t Arr[7] = {3, 3, 3, 3, 1, 5, 8};
+uint8_t* MSG = (uint8_t*)"GG izi project .. Ma3 Ta7eyat Menna & Khaldoon\r\n";
+
+
+void txnotify(enum_BcmStatus st){}
+
+void omgplzzz(enum_BcmStatus st)
 {
-	//TCNT1L = SPDR;
+	/* Debug Point */
+	TCNT1L = 0xFF;
+	/* Debug Point */
+	
+	BCM_DeInit(&BCM1);
+	BCM1.BCM_CH_ID = 1;
+	BCM1.Mode = BCM_Tx_Mode;
+	BCM1.Protocol = UART_Protocol;
+	BCM_Init(&BCM1);
+	BCM_Send(MSG, 50, &BCM1, txnotify);
+
 }
 
 int main(void)
 {
-	uint8_t rxBuffer[50];
-	//uint8_t Arr[7] = {3, 3, 3, 3, 1, 5, 8};
-	//uint8_t* MSG = (uint8_t*)"GG izi project\r\n";
 	/*-------------[ BCM Initialization ]-------------*/
-	/*
-	BCM_cfg_s BCM1;
+	
 	BCM1.BCM_CH_ID = 1;
 	BCM1.Mode = BCM_Rx_Mode;
 	BCM1.Protocol = SPI_Protocol;
 	BCM_Init(&BCM1);
-	*/
-	uint8_t data;
-	SPI_cfg_s mySPI;
-	//mySPI.clockSPI = Fosc128;
-	mySPI.dataorder = MSB;
-	mySPI.phasePolarityMode = mode0;
-	mySPI.ptr_call_back = omgplzzz;
-	_SPIInitSlave(&mySPI);
 	
-	//softwareDelayMs(2500);
+	BCM_Setup_RxBuffer(&BCM1, 20, rxBuffer, omgplzzz);
 	
-	//BCM_Setup_RxBuffer(&BCM1, 20, rxBuffer, omgplzzz);
-	//BCM_Send(Arr, 7, &BCM1, omgplzzz);
-	
-//
-	//softwareDelayMs(1500);
-	//_SPIRead(&data);
-	//
-	//
-	//TCNT0 = data;
-	//softwareDelayMs(1500);
-	//_SPIRead(&data);
-	//
-	//TCNT0 = data;
-	//softwareDelayMs(1500);
-	//_SPIRead(&data);
-	//
-	//TCNT0 = data;
-	//softwareDelayMs(1500);
-	//_SPIRead(&data);
-	//
-	//TCNT0 = data ;
-	//
 	while (1) 
     {
-		//BCM_Tx_Dispatcher();
-		//BCM_Rx_Dispatcher();
-	//	_SPIRead(&data);
-		//TCNT0 = data;
-		//softwareDelayMs(1500);
-		//_SPIRead(&data);
+		BCM_Tx_Dispatcher();
+		BCM_Rx_Dispatcher();
+		softwareDelayMs(100);
     }
 }
 
