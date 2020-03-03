@@ -431,3 +431,8 @@ ERROR_STATUS BCM_Send(uint8_t* Buffer, uint16_t Buf_Len, BCM_cfg_s* My_BCM, Noti
 	return 0 ;
 }
 
+
+uint8_t BCM_Get_msgLEN(void)
+{
+	return g_BCM_EXcfg.MSG_Len;
+}

@@ -67,5 +67,6 @@ void BCM_Tx_Dispatcher(void);
 
 void BCM_Rx_Dispatcher(void);
 
+uint8_t BCM_Get_msgLEN(void);
 
 #endif /* BCM_H_ */
