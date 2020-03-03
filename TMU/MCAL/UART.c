@@ -31,6 +31,11 @@ void UART_Init(UART_cfg* uart_cfg)
 	SREG  |= (0x80);
 }
 
+uint8_t UART_Read(void)
+{
+	return UDR;
+}
+
 void UART_Write(uint8_t data)
 {
 	// Wait For Empty Transmit Buffer

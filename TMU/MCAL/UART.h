@@ -60,6 +60,7 @@ typedef struct UART_cfg{
 //----------------------------------------------------------
 
 void UART_Init(UART_cfg*);
+uint8_t UART_Read(void);
 void UART_Write(uint8_t);
 void UART_Write_String(uint8_t*);
 

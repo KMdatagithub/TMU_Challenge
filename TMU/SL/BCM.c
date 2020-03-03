@@ -96,17 +96,21 @@ static void BCM_Rx_ISR_cbf(void)
 	{
 		case UART_Protocol:
 		{
-			a_RX_Byte = UDR;
+			a_RX_Byte = UART_Read();
 			break;
 		}
 		case SPI_Protocol:
 		{
-			_SPITrancevier(&a_RX_Byte);
+			_SPIRead(&a_RX_Byte);
 			break;
 		}
 		default:
 			break;
 	}
+	
+	/* Debug Point */
+	TCNT2 = a_RX_Byte;
+	/* Debug Point */
 	
 	/* Read & Check The BCM Received ID */
 	if(g_BCM_EXcfg.Count == 0)
@@ -115,6 +119,10 @@ static void BCM_Rx_ISR_cbf(void)
 	
 		if(g_Rx_ID == BCM_ID)
 		{
+			/* Debug Point */
+			TCNT0 = a_RX_Byte;
+			/* Debug Point */
+			
 			g_ID_State = S_OK;
 			g_BCM_EXcfg.Count++;
 		}
@@ -138,6 +146,10 @@ static void BCM_Rx_ISR_cbf(void)
 		}
 		else
 		{
+			/* Debug Point */
+			TCNT0 = a_RX_Byte;
+			/* Debug Point */
+			
 			g_BCM_EXcfg.MSG_Len = a_RX_Byte;
 			g_BCM_EXcfg.Count++;
 			g_BCM_EXcfg.FSM_State = ReceivingByte_State;
@@ -161,6 +173,7 @@ static void BCM_Rx_ISR_cbf(void)
 
 /*------------------------------------*/
 /*---------[ BCM Dispatchers]---------*/
+
 /* RX Dispatcher */
 void BCM_Rx_Dispatcher(void)
 {
@@ -174,6 +187,7 @@ void BCM_Rx_Dispatcher(void)
 		}
 	}
 }
+
 /* TX Dispatcher */
 void BCM_Tx_Dispatcher(void){
 	
@@ -184,24 +198,40 @@ void BCM_Tx_Dispatcher(void){
 		case SendingByte_State :
 			break;
 		case SendComplete_State :
-		if (g_BCM_EXcfg.Count<g_BCM_EXcfg.Buf_Len)
+		if(g_BCM_EXcfg.Count == 1)
 		{
 			switch(g_BCM_EXcfg.Protocol){
-				g_BCM_EXcfg.CheckSum+=g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count-1];
 				case UART_Protocol :
-				UART_Write(g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count]);
+				UART_Write(g_BCM_EXcfg.Buf_Len);
 				break;
 				case  SPI_Protocol :
-				_SPISend(g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count]);
-				//_SPITrancevier(& (g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count]));
+				_SPISend(g_BCM_EXcfg.Buf_Len);
+				break;
+			}
+			g_BCM_EXcfg.FSM_State = SendingByte_State ;
+			
+		}
+		else if (g_BCM_EXcfg.Count <= g_BCM_EXcfg.Buf_Len+1)
+		{
+			g_BCM_EXcfg.CheckSum +=g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count-2];
+			
+			TCNT2 = g_BCM_EXcfg.CheckSum;
+			
+			switch(g_BCM_EXcfg.Protocol){
+				case UART_Protocol :
+				UART_Write(g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count-2]);
+				break;
+				case  SPI_Protocol :
+				_SPISend(g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count-2]);
+				
 				break;
 			}
 			g_BCM_EXcfg.FSM_State = SendingByte_State ;
 
-			}else if (g_BCM_EXcfg.Count == g_BCM_EXcfg.Buf_Len){
-			
+			}else if (g_BCM_EXcfg.Count == g_BCM_EXcfg.Buf_Len+2){
+				TCNT0 = g_BCM_EXcfg.CheckSum;
 			switch(g_BCM_EXcfg.Protocol){
-				g_BCM_EXcfg.CheckSum+=g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count-1];
+				
 				case UART_Protocol :
 				UART_Write(g_BCM_EXcfg.CheckSum);
 				break;
@@ -213,12 +243,12 @@ void BCM_Tx_Dispatcher(void){
 			g_BCM_EXcfg.FSM_State = SendingByte_State ;
 			
 			}else{
+				g_BCM_EXcfg.BCM_notify_cbf(10);
 			g_BCM_EXcfg.FSM_State = IDLE_State ;
 		}
 		break;
 		case OFF_State :
 		break;
-		
 	}	
 }
 /*------------------------------------*/
@@ -345,17 +375,10 @@ ERROR_STATUS BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len, uint8_t
 	/*-------------[ Check BCM's Pointer Validity ]-------------*/
 	if(a_BCM != NULL)
 	{
-		if(a_Buffer_Len <= Rx_Buffer_Size)
-		{
-			g_BCM_EXcfg.Buf_Len = a_Buffer_Len;
-			g_BCM_EXcfg.Buffer = a_buffer;
-			g_BCM_EXcfg.FSM_State = IDLE_State;
-			g_BCM_EXcfg.BCM_notify_cbf = a_notify;
-		}
-		else
-		{
-			/* OMG plzzz */
-		}
+		g_BCM_EXcfg.Buf_Len = a_Buffer_Len;
+		g_BCM_EXcfg.Buffer = a_buffer;
+		g_BCM_EXcfg.FSM_State = IDLE_State;
+		g_BCM_EXcfg.BCM_notify_cbf = a_notify;
 	}
 	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
 	else
@@ -393,16 +416,15 @@ ERROR_STATUS BCM_Send(uint8_t* Buffer, uint16_t Buf_Len, BCM_cfg_s* My_BCM, Noti
 	
 	g_BCM_EXcfg.Buffer = Buffer;
 	g_BCM_EXcfg.Buf_Len = Buf_Len;
-	g_BCM_EXcfg.BCM_notify_cbf = Notify_Ptr ;
+	g_BCM_EXcfg.BCM_notify_cbf = Notify_Ptr;
 	
 	switch(g_BCM_EXcfg.Protocol){
 		
 		case UART_Protocol :
-			UART_Write(g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count]);
+			UART_Write(BCM_ID);
 		break;
 		case  SPI_Protocol :
-			_SPISend(g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count]);
-			//_SPITrancevier(& (g_BCM_EXcfg.Buffer[g_BCM_EXcfg.Count]));
+			_SPISend(BCM_ID);
 		break;
 		
 	}
