@@ -14,11 +14,13 @@
 BCM_cfg_s BCM1;
 uint8_t rxBuffer[50];
 //uint8_t Arr[7] = {3, 3, 3, 3, 1, 5, 8};
-uint8_t* MSG = (uint8_t*)"GG izi project .. Ma3 Ta7eyat Menna & Khaldoon\r\n";
+uint8_t* MSG = (uint8_t*)"1234";
 
 
+/* TX Completion Notification Routine */
 void txnotify(enum_BcmStatus st){}
-
+	
+/* RX Completion Notification Routine */
 void omgplzzz(enum_BcmStatus st)
 {
 	/* Debug Point */
@@ -30,9 +32,10 @@ void omgplzzz(enum_BcmStatus st)
 	BCM1.Mode = BCM_Tx_Mode;
 	BCM1.Protocol = UART_Protocol;
 	BCM_Init(&BCM1);
-	BCM_Send(MSG, 50, &BCM1, txnotify);
+	BCM_Send(rxBuffer, 7, &BCM1, txnotify);
 
 }
+
 
 int main(void)
 {
@@ -43,7 +46,7 @@ int main(void)
 	BCM1.Protocol = SPI_Protocol;
 	BCM_Init(&BCM1);
 	
-	BCM_Setup_RxBuffer(&BCM1, 20, rxBuffer, omgplzzz);
+	BCM_Setup_RxBuffer(&BCM1, 7, rxBuffer, omgplzzz);
 	
 	while (1) 
     {
