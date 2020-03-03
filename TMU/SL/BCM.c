@@ -399,6 +399,7 @@ ERROR_STATUS BCM_DeInit(BCM_cfg_s* a_BCM)
 	/*--------[ Set That BCM To OFF ]--------*/
 	g_BCM_EXcfg.FSM_State = OFF_State;
 	
+	
 	errorStatus= BCM_ERROR + E_OK;
 
 	return errorStatus;
