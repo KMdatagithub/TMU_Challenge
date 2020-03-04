@@ -56,12 +56,12 @@ void UART_ISR_RXcbf(void)
 {
 	if (BCM_sending==FALSE)
 	{
-		if(g_UART_TXindex < TRANSMIT_MAX+1)
+		if(g_UART_TXindex < TRANSMIT_MAX)
 		{
 			txBuffer[g_UART_TXindex++] = UART_Read();
 			if(txBuffer[g_UART_TXindex-1] == 0x0D)
 			{
-				
+				TCNT1L = 5 ;
 				BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
 				//BCM_sending = TRUE ;
 				g_UART_TXindex = ZERO;
@@ -70,7 +70,7 @@ void UART_ISR_RXcbf(void)
 		else
 		{
 			BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
-		
+			TCNT0 = 5 ;
 			BCM_sending = TRUE;
 			g_UART_TXindex = ZERO;
 			
