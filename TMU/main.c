@@ -56,11 +56,13 @@ void UART_ISR_RXcbf(void)
 		if(txBuffer[g_UART_TXindex-1] == 0x0D)
 		{
 			BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
+			g_UART_TXindex = ZERO;
 		}
 	}
 	else
 	{
 		BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
+		g_UART_TXindex = ZERO;
 	}
 }
 
@@ -138,6 +140,6 @@ void ECU2_Application(void)
 
 int main(void)
 {
-	ECU2_Application();
-	//ECU1_Application();
+	//ECU2_Application();
+	ECU1_Application();
 }
