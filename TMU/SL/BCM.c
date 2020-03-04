@@ -186,6 +186,8 @@ void BCM_Rx_Dispatcher(void)
 			/* Debug Point */
 				
 			g_BCM_EXcfg.Count = ZERO;
+			g_CS_Calculated = ZERO;
+			g_BCM_EXcfg.CheckSum = ZERO;
 			g_BCM_EXcfg.FSM_State = IDLE_State;
 			g_BCM_EXcfg.BCM_notify_cbf(E_OK);
 		}
@@ -320,7 +322,7 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 			{
 				a_BCM_SPI.clockSPI = Fosc128;
 				a_BCM_SPI.dataorder = MSB;
-				a_BCM_SPI.phasePolarityMode = mode0;
+				a_BCM_SPI.phasePolarityMode = mode3;
 				
 				/*--------[ Check The BCM Mode OF Operation ]--------*/
 				switch(g_BCM_EXcfg.Mode)
