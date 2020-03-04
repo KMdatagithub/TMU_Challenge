@@ -108,9 +108,6 @@ static void BCM_Rx_ISR_cbf(void)
 			break;
 	}
 	
-	/* Debug Point */
-	TCNT2 = a_RX_Byte;
-	/* Debug Point */
 	
 	/* Read & Check The BCM Received ID */
 	if(g_BCM_EXcfg.Count == 0)
@@ -119,9 +116,6 @@ static void BCM_Rx_ISR_cbf(void)
 	
 		if(g_Rx_ID == BCM_ID)
 		{
-			/* Debug Point */
-			TCNT0 = a_RX_Byte;
-			/* Debug Point */
 			
 			g_ID_State = S_OK;
 			g_BCM_EXcfg.Count++;
@@ -146,10 +140,7 @@ static void BCM_Rx_ISR_cbf(void)
 		}
 		else
 		{
-			/* Debug Point */
-			TCNT0 = a_RX_Byte;
-			/* Debug Point */
-			
+		
 			g_BCM_EXcfg.MSG_Len = a_RX_Byte;
 			g_BCM_EXcfg.Count++;
 			g_BCM_EXcfg.FSM_State = ReceivingByte_State;
@@ -181,10 +172,7 @@ void BCM_Rx_Dispatcher(void)
 	{	
 		if(g_BCM_EXcfg.CheckSum == g_CS_Calculated)
 		{
-			/* Debug Point */
-			TCNT0 = 0xBB;
-			/* Debug Point */
-				
+		
 			g_BCM_EXcfg.Count = ZERO;
 			g_CS_Calculated = ZERO;
 			g_BCM_EXcfg.CheckSum = ZERO;

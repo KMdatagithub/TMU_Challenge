@@ -16,6 +16,7 @@
 BCM_cfg_s BCM1;
 UART_cfg UART1;
 
+volatile uint8_t BCM_sending = FALSE ;
 
 uint8_t rxBuffer[RECEIVE_MAX];
 uint8_t txBuffer[TRANSMIT_MAX];
@@ -30,15 +31,18 @@ volatile uint8_t g_UART_TXindex = ZERO;
 void txnotify(enum_BcmStatus st)
 {
 	/* Debug Point */
-	TCNT1L = g_UART_TXindex;
-	/* Debug Point */
 	
-	//g_UART_TXindex = ZERO;
+	/* Debug Point */
+	BCM_sending = FALSE ;
+	TCNT2 = 5 ;
+	g_UART_TXindex = ZERO;
 	BCM_DeInit(&BCM1);
 	BCM1.BCM_CH_ID = 1;
 	BCM1.Mode = BCM_Tx_Mode;
 	BCM1.Protocol = SPI_Protocol;
 	BCM_Init(&BCM1);
+	
+	
 }
 	
 /* RX Completion Notification Routine */
@@ -50,20 +54,29 @@ void rxnotify(enum_BcmStatus st)
 
 void UART_ISR_RXcbf(void)
 {
-	if(g_UART_TXindex < TRANSMIT_MAX)
+	if (BCM_sending==FALSE)
 	{
-		txBuffer[g_UART_TXindex++] = UART_Read();
-		if(txBuffer[g_UART_TXindex-1] == 0x0D)
+		if(g_UART_TXindex < TRANSMIT_MAX+1)
+		{
+			txBuffer[g_UART_TXindex++] = UART_Read();
+			if(txBuffer[g_UART_TXindex-1] == 0x0D)
+			{
+				
+				BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
+				//BCM_sending = TRUE ;
+				g_UART_TXindex = ZERO;
+			}
+		}
+		else
 		{
 			BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
+		
+			BCM_sending = TRUE;
 			g_UART_TXindex = ZERO;
-		}
+			
+			}
 	}
-	else
-	{
-		BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
-		g_UART_TXindex = ZERO;
-	}
+	
 }
 
 void UART_ISR_TXcbf(void)
@@ -140,6 +153,6 @@ void ECU2_Application(void)
 
 int main(void)
 {
-	ECU2_Application();
-	//ECU1_Application();
+//	ECU2_Application();
+	ECU1_Application();
 }
