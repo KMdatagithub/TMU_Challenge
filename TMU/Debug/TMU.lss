@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000238  00000000  00000000  00000b04  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001ff0  00000000  00000000  00000d3c  2**0
+  6 .debug_info   00002028  00000000  00000000  00000d3c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000009a9  00000000  00000000  00002d2c  2**0
+  7 .debug_abbrev 000009a9  00000000  00000000  00002d64  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000007e1  00000000  00000000  000036d5  2**0
+  8 .debug_line   000007e4  00000000  00000000  0000370d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000724  00000000  00000000  00003eb8  2**2
+  9 .debug_frame  00000724  00000000  00000000  00003ef4  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000009eb  00000000  00000000  000045dc  2**0
+ 10 .debug_str    000009eb  00000000  00000000  00004618  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001bdb  00000000  00000000  00004fc7  2**0
+ 11 .debug_loc    00001bdb  00000000  00000000  00005003  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000001d8  00000000  00000000  00006ba2  2**0
+ 12 .debug_ranges 000001d8  00000000  00000000  00006bde  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -179,7 +179,7 @@ void ECU2_Application(void)
 	BCM_Init(&BCM1);
  10a:	cf 01       	movw	r24, r30
  10c:	0e 94 48 04 	call	0x890	; 0x890 <BCM_Init>
-	BCM_Setup_RxBuffer(&BCM1, 50, rxBuffer, rxnotify);
+	BCM_Setup_RxBuffer(&BCM1, RECEIVE_MAX, rxBuffer, rxnotify);
  110:	29 e4       	ldi	r18, 0x49	; 73
  112:	30 e0       	ldi	r19, 0x00	; 0
  114:	46 e9       	ldi	r20, 0x96	; 150

@@ -9,12 +9,16 @@
 #include "util/softwareDelay.h"
 
 
+#define TRANSMIT_MAX 50
+#define RECEIVE_MAX  50
+
+
 BCM_cfg_s BCM1;
 UART_cfg UART1;
 
 
-uint8_t rxBuffer[50];
-uint8_t txBuffer[50];
+uint8_t rxBuffer[RECEIVE_MAX];
+uint8_t txBuffer[TRANSMIT_MAX];
 volatile uint8_t a_index= ZERO;
 volatile uint8_t msg_len = ZERO;
 volatile uint8_t g_TxBuffer_Len = ZERO;
@@ -46,9 +50,16 @@ void rxnotify(enum_BcmStatus st)
 
 void UART_ISR_RXcbf(void)
 {
-	txBuffer[g_UART_TXindex++] = UART_Read();
-	if(txBuffer[g_UART_TXindex-1] == 0x0D)
-	{	
+	if(g_UART_TXindex < TRANSMIT_MAX)
+	{
+		txBuffer[g_UART_TXindex++] = UART_Read();
+		if(txBuffer[g_UART_TXindex-1] == 0x0D)
+		{
+			BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
+		}
+	}
+	else
+	{
 		BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
 	}
 }
@@ -104,7 +115,7 @@ void ECU2_Application(void)
 	BCM1.Mode = BCM_Rx_Mode;
 	BCM1.Protocol = SPI_Protocol;
 	BCM_Init(&BCM1);
-	BCM_Setup_RxBuffer(&BCM1, 50, rxBuffer, rxnotify);
+	BCM_Setup_RxBuffer(&BCM1, RECEIVE_MAX, rxBuffer, rxnotify);
 	
 	/*-------------[ UART Initialization ]-------------*/
 	UART1.baudrate   = 9600;
