@@ -17,16 +17,28 @@ uint8_t rxBuffer[50];
 uint8_t txBuffer[50];
 volatile uint8_t a_index= ZERO;
 volatile uint8_t msg_len = ZERO;
-uint8_t g_TxBuffer_Len = ZERO;
-uint8_t g_UART_TXindex = ZERO;
+volatile uint8_t g_TxBuffer_Len = ZERO;
+volatile uint8_t g_UART_TXindex = ZERO;
 
 
 
 /* TX Completion Notification Routine */
-void txnotify(enum_BcmStatus st){}
+void txnotify(enum_BcmStatus st)
+{
+	/* Debug Point */
+	TCNT1L = g_UART_TXindex;
+	/* Debug Point */
+	
+	g_UART_TXindex = ZERO;
+	BCM_DeInit(&BCM1);
+	BCM1.BCM_CH_ID = 1;
+	BCM1.Mode = BCM_Tx_Mode;
+	BCM1.Protocol = SPI_Protocol;
+	BCM_Init(&BCM1);
+}
 	
 /* RX Completion Notification Routine */
-void omgplzzz(enum_BcmStatus st)
+void rxnotify(enum_BcmStatus st)
 {	
 	msg_len = BCM_Get_msgLEN();
 	UART_Write(rxBuffer[a_index++]);
@@ -36,9 +48,8 @@ void UART_ISR_RXcbf(void)
 {
 	txBuffer[g_UART_TXindex++] = UART_Read();
 	if(txBuffer[g_UART_TXindex-1] == 0x0D)
-	{
+	{	
 		BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
-		g_UART_TXindex = ZERO;
 	}
 }
 
@@ -93,7 +104,7 @@ void ECU2_Application(void)
 	BCM1.Mode = BCM_Rx_Mode;
 	BCM1.Protocol = SPI_Protocol;
 	BCM_Init(&BCM1);
-	BCM_Setup_RxBuffer(&BCM1, 50, rxBuffer, omgplzzz);
+	BCM_Setup_RxBuffer(&BCM1, 50, rxBuffer, rxnotify);
 	
 	/*-------------[ UART Initialization ]-------------*/
 	UART1.baudrate   = 9600;
@@ -117,5 +128,5 @@ void ECU2_Application(void)
 int main(void)
 {
 	ECU2_Application();
-	ECU1_Application();
+	//ECU1_Application();
 }

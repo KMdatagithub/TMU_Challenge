@@ -322,7 +322,7 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 			{
 				a_BCM_SPI.clockSPI = Fosc128;
 				a_BCM_SPI.dataorder = MSB;
-				a_BCM_SPI.phasePolarityMode = mode3;
+				a_BCM_SPI.phasePolarityMode = mode0;
 				
 				/*--------[ Check The BCM Mode OF Operation ]--------*/
 				switch(g_BCM_EXcfg.Mode)
