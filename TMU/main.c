@@ -33,7 +33,7 @@ void txnotify(enum_BcmStatus st)
 	TCNT1L = g_UART_TXindex;
 	/* Debug Point */
 	
-	g_UART_TXindex = ZERO;
+	//g_UART_TXindex = ZERO;
 	BCM_DeInit(&BCM1);
 	BCM1.BCM_CH_ID = 1;
 	BCM1.Mode = BCM_Tx_Mode;
@@ -140,6 +140,6 @@ void ECU2_Application(void)
 
 int main(void)
 {
-	//ECU2_Application();
-	ECU1_Application();
+	ECU2_Application();
+	//ECU1_Application();
 }
