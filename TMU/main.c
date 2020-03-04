@@ -30,11 +30,9 @@ volatile uint8_t g_UART_TXindex = ZERO;
 /* TX Completion Notification Routine */
 void txnotify(enum_BcmStatus st)
 {
-	/* Debug Point */
-	
-	/* Debug Point */
+
 	BCM_sending = FALSE ;
-	TCNT2 = 5 ;
+	
 	g_UART_TXindex = ZERO;
 	BCM_DeInit(&BCM1);
 	BCM1.BCM_CH_ID = 1;
@@ -61,7 +59,7 @@ void UART_ISR_RXcbf(void)
 			txBuffer[g_UART_TXindex++] = UART_Read();
 			if(txBuffer[g_UART_TXindex-1] == 0x0D)
 			{
-				TCNT1L = 5 ;
+				
 				BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
 				//BCM_sending = TRUE ;
 				g_UART_TXindex = ZERO;
