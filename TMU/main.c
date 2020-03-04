@@ -9,8 +9,8 @@
 #include "util/softwareDelay.h"
 
 
-#define TRANSMIT_MAX 50
-#define RECEIVE_MAX  50
+#define TRANSMIT_MAX 255
+#define RECEIVE_MAX  255
 
 
 BCM_cfg_s BCM1;
@@ -30,19 +30,13 @@ volatile uint8_t g_UART_TXindex = ZERO;
 /* TX Completion Notification Routine */
 void txnotify(enum_BcmStatus st)
 {
-	/* Debug Point */
-	
-	/* Debug Point */
 	BCM_sending = FALSE ;
-	TCNT2 = 5 ;
 	g_UART_TXindex = ZERO;
 	BCM_DeInit(&BCM1);
 	BCM1.BCM_CH_ID = 1;
 	BCM1.Mode = BCM_Tx_Mode;
 	BCM1.Protocol = SPI_Protocol;
 	BCM_Init(&BCM1);
-	
-	
 }
 	
 /* RX Completion Notification Routine */
@@ -61,20 +55,16 @@ void UART_ISR_RXcbf(void)
 			txBuffer[g_UART_TXindex++] = UART_Read();
 			if(txBuffer[g_UART_TXindex-1] == 0x0D)
 			{
-				TCNT1L = 5 ;
 				BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
-				//BCM_sending = TRUE ;
 				g_UART_TXindex = ZERO;
 			}
 		}
 		else
 		{
 			BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
-			TCNT0 = 5 ;
 			BCM_sending = TRUE;
-			g_UART_TXindex = ZERO;
-			
-			}
+			g_UART_TXindex = ZERO;	
+		}
 	}
 	
 }
@@ -153,6 +143,6 @@ void ECU2_Application(void)
 
 int main(void)
 {
-//	ECU2_Application();
-	ECU1_Application();
+	ECU2_Application();
+	//ECU1_Application();
 }
