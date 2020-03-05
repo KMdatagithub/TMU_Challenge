@@ -73,6 +73,9 @@ volatile static uint8_t g_ID_State  = S_NOK;
 volatile static uint8_t g_LEN_State = S_NOK;
 volatile static uint8_t g_CS_Calculated = ZERO;
 
+/* BCM Static Functions */
+static ERROR_STATUS BCM_TxUnlock(BCM_EXcfg_s* a_exBCM);
+static ERROR_STATUS BCM_Buffer_Lock(BCM_EXcfg_s* a_exBCM);
 
 /*===================================================================================*/
 /*----------------------------[ BCM Functions' Definitions ]-------------------------*/
@@ -140,10 +143,10 @@ static void BCM_Rx_ISR_cbf(void)
 		}
 		else
 		{
-		
 			g_BCM_EXcfg.MSG_Len = a_RX_Byte;
 			g_BCM_EXcfg.Count++;
 			g_BCM_EXcfg.FSM_State = ReceivingByte_State;
+			BCM_Buffer_Lock(&g_BCM_EXcfg);
 		}
 	}
 	else if(g_BCM_EXcfg.Count-2 < g_BCM_EXcfg.MSG_Len)
@@ -183,8 +186,8 @@ void BCM_Rx_Dispatcher(void)
 }
 
 /* TX Dispatcher */
-void BCM_Tx_Dispatcher(void){
-	
+void BCM_Tx_Dispatcher(void)
+{	
 	switch(g_BCM_EXcfg.FSM_State)
 	{
 		case IDLE_State :
@@ -232,6 +235,7 @@ void BCM_Tx_Dispatcher(void){
 			g_BCM_EXcfg.FSM_State = SendingByte_State ;
 			
 			}else{
+				BCM_TxUnlock(&g_BCM_EXcfg);
 				g_BCM_EXcfg.BCM_notify_cbf(10);
 			g_BCM_EXcfg.FSM_State = IDLE_State ;
 		}
@@ -396,34 +400,153 @@ ERROR_STATUS BCM_DeInit(BCM_cfg_s* a_BCM)
 }
 
 
-ERROR_STATUS BCM_Send(uint8_t* Buffer, uint16_t Buf_Len, BCM_cfg_s* My_BCM, Notify_FunPtr Notify_Ptr ){
-	
-	/* lock the buffer so user can't chance on it  */
-	
-	g_BCM_EXcfg.Lock_State = Buffer_Locked ;
-	
-	/*set the buffer address, length, and notification function*/
-	
-	g_BCM_EXcfg.Buffer = Buffer;
-	g_BCM_EXcfg.Buf_Len = Buf_Len;
-	g_BCM_EXcfg.BCM_notify_cbf = Notify_Ptr;
-	
-	switch(g_BCM_EXcfg.Protocol){
+ERROR_STATUS BCM_Send(uint8_t* Buffer, uint16_t Buf_Len, BCM_cfg_s* My_BCM, Notify_FunPtr Notify_Ptr )
+{
+	ERROR_STATUS errorStatus = BCM_ERROR + E_OK;
+
+	/*-------------[ Check BCM's Pointer Validity ]-------------*/
+	if(My_BCM != NULL && Buffer != NULL && Notify_Ptr != NULL)
+	{
+		/* search for The corresponding BCM Struct ID */ 
+		/* lock the buffer so user can't chance on it */
+		if(g_BCM_EXcfg.Lock_State == Buffer_Unlocked)
+		{
+			BCM_Buffer_Lock(&g_BCM_EXcfg);
+		}
+		else
+		{
+			/* The Buffer IS Already Locked, Means It's Sending Now.. */
+			errorStatus = BCM_ERROR + BUFFER_ALREADY_LOCKED;
+		}
 		
-		case UART_Protocol :
-			UART_Write(BCM_ID);
-		break;
-		case  SPI_Protocol :
-			_SPISend(BCM_ID);
-		break;
+		/*set the buffer address, length, and notification function*/
+		g_BCM_EXcfg.Buffer = Buffer;
+		g_BCM_EXcfg.Buf_Len = Buf_Len;
+		g_BCM_EXcfg.BCM_notify_cbf = Notify_Ptr;
+		
+		switch(g_BCM_EXcfg.Protocol)
+		{	
+			case UART_Protocol :
+				UART_Write(BCM_ID);
+				break;
+			case  SPI_Protocol :
+				_SPISend(BCM_ID);
+				break;
+		}
+		g_BCM_EXcfg.FSM_State = SendingByte_State;
 		
 	}
-	g_BCM_EXcfg.FSM_State = SendingByte_State ;	
-	return 0 ;
+	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
+	else
+	{
+		errorStatus = NULL_PTR + BCM_ERROR;
+		return errorStatus;
+	}
+	return errorStatus;
 }
 
 
 uint8_t BCM_Get_msgLEN(void)
 {
 	return g_BCM_EXcfg.MSG_Len;
+}
+
+ERROR_STATUS BCM_Get_TxBuf_State(uint8_t* Tx_State, BCM_cfg_s* a_BCM)
+{
+	ERROR_STATUS errorStatus = BCM_ERROR + E_OK;
+
+	/*-------------[ Check BCM's Pointer Validity ]-------------*/
+	if(a_BCM != NULL && Tx_State != NULL)
+	{
+		/* Search For The Corresponding BCM Struct With ID */
+		*Tx_State = g_BCM_EXcfg.Lock_State;
+	}
+	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
+	else
+	{
+		errorStatus = NULL_PTR + BCM_ERROR;
+		return errorStatus;
+	}
+	return errorStatus;
+}
+
+ERROR_STATUS BCM_Get_RxBuf_State(uint8_t* Rx_State, BCM_cfg_s* a_BCM)
+{
+	ERROR_STATUS errorStatus = BCM_ERROR + E_OK;
+
+	/*-------------[ Check BCM's Pointer Validity ]-------------*/
+	if(a_BCM != NULL && Rx_State != NULL)
+	{
+		/* Search For The Corresponding BCM Struct With ID */
+		*Rx_State = g_BCM_EXcfg.Lock_State;
+	}
+	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
+	else
+	{
+		errorStatus = NULL_PTR + BCM_ERROR;
+		return errorStatus;
+	}
+	return errorStatus;
+}
+
+ERROR_STATUS BCM_RxUnlock(BCM_cfg_s* a_BCM)
+{
+	ERROR_STATUS errorStatus = BCM_ERROR + E_OK;
+
+	/*-------------[ Check BCM's Pointer Validity ]-------------*/
+	if(a_BCM != NULL)
+	{
+		/* Search For The Corresponding BCM Structure With ID */
+		if(g_BCM_EXcfg.Lock_State == Buffer_Locked)
+		{
+			g_BCM_EXcfg.Lock_State = Buffer_Unlocked;	
+		}
+		else
+		{
+			errorStatus = BCM_ERROR + BUFFER_ALREADY_UNLOCKED;
+		}
+	}
+	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
+	else
+	{
+		errorStatus = NULL_PTR + BCM_ERROR;
+		return errorStatus;
+	}
+	return errorStatus;
+}
+
+static ERROR_STATUS BCM_Buffer_Lock(BCM_EXcfg_s* a_exBCM)
+{
+	ERROR_STATUS errorStatus = BCM_ERROR + E_OK;
+
+	/*-------------[ Check BCM's Pointer Validity ]-------------*/
+	if(a_exBCM != NULL)
+	{
+		a_exBCM->Lock_State = Buffer_Locked;
+	}
+	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
+	else
+	{
+		errorStatus = NULL_PTR + BCM_ERROR;
+		return errorStatus;
+	}
+	return errorStatus;
+}
+
+static ERROR_STATUS BCM_TxUnlock(BCM_EXcfg_s* a_exBCM)
+{
+	ERROR_STATUS errorStatus = BCM_ERROR + E_OK;
+
+	/*-------------[ Check BCM's Pointer Validity ]-------------*/
+	if(a_exBCM != NULL)
+	{
+		a_exBCM->Lock_State = Buffer_Unlocked;
+	}
+	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
+	else
+	{
+		errorStatus = NULL_PTR + BCM_ERROR;
+		return errorStatus;
+	}
+	return errorStatus;	
 }

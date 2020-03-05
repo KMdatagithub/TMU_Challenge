@@ -59,8 +59,6 @@ ERROR_STATUS BCM_Get_TxBuf_State(uint8_t* Tx_State, BCM_cfg_s*);
 
 ERROR_STATUS BCM_Get_RxBuf_State(uint8_t* Rx_State, BCM_cfg_s*);
 
-ERROR_STATUS BCM_TxUnlock(BCM_cfg_s*);
-
 ERROR_STATUS BCM_RxUnlock(BCM_cfg_s*);
 
 void BCM_Tx_Dispatcher(void);

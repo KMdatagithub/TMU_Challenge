@@ -57,7 +57,7 @@ typedef uint8_t bool;
 /*			 			 defining error status             		        */
 /************************************************************************/
 
-#define ERROR_STATUS	uint8_t
+#define ERROR_STATUS	uint16_t
 #define E_OK			0
 #define E_NOK			1
 

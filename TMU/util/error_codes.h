@@ -11,23 +11,28 @@
 
 /*-----[ Module Error Codes ]-----*/
 
-#define TMR_ERROR   10
-#define TMU_ERROR	20
-#define DIO_ERROR	30
-#define PWM_ERROR   40
-#define UART_ERROR  50
-#define BCM_ERROR   60
+#define TMR_ERROR   100
+#define TMU_ERROR	200
+#define DIO_ERROR	300
+#define PWM_ERROR   400
+#define UART_ERROR  500
+#define BCM_ERROR   600
 
 /*-----[ Special Error Codes ]-----*/
 
-#define E_OK			0
-#define NULL_PTR		1
-#define NOT_INIT		2
-#define ALREADY_INIT    3
-#define INVALID_IN		4
-#define MULTI_STOP		5
-#define MULTI_START		6
-#define FULL_BUFFER		7
+#define E_OK					0
+#define NULL_PTR				1
+#define NOT_INIT				2
+#define ALREADY_INIT			3
+#define INVALID_IN				4
+#define MULTI_STOP				5
+#define MULTI_START				6
+#define FULL_BUFFER				7
+#define BUFFER_ALREADY_UNLOCKED 8
+#define BUFFER_ALREADY_LOCKED   9
+#define WRONG_ID				10
+#define WRONG_CHECKSUM			11
+
 
 
 #endif /* ERROR_CODES_H_ */
