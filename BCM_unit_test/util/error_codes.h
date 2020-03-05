@@ -3,7 +3,7 @@
  *
  * Created: 2/26/2020 11:41:39 AM
  *  Author: Khaled Magdy
- */ 
+ */
 
 
 #ifndef ERROR_CODES_H_
@@ -32,7 +32,7 @@
 #define BUFFER_ALREADY_LOCKED   9
 #define WRONG_ID				10
 #define WRONG_CHECKSUM			11
-
-
+#define DEINIT_WITHOUT_INIT		12
+#define FUCN_IN_DIF_CFG			13
 
 #endif /* ERROR_CODES_H_ */
