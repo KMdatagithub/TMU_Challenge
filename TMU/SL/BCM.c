@@ -54,7 +54,6 @@ typedef struct BCM_EXcfg_s{
 	uint16_t Buf_Len;
  	uint16_t MSG_Len;
 	uint16_t Count;
-	
 	Notify_FunPtr BCM_notify_cbf;
 }BCM_EXcfg_s;
 
@@ -84,7 +83,6 @@ static ERROR_STATUS BCM_Buffer_Lock(BCM_EXcfg_s* a_exBCM);
 
 /*------------[ BCM CallBacks]------------*/
 /* BCM Transmit ISR Call-Back Function */
-
 static void BCM_Tx_ISR_cbf(void)
 {	if (g_BCM_EXcfg.FSM_State == SendingByte_State)
 	{
@@ -255,13 +253,6 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 	UART_cfg  a_BCM_UART;
 	SPI_cfg_s a_BCM_SPI; 
 	
-	if (g_BCM_EXcfg.FSM_State==IDLE_State)
-	{
-		 errorStatus =  BCM_ERROR + ALREADY_INIT ;
-		 return errorStatus ;
-	}
-	
-	
 	/*-------------[ Check BCM's Pointer Validity ]-------------*/
 	if(a_BCM != NULL)
 	{
@@ -366,30 +357,48 @@ ERROR_STATUS BCM_Init(BCM_cfg_s* a_BCM)
 }
 
 
+/* BCM Setup RX Buffer */
+
+ERROR_STATUS BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len, uint8_t* a_buffer, Notify_FunPtr a_notify)
+{
+	/* Needs So Much Improvements & Error Checking & More... */
+	
+	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
+	
+	/*-------------[ Check BCM's Pointer Validity ]-------------*/
+	if(a_BCM != NULL)
+	{
+		g_BCM_EXcfg.Buf_Len = a_Buffer_Len;
+		g_BCM_EXcfg.Buffer = a_buffer;
+		g_BCM_EXcfg.FSM_State = IDLE_State;
+		g_BCM_EXcfg.BCM_notify_cbf = a_notify;
+	}
+	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
+	else
+	{
+		errorStatus = NULL_PTR + BCM_ERROR;
+		return errorStatus;
+	}
+	return errorStatus;
+}
+
+
 /* BCM DeInit */
 ERROR_STATUS BCM_DeInit(BCM_cfg_s* a_BCM)
 {
 	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
 	
-	if(a_BCM != NULL)
-	{	
-		
-		/*--------[ Search For That BCM CFG In The Working List ]--------*/
-		if (g_BCM_EXcfg.FSM_State == IDLE_State)
-		{
-			/*--------[ Set That BCM To OFF ]--------*/
-			g_BCM_EXcfg.FSM_State = OFF_State;	
-		}
-	} 
-	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
-	else
-	{
-		return BCM_ERROR + NULL_PTR  ;
-	}
+	/*--------[ Search For That BCM CFG In The Working List ]--------*/
+
+	/*--------[ Set That BCM To OFF ]--------*/
+	g_BCM_EXcfg.FSM_State = OFF_State;
 	
+	
+	errorStatus= BCM_ERROR + E_OK;
+
 	return errorStatus;
 }
-/* BCM_send */
+
 
 ERROR_STATUS BCM_Send(uint8_t* Buffer, uint16_t Buf_Len, BCM_cfg_s* My_BCM, Notify_FunPtr Notify_Ptr )
 {
@@ -398,7 +407,6 @@ ERROR_STATUS BCM_Send(uint8_t* Buffer, uint16_t Buf_Len, BCM_cfg_s* My_BCM, Noti
 	/*-------------[ Check BCM's Pointer Validity ]-------------*/
 	if(My_BCM != NULL && Buffer != NULL && Notify_Ptr != NULL)
 	{
-		
 		/* search for The corresponding BCM Struct ID */ 
 		/* lock the buffer so user can't chance on it */
 		if(g_BCM_EXcfg.Lock_State == Buffer_Unlocked)
@@ -437,46 +445,6 @@ ERROR_STATUS BCM_Send(uint8_t* Buffer, uint16_t Buf_Len, BCM_cfg_s* My_BCM, Noti
 	return errorStatus;
 }
 
-/* BCM Setup RX Buffer */
-
-ERROR_STATUS BCM_Setup_RxBuffer(BCM_cfg_s* a_BCM, uint16_t a_Buffer_Len, uint8_t* a_buffer, Notify_FunPtr a_notify)
-{
-	/* Needs So Much Improvements & Error Checking & More... */
-	
-	ERROR_STATUS errorStatus = BCM_ERROR + E_NOK;
-	
-	/*-------------[ Check BCM's Pointer Validity ]-------------*/
-	if(a_BCM != NULL && a_buffer != NULL && a_notify != NULL)
-	{
-		
-		/*-------------[ Check BCM's state if OFF_state means module not initialized  ]-------------*/
-		if (g_BCM_EXcfg.FSM_State==OFF_State )
-		{
-			errorStatus = BCM_ERROR + NOT_INIT;
-			return errorStatus ;
-			
-		/*-------------[ Check BCM's state if ReceiveComplete_State or ReceivingByte_State means module is in the middle of the processes ]-------------*/
-		}else if(g_BCM_EXcfg.FSM_State== ReceiveComplete_State || g_BCM_EXcfg.FSM_State == ReceivingByte_State)
-		{
-			errorStatus = BCM_ERROR + MULTI_START;
-			return errorStatus ;
-		}
-		
-		g_BCM_EXcfg.Buf_Len = a_Buffer_Len;
-		g_BCM_EXcfg.Buffer = a_buffer;
-		
-		g_BCM_EXcfg.BCM_notify_cbf = a_notify;
-	}
-	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
-	else
-	{
-		errorStatus = NULL_PTR + BCM_ERROR;
-		return errorStatus;
-	}
-	return errorStatus;
-}
-
-
 
 uint8_t BCM_Get_msgLEN(void)
 {
@@ -490,19 +458,8 @@ ERROR_STATUS BCM_Get_TxBuf_State(uint8_t* Tx_State, BCM_cfg_s* a_BCM)
 	/*-------------[ Check BCM's Pointer Validity ]-------------*/
 	if(a_BCM != NULL && Tx_State != NULL)
 	{
-		/* Search For The Corresponding BCM Struct With ID  */
-		
-		/* if the BCMmodule not initialized return error */
-		
-		if (g_BCM_EXcfg.FSM_State == OFF_State)
-		{
-			errorStatus = BCM_ERROR + NOT_INIT ;
-		}else
-		{
-			*Tx_State = g_BCM_EXcfg.Lock_State;
-		}
-		
-		
+		/* Search For The Corresponding BCM Struct With ID */
+		*Tx_State = g_BCM_EXcfg.Lock_State;
 	}
 	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
 	else
@@ -520,18 +477,8 @@ ERROR_STATUS BCM_Get_RxBuf_State(uint8_t* Rx_State, BCM_cfg_s* a_BCM)
 	/*-------------[ Check BCM's Pointer Validity ]-------------*/
 	if(a_BCM != NULL && Rx_State != NULL)
 	{
-		/* Search For The Corresponding BCM Struct With ID  */
-		
-		/* if the BCMmodule not initialized return error */
-		
-		if (g_BCM_EXcfg.FSM_State == OFF_State)
-		{
-			errorStatus = BCM_ERROR + NOT_INIT ;
-		}else
-		{
-			*Rx_State = g_BCM_EXcfg.Lock_State;
-		}
-		
+		/* Search For The Corresponding BCM Struct With ID */
+		*Rx_State = g_BCM_EXcfg.Lock_State;
 	}
 	/*-------------[ In Case Of BCM's Null Pointer ]-------------*/
 	else
