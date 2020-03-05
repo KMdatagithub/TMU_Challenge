@@ -21,9 +21,9 @@ UART_cfg UART1;
 
 uint8_t rxBuffer[RECEIVE_MAX];
 uint8_t txBuffer[TRANSMIT_MAX];
+uint8_t msg_len = ZERO;
 
 volatile uint8_t a_index        = ZERO;
-volatile uint8_t msg_len        = ZERO;
 volatile uint8_t g_TxBuffer_Len = ZERO;
 volatile uint8_t g_UART_TXindex = ZERO;
 volatile uint8_t BCM_sending    = FALSE;
@@ -47,7 +47,7 @@ void txnotify(enum_BcmStatus st)
 /* RX Completion Notification Routine */
 void rxnotify(enum_BcmStatus st)
 {	
-	msg_len = BCM_Get_msgLEN();
+	BCM_Get_msgLEN(&msg_len);
 	UART_Write(rxBuffer[a_index++]);
 }
 
