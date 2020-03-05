@@ -8,24 +8,29 @@
 #include "MCAL/UART.h"
 #include "util/softwareDelay.h"
 
+/**=========================================================================*
+ *								Defines & Globals							*
+ *==========================================================================*/
 
 #define TRANSMIT_MAX 255
 #define RECEIVE_MAX  255
-
+#define ENTER_KEY	 0x0D
 
 BCM_cfg_s BCM1;
 UART_cfg UART1;
 
-volatile uint8_t BCM_sending = FALSE ;
-
 uint8_t rxBuffer[RECEIVE_MAX];
 uint8_t txBuffer[TRANSMIT_MAX];
-volatile uint8_t a_index= ZERO;
-volatile uint8_t msg_len = ZERO;
+
+volatile uint8_t a_index        = ZERO;
+volatile uint8_t msg_len        = ZERO;
 volatile uint8_t g_TxBuffer_Len = ZERO;
 volatile uint8_t g_UART_TXindex = ZERO;
+volatile uint8_t BCM_sending    = FALSE;
 
-
+/**=========================================================================*
+ *							BCM Notification Functions						*
+ *==========================================================================*/
 
 /* TX Completion Notification Routine */
 void txnotify(enum_BcmStatus st)
@@ -46,6 +51,11 @@ void rxnotify(enum_BcmStatus st)
 	UART_Write(rxBuffer[a_index++]);
 }
 
+/**=========================================================================*
+ *							UART TX / RX ISR Handlers						*
+ *==========================================================================*/
+
+/* UART Reception Completion ISR Handler*/
 void UART_ISR_RXcbf(void)
 {
 	if (BCM_sending==FALSE)
@@ -53,7 +63,7 @@ void UART_ISR_RXcbf(void)
 		if(g_UART_TXindex < TRANSMIT_MAX)
 		{
 			txBuffer[g_UART_TXindex++] = UART_Read();
-			if(txBuffer[g_UART_TXindex-1] == 0x0D)
+			if(txBuffer[g_UART_TXindex-1] == ENTER_KEY)
 			{
 				BCM_Send(txBuffer, g_UART_TXindex, &BCM1, txnotify);
 				g_UART_TXindex = ZERO;
@@ -69,6 +79,7 @@ void UART_ISR_RXcbf(void)
 	
 }
 
+/* UART Transmission Completion ISR Handler */
 void UART_ISR_TXcbf(void)
 {
 	if(a_index < msg_len)
@@ -85,6 +96,10 @@ void UART_ISR_TXcbf(void)
 		a_index = ZERO;
 	}
 }
+
+/**=========================================================================*
+ *					BCM Applications For ECU1 & ECU2						*
+ *==========================================================================*/
 
 void ECU1_Application(void)
 {
@@ -140,6 +155,10 @@ void ECU2_Application(void)
 		BCM_Rx_Dispatcher();
 	}
 }
+
+/**=========================================================================*
+ *								Main Function								*
+ *==========================================================================*/
 
 int main(void)
 {
