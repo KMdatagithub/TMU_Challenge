@@ -145,6 +145,6 @@ void BCM_Rx_Dispatcher(void);
  * Description: Gets The Message Length From The BCM Receiver
  * 			
  */
-uint8_t BCM_Get_msgLEN(void);
+ERROR_STATUS BCM_Get_msgLEN(uint8_t* msg_Lentgh);
 
 #endif /* BCM_H_ */
