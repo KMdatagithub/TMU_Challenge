@@ -48,8 +48,8 @@ C_SRCS +=  \
 ../MCAL/Timer.c \
 ../MCAL/UART.c \
 ../SL/BCM.c \
-../SL/TMU.c \
-../SL/TMU_PBcfg.c \
+../SL/SOS.c \
+../SL/SOS_PBcfg.c \
 ../util/softwareDelay.c
 
 
@@ -67,8 +67,8 @@ MCAL/SPI__.o \
 MCAL/Timer.o \
 MCAL/UART.o \
 SL/BCM.o \
-SL/TMU.o \
-SL/TMU_PBcfg.o \
+SL/SOS.o \
+SL/SOS_PBcfg.o \
 util/softwareDelay.o
 
 OBJS_AS_ARGS +=  \
@@ -79,8 +79,8 @@ MCAL/SPI__.o \
 MCAL/Timer.o \
 MCAL/UART.o \
 SL/BCM.o \
-SL/TMU.o \
-SL/TMU_PBcfg.o \
+SL/SOS.o \
+SL/SOS_PBcfg.o \
 util/softwareDelay.o
 
 C_DEPS +=  \
@@ -91,8 +91,8 @@ MCAL/SPI__.d \
 MCAL/Timer.d \
 MCAL/UART.d \
 SL/BCM.d \
-SL/TMU.d \
-SL/TMU_PBcfg.d \
+SL/SOS.d \
+SL/SOS_PBcfg.d \
 util/softwareDelay.d
 
 C_DEPS_AS_ARGS +=  \
@@ -103,8 +103,8 @@ MCAL/SPI__.d \
 MCAL/Timer.d \
 MCAL/UART.d \
 SL/BCM.d \
-SL/TMU.d \
-SL/TMU_PBcfg.d \
+SL/SOS.d \
+SL/SOS_PBcfg.d \
 util/softwareDelay.d
 
 OUTPUT_FILE_PATH +=TMU.elf

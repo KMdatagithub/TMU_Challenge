@@ -28,15 +28,15 @@
     <eraseonlaunchrule>1</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.18.1" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.18.1" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
     <ResetRule>0</ResetRule>
     <EraseKey />
@@ -155,16 +155,16 @@
     <Compile Include="SL\BCM_cfg.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SL\TMU.c">
+    <Compile Include="SL\SOS.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SL\TMU.h">
+    <Compile Include="SL\SOS.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SL\TMU_cfg.h">
+    <Compile Include="SL\SOS_cfg.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SL\TMU_PBcfg.c">
+    <Compile Include="SL\SOS_PBcfg.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="util\error_codes.h">

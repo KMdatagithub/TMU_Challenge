@@ -4,8 +4,8 @@
  * Created: 2/23/2020 9:36:01 PM
  *  Author: Khaled Magdy
  */ 
-#include "TMU.h"
-#include "TMU_cfg.h"
+#include "SOS.h"
+#include "SOS_cfg.h"
 
 
 typedef struct Consumer_s{

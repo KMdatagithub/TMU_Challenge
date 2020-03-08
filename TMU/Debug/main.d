@@ -1,30 +1,33 @@
-main.d main.o: .././main.c .././SL/BCM.h .././SL/../util/error_codes.h \
- .././SL/../util/std_types.h .././MCAL/UART.h \
- .././MCAL/../util/registers.h .././MCAL/../util/std_types.h \
- .././MCAL/../util/interrupt.h .././MCAL/../util/registers.h \
- .././MCAL/UART_cfg.h .././MCAL/UART.h .././util/softwareDelay.h \
- .././util/std_types.h
+main.d main.o: .././main.c .././SL/SOS.h .././SL/../MCAL/Timer.h \
+ .././SL/../MCAL/../util/std_types.h .././SL/../MCAL/../util/registers.h \
+ .././SL/../MCAL/../util/std_types.h .././SL/../MCAL/../util/interrupt.h \
+ .././SL/../MCAL/../util/registers.h .././SL/../util/std_types.h \
+ .././SL/../util/interrupt.h .././SL/../util/error_codes.h \
+ .././MCAL/DIO.h .././MCAL/../util/std_types.h \
+ .././MCAL/../util/registers.h
 
-.././SL/BCM.h:
+.././SL/SOS.h:
 
-.././SL/../util/error_codes.h:
+.././SL/../MCAL/Timer.h:
+
+.././SL/../MCAL/../util/std_types.h:
+
+.././SL/../MCAL/../util/registers.h:
+
+.././SL/../MCAL/../util/std_types.h:
+
+.././SL/../MCAL/../util/interrupt.h:
+
+.././SL/../MCAL/../util/registers.h:
 
 .././SL/../util/std_types.h:
 
-.././MCAL/UART.h:
+.././SL/../util/interrupt.h:
 
-.././MCAL/../util/registers.h:
+.././SL/../util/error_codes.h:
+
+.././MCAL/DIO.h:
 
 .././MCAL/../util/std_types.h:
 
-.././MCAL/../util/interrupt.h:
-
 .././MCAL/../util/registers.h:
-
-.././MCAL/UART_cfg.h:
-
-.././MCAL/UART.h:
-
-.././util/softwareDelay.h:
-
-.././util/std_types.h:

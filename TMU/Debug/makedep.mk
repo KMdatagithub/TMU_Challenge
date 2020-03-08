@@ -16,9 +16,9 @@ MCAL\UART.c
 
 SL\BCM.c
 
-SL\TMU.c
+SL\SOS.c
 
-SL\TMU_PBcfg.c
+SL\SOS_PBcfg.c
 
 util\softwareDelay.c
 
