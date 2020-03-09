@@ -6,45 +6,18 @@
  */ 
 
 #include "SL/SOS.h"
-#include "SL/BCM.h"
 #include "MCAL/DIO.h"
-#include "MCAL/UART.h"
 #include <avr/sleep.h>
 
 /**=========================================================================*
  *								Defines & Globals							*
  *==========================================================================*/
 
-#define TRANSMIT_MAX 500
-#define ENTER_KEY	 0x0D
-
-BCM_cfg_s BCM1;
-UART_cfg UART1;
 DIO_Cfg_s g_LED1;
 DIO_Cfg_s g_LED2;
 DIO_Cfg_s g_LED3;
 DIO_Cfg_s Test_Pin;
-TMU_cfg_s TMU1;
-
-uint8_t txBuffer[TRANSMIT_MAX];
-uint8_t msg_len = ZERO;
-
-volatile uint8_t a_index        = ZERO;
-volatile uint8_t g_TxBuffer_Len = ZERO;
-volatile uint8_t g_UART_TXindex = ZERO;
-volatile uint8_t BCM_sending    = FALSE;
-
-/**=========================================================================*
- *							BCM Notification Functions						*
- *==========================================================================*/
-
-/* TX Completion Notification Routine */
-void txnotify(enum_BcmStatus st)
-{
-	BCM_sending = FALSE ;
-	g_UART_TXindex = ZERO;
-	BCM_DeInit(&BCM1);
-}
+SOS_cfg_s MySOS;
 
 /*==========================================================================*/
 
@@ -56,6 +29,8 @@ void CPU_Sleep(void)
 }
 
 /*==========================================================================*/
+
+void Dummy(void){}
 
 void ToggleLED1()
 {
@@ -99,31 +74,19 @@ int main(void)
 	Init_LEDs();
 		
 	/*-------------[ TMU Initialization ]-------------*/
-	TMU1.Tick_Time = 1;
-	TMU1.Timer_ID = TIMER_CH0;
-	TMU_Init(&TMU1);
+	MySOS.Tick_Time = 1;
+	MySOS.Timer_ID = TIMER_CH0;
+	SOS_Init(&MySOS);
 	
-	/*----------[ Start 3 Different Consumers ]---------*/
-	/*[[ TMU_Srart(Consumer_FunPtr, ConsumerID, Periodicity, Time_IN_ms); ]]*/
-	TMU_Start(ToggleLED1, 100, PERIODIC, 100);
-	TMU_Start(ToggleLED2, 110, PERIODIC, 300);
-	TMU_Start(ToggleLED3, 120, ONESHOT, 3000);
-	
-	/*-------------[ BCM Initialization ]-------------*/
-	BCM1.BCM_CH_ID = 1;
-	BCM1.Mode = BCM_Tx_Mode;
-	BCM1.Protocol = SPI_Protocol;
-	BCM_Init(&BCM1);
-	BCM_Send(txBuffer, TRANSMIT_MAX, &BCM1, txnotify);
+	/*----------[ Start 3 Different Tasks ]---------*/
+	/*[[ TMU_Srart(Task_FunPtr, TaskID, Periodicity, Time_IN_ms); ]]*/
+	Start_Task(ToggleLED1, 100, PERIODIC, 100, 5, Dummy, Dummy);
+	Start_Task(ToggleLED2, 110, PERIODIC, 300, 15, Dummy, Dummy);
+	Start_Task(ToggleLED3, 120, ONESHOT, 3000, 25, Dummy, Dummy);
 	
 	/*-------------[ SUPER LOOP ]-------------*/
 	while (1)
 	{
-		DIO_Write(Test_Pin.GPIO, Test_Pin.pins, HIGH);
-		BCM_Tx_Dispatcher();
-		TMU_Dispatcher();
-		DIO_Write(Test_Pin.GPIO, Test_Pin.pins, LOW);
-		CPU_Sleep();
-		// CPU Load Is Found To Be 3% At The First Few Seconds And It Drops Down To 2% Thereafter
+		SOS_Run();
 	}
 }
