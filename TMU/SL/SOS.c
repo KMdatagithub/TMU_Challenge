@@ -93,8 +93,10 @@ ERROR_STATUS SOS_Init(SOS_cfg_s* a_SOS_s)
 		/*  Initialize The Request Buffer  */
 		for(index = 0; index < REQUEST_BUFFER_LEN; index++)
 		{
-			g_RequestBuffer[index].State = INACTIVE;
-			g_RequestBuffer[index].Task_Ptr = NULL;
+			g_RequestBuffer[index].State     = INACTIVE;
+			g_RequestBuffer[index].Task_Ptr  = NULL;
+			g_RequestBuffer[index].Pre_Hook  = NULL;
+			g_RequestBuffer[index].Post_Hook = NULL;
 		}
 	}
 	/*-------------[ In Case Of TMU's Null Pointer ]-------------*/
@@ -260,10 +262,6 @@ void SOS_Run(void)
 		/* Execute The Ready Tasks One By One (In Priority Order) */
 		for(a_s16_index = ZERO; g_ReadyTasks[a_s16_index] != -1; a_s16_index++)
 		{
-			/*--[ Debug Point ]--*/
-			TCNT2 = g_ReadyTasks[a_s16_index];
-			_delay_ms(1000);
-			/*--[ Debug Point ]--*/
 			g_RequestBuffer[g_ReadyTasks[a_s16_index]].Pre_Hook();
 			g_RequestBuffer[g_ReadyTasks[a_s16_index]].Task_Ptr();
 			g_RequestBuffer[g_ReadyTasks[a_s16_index]].Post_Hook();

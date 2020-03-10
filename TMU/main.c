@@ -62,7 +62,6 @@ void Init_LEDs(void)
 	g_LED3.dir  = OUTPUT;
 	g_LED3.pins = BIT6;
 	DIO_init(&g_LED3);
-	DIO_Write(g_LED3.GPIO, g_LED3.pins, HIGH);
 	Test_Pin.dir = OUTPUT;
 	Test_Pin.GPIO = GPIOD;
 	Test_Pin.pins = BIT0;
@@ -82,10 +81,10 @@ int main(void)
 	SOS_Init(&MySOS);
 	
 	/*----------[ Start 3 Different Tasks ]---------*/
-	/*[[ TMU_Srart(Task_FunPtr, TaskID, Periodicity, Time_IN_ms); ]]*/
-	Start_Task(ToggleLED1, 100, PERIODIC, 8, 0, Dummy, Dummy);
-	Start_Task(ToggleLED2, 110, PERIODIC, 5, 0, Dummy, Dummy);
-	Start_Task(ToggleLED3, 120, PERIODIC, 3, 0, Dummy, Dummy);
+	/*[[ TMU_Srart(Task_FunPtr, TaskID, Periodicity, Time_IN_ms, Priority, PreHook, PostHook); ]]*/
+	Start_Task(ToggleLED1, 100, PERIODIC, 50, 10, Dummy, Dummy);
+	Start_Task(ToggleLED2, 110, PERIODIC, 50, 5, Dummy, Dummy);
+	Start_Task(ToggleLED3, 120, PERIODIC, 50, 8, Dummy, Dummy);
 	
 	/*-------------[ SUPER LOOP ]-------------*/
 	while (1)
