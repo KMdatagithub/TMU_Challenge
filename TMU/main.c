@@ -30,7 +30,10 @@ void CPU_Sleep(void)
 
 /*==========================================================================*/
 
-void Dummy(void){}
+void Dummy(void)
+{
+	DIO_Toggle(Test_Pin.GPIO, Test_Pin.pins);
+}
 
 void ToggleLED1()
 {
@@ -80,9 +83,9 @@ int main(void)
 	
 	/*----------[ Start 3 Different Tasks ]---------*/
 	/*[[ TMU_Srart(Task_FunPtr, TaskID, Periodicity, Time_IN_ms); ]]*/
-	Start_Task(ToggleLED1, 100, PERIODIC, 100, 5, Dummy, Dummy);
-	Start_Task(ToggleLED2, 110, PERIODIC, 300, 15, Dummy, Dummy);
-	Start_Task(ToggleLED3, 120, ONESHOT, 3000, 25, Dummy, Dummy);
+	Start_Task(ToggleLED1, 100, PERIODIC, 8, 0, Dummy, Dummy);
+	Start_Task(ToggleLED2, 110, PERIODIC, 5, 0, Dummy, Dummy);
+	Start_Task(ToggleLED3, 120, PERIODIC, 3, 0, Dummy, Dummy);
 	
 	/*-------------[ SUPER LOOP ]-------------*/
 	while (1)

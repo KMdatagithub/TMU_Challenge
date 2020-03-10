@@ -23,9 +23,9 @@ typedef struct Task_s{
 } Task_s;
 
 static Timer_cfg_s g_SOS_TMR;
-static SOS_cfg_s   g_SOS = {ZERO, ZERO, DISABLED};
+static SOS_cfg_s   g_SOS = {ZERO, ZERO, DISABLED, NULL};
 static Task_s  g_RequestBuffer[REQUEST_BUFFER_LEN];
-static sint8_t g_ReadyTasks[REQUEST_BUFFER_LEN];
+static sint16_t g_ReadyTasks[REQUEST_BUFFER_LEN];
 
 volatile static uint16_t g_ReqBuffer_Index   = ZERO;
 volatile static uint8_t  g_TMR_Ticks_Changed = ZERO;
@@ -107,7 +107,7 @@ ERROR_STATUS SOS_Init(SOS_cfg_s* a_SOS_s)
 }
 
 
-ERROR_STATUS Start_Task(FunPtr a_TaskFun, uint16_t a_TaskID, uint8_t a_Periodic_OneShot, uint32_t a_Time, uint8_t a_Periority, FunPtr PreHook, FunPtr PostHook)
+ERROR_STATUS Start_Task(FunPtr a_TaskFun, uint16_t a_TaskID, uint8_t a_Periodic_OneShot, uint32_t a_Time, uint8_t a_Priority, FunPtr PreHook, FunPtr PostHook)
 {
 	ERROR_STATUS a_errorStatus = E_OK;
 	uint16_t index = 0;
@@ -115,10 +115,12 @@ ERROR_STATUS Start_Task(FunPtr a_TaskFun, uint16_t a_TaskID, uint8_t a_Periodic_
 	/*  Create New Consumer Instance & Initialize It  */
 	Task_s a_NewTask;
 	a_NewTask.Task_Ptr = a_TaskFun;
+	a_NewTask.Post_Hook = PostHook;
+	a_NewTask.Pre_Hook = PreHook;
 	a_NewTask.TaskID = a_TaskID;
 	a_NewTask.Time = a_Time;
 	a_NewTask.Periodicity = a_Periodic_OneShot;
-	a_NewTask.Periority = a_Periority;
+	a_NewTask.Periority = a_Priority;
 	a_NewTask.Count = ZERO;
 	a_NewTask.State = ACTIVE;
 	
@@ -199,73 +201,72 @@ ERROR_STATUS Delete_Task(uint16_t a_TaskID)
 	return errorStatus;
 }
 
-
 void SOS_Run(void)
 {
-	uint16_t a_u16_index = ZERO;
+	sint16_t a_s16_index = ZERO;
 	uint8_t a_u8_ReadyIndex = ZERO, a_counter = ZERO;
-	sint8_t a_temp;
+	sint16_t a_temp;
 	FunPtr a_TaskFunc, a_Task_PreHook, a_Task_PostHook;
 	
 	/*-------------[ Every TMU Tick, Go Through The Request Buffer ]-------------*/
 	if(g_TMR_Ticks_Changed)
 	{
 		/* Initialize The Ready Tasks Buffer */
-		for(a_u16_index = ZERO; a_u16_index < REQUEST_BUFFER_LEN; a_u16_index++)
+		for(a_s16_index = ZERO; a_s16_index < REQUEST_BUFFER_LEN; a_s16_index++)
 		{
-			g_ReadyTasks[a_u16_index] = -1;
+			g_ReadyTasks[a_s16_index] = -1;
 		}
 		
 		/* Go Through The Tasks Request Buffer To Add All Ready Tasks To Be Executed */
-		for(a_u16_index = ZERO; a_u16_index < REQUEST_BUFFER_LEN; a_u16_index++)
+		for(a_s16_index = ZERO; a_s16_index < REQUEST_BUFFER_LEN; a_s16_index++)
 		{
-			g_RequestBuffer[a_u16_index].Count += g_SOS_TickTime;
+			g_RequestBuffer[a_s16_index].Count += g_SOS_TickTime;
 			
 			/*-------------[ IF Consumer's Due Time Is Met!  ]-------------*/
-			if(g_RequestBuffer[a_u16_index].Count >= g_RequestBuffer[a_u16_index].Time)
+			if(g_RequestBuffer[a_s16_index].Count >= g_RequestBuffer[a_s16_index].Time)
 			{
-				a_TaskFunc      = g_RequestBuffer[a_u16_index].Task_Ptr;
-				a_Task_PreHook  = g_RequestBuffer[a_u16_index].Pre_Hook;
-				a_Task_PostHook = g_RequestBuffer[a_u16_index].Post_Hook;
+				a_TaskFunc      = g_RequestBuffer[a_s16_index].Task_Ptr;
+				a_Task_PreHook  = g_RequestBuffer[a_s16_index].Pre_Hook;
+				a_Task_PostHook = g_RequestBuffer[a_s16_index].Post_Hook;
 				
 				/* IF The Consumer Function IS Periodic */
-				if(g_RequestBuffer[a_u16_index].Periodicity == PERIODIC && g_RequestBuffer[a_u16_index].State == ACTIVE)
+				if(g_RequestBuffer[a_s16_index].Periodicity == PERIODIC && g_RequestBuffer[a_s16_index].State == ACTIVE)
 				{
-					g_RequestBuffer[a_u16_index].Count = ZERO;
-					g_ReadyTasks[a_u8_ReadyIndex++] = a_u16_index;
-					TCNT2 = g_ReadyTasks[a_u8_ReadyIndex-1];
-					_delay_ms(1000);
+					g_RequestBuffer[a_s16_index].Count = ZERO;
+					g_ReadyTasks[a_u8_ReadyIndex++] = a_s16_index;
 				}
 				
 				/* Else IF The Consumer Function IS OneShot (Non-Periodic) */
-				else if (g_RequestBuffer[a_u16_index].Periodicity == ONESHOT && g_RequestBuffer[a_u16_index].State == ACTIVE)
+				else if (g_RequestBuffer[a_s16_index].Periodicity == ONESHOT && g_RequestBuffer[a_s16_index].State == ACTIVE)
 				{
-					g_RequestBuffer[a_u16_index].State = INACTIVE;
-					a_Task_PreHook();
-					a_TaskFunc();
-					a_Task_PostHook();
+					g_RequestBuffer[a_s16_index].State = INACTIVE;
+					g_ReadyTasks[a_u8_ReadyIndex++] = a_s16_index;
 				}
 			}
 		}
 		/* Sort The Ready Tasks Based On Priority */
-		for(a_u16_index = ZERO; g_ReadyTasks[a_u16_index] != -1; a_u16_index++)
+		for(a_s16_index = ZERO; g_ReadyTasks[a_s16_index] != -1; a_s16_index++)
 		{
-			for (a_counter = a_u16_index + 1; g_ReadyTasks[a_u16_index] != -1; a_counter++)
+			for (a_counter = a_s16_index + 1; g_ReadyTasks[a_counter] != -1; a_counter++)
 			{
-				if(g_RequestBuffer[g_ReadyTasks[a_u16_index]].Periority > g_RequestBuffer[g_ReadyTasks[a_counter]].Periority)
+				if(g_RequestBuffer[g_ReadyTasks[a_s16_index]].Periority > g_RequestBuffer[g_ReadyTasks[a_counter]].Periority)
 				{
-					a_temp = g_ReadyTasks[a_u16_index];
-					g_ReadyTasks[a_u16_index] = g_ReadyTasks[a_counter];
+					a_temp = g_ReadyTasks[a_s16_index];
+					g_ReadyTasks[a_s16_index] = g_ReadyTasks[a_counter];
 					g_ReadyTasks[a_counter] = a_temp;
 				}					
 			}
 		}
 		/* Execute The Ready Tasks One By One (In Priority Order) */
-		for(a_u16_index = ZERO; g_ReadyTasks[a_u16_index] != -1; a_u16_index++)
+		for(a_s16_index = ZERO; g_ReadyTasks[a_s16_index] != -1; a_s16_index++)
 		{
-			g_RequestBuffer[g_ReadyTasks[a_u16_index]].Pre_Hook();
-			g_RequestBuffer[g_ReadyTasks[a_u16_index]].Task_Ptr();
-			g_RequestBuffer[g_ReadyTasks[a_u16_index]].Post_Hook();
+			/*--[ Debug Point ]--*/
+			TCNT2 = g_ReadyTasks[a_s16_index];
+			_delay_ms(1000);
+			/*--[ Debug Point ]--*/
+			g_RequestBuffer[g_ReadyTasks[a_s16_index]].Pre_Hook();
+			g_RequestBuffer[g_ReadyTasks[a_s16_index]].Task_Ptr();
+			g_RequestBuffer[g_ReadyTasks[a_s16_index]].Post_Hook();
 		}		
 		
 		g_TMR_Ticks_Changed = FALSE;
