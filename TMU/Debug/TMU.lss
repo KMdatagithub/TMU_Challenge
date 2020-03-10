@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000220  00000000  00000000  00000f48  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001a81  00000000  00000000  00001168  2**0
+  6 .debug_info   00001a5f  00000000  00000000  00001168  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000907  00000000  00000000  00002be9  2**0
+  7 .debug_abbrev 00000907  00000000  00000000  00002bc7  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000080e  00000000  00000000  000034f0  2**0
+  8 .debug_line   0000080e  00000000  00000000  000034ce  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000744  00000000  00000000  00003d00  2**2
+  9 .debug_frame  00000744  00000000  00000000  00003cdc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000009d1  00000000  00000000  00004444  2**0
+ 10 .debug_str    000009b8  00000000  00000000  00004420  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00002272  00000000  00000000  00004e15  2**0
+ 11 .debug_loc    000021ee  00000000  00000000  00004dd8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000001c0  00000000  00000000  00007087  2**0
+ 12 .debug_ranges 000001c0  00000000  00000000  00006fc6  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -2269,9 +2269,8 @@ void SOS_Run(void)
  c3a:	1f 93       	push	r17
  c3c:	cf 93       	push	r28
  c3e:	df 93       	push	r29
+	sint16_t a_s16_index = ZERO, a_temp = ZERO;
 	uint8_t a_u8_ReadyIndex = ZERO, a_counter = ZERO;
-	sint16_t a_temp;
-	FunPtr a_TaskFunc, a_Task_PreHook, a_Task_PostHook;
 	
 	/*-------------[ Every TMU Tick, Go Through The Request Buffer ]-------------*/
 	if(g_TMR_Ticks_Changed)
@@ -2338,10 +2337,7 @@ void SOS_Run(void)
  ca2:	ae 05       	cpc	r26, r14
  ca4:	bf 05       	cpc	r27, r15
  ca6:	30 f1       	brcs	.+76     	; 0xcf4 <SOS_Run+0xc8>
-				a_TaskFunc      = g_RequestBuffer[a_s16_index].Task_Ptr;
-				a_Task_PreHook  = g_RequestBuffer[a_s16_index].Pre_Hook;
-				a_Task_PostHook = g_RequestBuffer[a_s16_index].Post_Hook;
-				
+			{	
 				/* IF The Consumer Function IS Periodic */
 				if(g_RequestBuffer[a_s16_index].Periodicity == PERIODIC && g_RequestBuffer[a_s16_index].State == ACTIVE)
  ca8:	88 81       	ld	r24, Y

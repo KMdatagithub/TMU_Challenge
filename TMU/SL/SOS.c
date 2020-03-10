@@ -7,8 +7,6 @@
 #include "SOS.h"
 #include "SOS_cfg.h"
 
-#include <avr/delay.h>
-#define F_CPU 16000000
 
 typedef struct Task_s{
 	FunPtr Task_Ptr;
@@ -205,10 +203,8 @@ ERROR_STATUS Delete_Task(uint16_t a_TaskID)
 
 void SOS_Run(void)
 {
-	sint16_t a_s16_index = ZERO;
+	sint16_t a_s16_index = ZERO, a_temp = ZERO;
 	uint8_t a_u8_ReadyIndex = ZERO, a_counter = ZERO;
-	sint16_t a_temp;
-	FunPtr a_TaskFunc, a_Task_PreHook, a_Task_PostHook;
 	
 	/*-------------[ Every TMU Tick, Go Through The Request Buffer ]-------------*/
 	if(g_TMR_Ticks_Changed)
@@ -226,11 +222,7 @@ void SOS_Run(void)
 			
 			/*-------------[ IF Consumer's Due Time Is Met!  ]-------------*/
 			if(g_RequestBuffer[a_s16_index].Count >= g_RequestBuffer[a_s16_index].Time)
-			{
-				a_TaskFunc      = g_RequestBuffer[a_s16_index].Task_Ptr;
-				a_Task_PreHook  = g_RequestBuffer[a_s16_index].Pre_Hook;
-				a_Task_PostHook = g_RequestBuffer[a_s16_index].Post_Hook;
-				
+			{	
 				/* IF The Consumer Function IS Periodic */
 				if(g_RequestBuffer[a_s16_index].Periodicity == PERIODIC && g_RequestBuffer[a_s16_index].State == ACTIVE)
 				{
