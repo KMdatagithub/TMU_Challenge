@@ -8,7 +8,7 @@
 #ifndef TMU_CFG_H_
 #define TMU_CFG_H_
 
-#define REQUEST_BUFFER_LEN	5
+#define REQUEST_BUFFER_LEN	15
 
 
 
