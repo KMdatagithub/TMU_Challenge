@@ -2,6 +2,10 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+ECUAL\KeyPad.c
+
+ECUAL\LCD.c
+
 main.c
 
 MCAL\DIO.c

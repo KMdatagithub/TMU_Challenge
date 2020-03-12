@@ -41,6 +41,8 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../ECUAL/KeyPad.c \
+../ECUAL/LCD.c \
 ../main.c \
 ../MCAL/DIO.c \
 ../MCAL/PWM.c \
@@ -60,6 +62,8 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+ECUAL/KeyPad.o \
+ECUAL/LCD.o \
 main.o \
 MCAL/DIO.o \
 MCAL/PWM.o \
@@ -72,6 +76,8 @@ SL/SOS_PBcfg.o \
 util/softwareDelay.o
 
 OBJS_AS_ARGS +=  \
+ECUAL/KeyPad.o \
+ECUAL/LCD.o \
 main.o \
 MCAL/DIO.o \
 MCAL/PWM.o \
@@ -84,6 +90,8 @@ SL/SOS_PBcfg.o \
 util/softwareDelay.o
 
 C_DEPS +=  \
+ECUAL/KeyPad.d \
+ECUAL/LCD.d \
 main.d \
 MCAL/DIO.d \
 MCAL/PWM.d \
@@ -96,6 +104,8 @@ SL/SOS_PBcfg.d \
 util/softwareDelay.d
 
 C_DEPS_AS_ARGS +=  \
+ECUAL/KeyPad.d \
+ECUAL/LCD.d \
 main.d \
 MCAL/DIO.d \
 MCAL/PWM.d \
@@ -141,6 +151,17 @@ LINKER_SCRIPT_DEP+=
 
 
 
+
+
+
+
+
+ECUAL/%.o: ../ECUAL/%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 4.9.2
+	$(QUOTE)E:\Prog_Files\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"E:\Prog_Files\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "E:\Prog_Files\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
 
 ./%.o: .././%.c
 	@echo Building file: $<

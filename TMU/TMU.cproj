@@ -110,6 +110,21 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ECUAL\KeyPad.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ECUAL\KeyPad.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ECUAL\LCD.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ECUAL\LCD.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ECUAL\LCD_cfg.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>

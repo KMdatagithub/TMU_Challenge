@@ -7,7 +7,11 @@
 
 #include "SL/SOS.h"
 #include "MCAL/DIO.h"
+#include "ECUAL/LCD.h"
 #include <avr/sleep.h>
+
+# define F_CPU 16000000UL
+#include <util/delay.h> // for development only
 
 /**=========================================================================*
  *								Defines & Globals							*
@@ -72,23 +76,26 @@ void Init_LEDs(void)
 
 int main(void)
 {
+	LCD_init();
+	LCD_displayStringRowColumn(2, 1, "OMG GG! IZI");
 	/*-------------[ LEDs Initialization ]-------------*/
-	Init_LEDs();
+	//Init_LEDs();
 		
 	/*-------------[ TMU Initialization ]-------------*/
-	MySOS.Tick_Time = 1;
-	MySOS.Timer_ID = TIMER_CH0;
-	SOS_Init(&MySOS);
+	//MySOS.Tick_Time = 1;
+	//MySOS.Timer_ID = TIMER_CH0;
+	//SOS_Init(&MySOS);
 	
 	/*----------[ Start 3 Different Tasks ]---------*/
 	/*[[ TMU_Srart(Task_FunPtr, TaskID, Periodicity, Time_IN_ms, Priority, PreHook, PostHook); ]]*/
-	Start_Task(ToggleLED1, 100, PERIODIC, 50, 10, Dummy, Dummy);
-	Start_Task(ToggleLED2, 110, PERIODIC, 50, 5, Dummy, Dummy);
-	Start_Task(ToggleLED3, 120, PERIODIC, 50, 8, Dummy, Dummy);
+	//Start_Task(ToggleLED1, 100, PERIODIC, 50, 10, Dummy, Dummy);
+	//Start_Task(ToggleLED2, 110, PERIODIC, 50, 5, Dummy, Dummy);
+	//Start_Task(ToggleLED3, 120, PERIODIC, 50, 8, Dummy, Dummy);
 	
 	/*-------------[ SUPER LOOP ]-------------*/
 	while (1)
 	{
-		SOS_Run();
+		//LCD_displayChar(170);
+		//SOS_Run();
 	}
 }
