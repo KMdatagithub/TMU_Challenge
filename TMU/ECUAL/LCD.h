@@ -10,7 +10,6 @@
 #define LCD_H_
 
 
-
 ERROR_STATUS LCD_init (void);
 
 ERROR_STATUS LCD_clear(void);

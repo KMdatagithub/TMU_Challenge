@@ -146,3 +146,11 @@ ERROR_STATUS LCD_displayStringRowColumn(uint8_t a_ROW, uint8_t a_COL, uint8_t* a
 	
 	return 0;
 }
+
+ERROR_STATUS LCD_clear(void)
+{
+	LCD_sendCommand(0x00);
+	LCD_sendCommand(0x01);
+	
+	return 0;
+}

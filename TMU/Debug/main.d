@@ -4,7 +4,8 @@ main.d main.o: .././main.c .././SL/SOS.h .././SL/../MCAL/Timer.h \
  .././SL/../MCAL/../util/registers.h .././SL/../util/std_types.h \
  .././SL/../util/interrupt.h .././SL/../util/error_codes.h \
  .././MCAL/DIO.h .././MCAL/../util/std_types.h \
- .././MCAL/../util/registers.h .././ECUAL/LCD.h \
+ .././MCAL/../util/registers.h .././ECUAL/LCD.h .././ECUAL/KeyPad.h \
+ .././ECUAL/../MCAL/DIO.h \
  e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h \
  e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
@@ -16,10 +17,7 @@ main.d main.o: .././main.c .././SL/SOS.h .././SL/../MCAL/Timer.h \
  e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\common.h \
  e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
  e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
- e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
- e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h \
- e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
- e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h
+ e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h
 
 .././SL/SOS.h:
 
@@ -49,6 +47,10 @@ main.d main.o: .././main.c .././SL/SOS.h .././SL/../MCAL/Timer.h \
 
 .././ECUAL/LCD.h:
 
+.././ECUAL/KeyPad.h:
+
+.././ECUAL/../MCAL/DIO.h:
+
 e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h:
 
 e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
@@ -72,9 +74,3 @@ e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr
 e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h:
 
 e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h:
-
-e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h:
-
-e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h:
-
-e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:
