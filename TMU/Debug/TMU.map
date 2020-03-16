@@ -920,16 +920,16 @@ END GROUP
  .debug_abbrev  0x000008fe      0x15a MCAL/UART.o
  .debug_abbrev  0x00000a58      0x1de SL/SOS.o
 
-.debug_line     0x00000000      0xcf3
+.debug_line     0x00000000      0xce3
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x157 ECUAL/KeyPad.o
- .debug_line    0x00000157      0x231 ECUAL/LCD.o
- .debug_line    0x00000388      0x258 main.o
- .debug_line    0x000005e0       0xda MCAL/DIO.o
- .debug_line    0x000006ba      0x123 MCAL/SPI__.o
- .debug_line    0x000007dd      0x242 MCAL/Timer.o
- .debug_line    0x00000a1f       0xed MCAL/UART.o
- .debug_line    0x00000b0c      0x1e7 SL/SOS.o
+ .debug_line    0x00000000      0x14f ECUAL/KeyPad.o
+ .debug_line    0x0000014f      0x229 ECUAL/LCD.o
+ .debug_line    0x00000378      0x258 main.o
+ .debug_line    0x000005d0       0xda MCAL/DIO.o
+ .debug_line    0x000006aa      0x123 MCAL/SPI__.o
+ .debug_line    0x000007cd      0x242 MCAL/Timer.o
+ .debug_line    0x00000a0f       0xed MCAL/UART.o
+ .debug_line    0x00000afc      0x1e7 SL/SOS.o
 
 .debug_frame    0x00000000      0x8a8
  *(.debug_frame)

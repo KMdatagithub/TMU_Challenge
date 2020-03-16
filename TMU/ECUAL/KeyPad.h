@@ -9,7 +9,7 @@
 #ifndef KEYPAD_H_
 #define KEYPAD_H_
 
-#include "../MCAL/DIO.h"
+#include "../util/std_types.h"
 #include "../util/error_codes.h"
 
 #define KEY_PRESSED	 1

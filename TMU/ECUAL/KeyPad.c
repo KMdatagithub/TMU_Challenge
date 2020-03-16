@@ -6,6 +6,7 @@
  */ 
 #include "KeyPad.h"
 #include "KeyPad_cfg.h"
+#include "../MCAL/DIO.h"
 
 
 static DIO_Cfg_s Ex_Keypad_COL[COLS];

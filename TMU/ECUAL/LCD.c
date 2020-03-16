@@ -6,6 +6,7 @@
  */ 
 #include "LCD.h"
 #include "LCD_cfg.h"
+#include "../MCAL/DIO.h"
 
 # define F_CPU 16000000UL
 #include <util/delay.h> // for development only
