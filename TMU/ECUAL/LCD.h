@@ -31,15 +31,6 @@ ERROR_STATUS LCD_init (void);
  */
 ERROR_STATUS LCD_clear(void);
 /*
- * Input:  A Byte OF Data To Be Sent To LCD Data Pins
- * Output:
- * In/Out:	
- * Return: The error status of the function.			
- * Description: Puts The Data Bits On The Respective Pins For The LCD
- * 							
- */
-ERROR_STATUS LCD_DATA(uint8_t a_Data);
-/*
  * Input:  An 8-Bit Command To The LCD
  * Output:
  * In/Out:	

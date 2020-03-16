@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 000002a0  00000000  00000000  00002100  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00002fe3  00000000  00000000  000023a0  2**0
+  6 .debug_info   00002fe2  00000000  00000000  000023a0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000c36  00000000  00000000  00005383  2**0
+  7 .debug_abbrev 00000c50  00000000  00000000  00005382  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000ce3  00000000  00000000  00005fb9  2**0
+  8 .debug_line   00000ce3  00000000  00000000  00005fd2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000008a8  00000000  00000000  00006c9c  2**2
+  9 .debug_frame  000008a8  00000000  00000000  00006cb8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000b95  00000000  00000000  00007544  2**0
+ 10 .debug_str    00000b95  00000000  00000000  00007560  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00002c88  00000000  00000000  000080d9  2**0
+ 11 .debug_loc    00002c88  00000000  00000000  000080f5  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000220  00000000  00000000  0000ad61  2**0
+ 12 .debug_ranges 00000220  00000000  00000000  0000ad7d  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1235,7 +1235,7 @@ ERROR_STATUS Keypad_Scan(uint8_t* a_Keys_Status)
 	return errorStatus;
 }
 
-ERROR_STATUS LCD_DATA(uint8_t a_Data)
+static ERROR_STATUS LCD_DATA(uint8_t a_Data)
 {
      732:	cf 93       	push	r28
      734:	c8 2f       	mov	r28, r24
@@ -1365,9 +1365,9 @@ ERROR_STATUS LCD_sendCommand(uint8_t a_CMD)
      7e0:	08 95       	ret
 
 000007e2 <LCD_init>:
-#include <util/delay.h> // for development only
 
 static uint8_t LCD_Init_State = ZERO;
+static ERROR_STATUS LCD_DATA(uint8_t a_Data);
 
 ERROR_STATUS LCD_init (void)
 {

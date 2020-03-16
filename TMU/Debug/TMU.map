@@ -563,7 +563,6 @@ END GROUP
                 0x000001e4                Keypad_Scan
  .text.LCD_DATA
                 0x00000732       0x74 ECUAL/LCD.o
-                0x00000732                LCD_DATA
  .text.LCD_sendCommand
                 0x000007a6       0x3c ECUAL/LCD.o
                 0x000007a6                LCD_sendCommand
@@ -731,13 +730,13 @@ END GROUP
                 0x008001d5        0x9 ECUAL/KeyPad.o
  .bss.LCD_Init_State
                 0x008001de        0x1 ECUAL/LCD.o
- .bss.Score.1622
+ .bss.Score.1620
                 0x008001df        0x1 main.o
- .bss.Key_Hold.1623
+ .bss.Key_Hold.1621
                 0x008001e0        0x1 main.o
- .bss.Ticks.1621
+ .bss.Ticks.1619
                 0x008001e1        0x1 main.o
- .bss.Game_FSM.1620
+ .bss.Game_FSM.1618
                 0x008001e2        0x1 main.o
  .bss.key_states
                 0x008001e3        0x9 main.o
@@ -898,27 +897,27 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x2fe3
+.debug_info     0x00000000     0x2fe2
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5bf ECUAL/KeyPad.o
- .debug_info    0x000005bf      0xa4f ECUAL/LCD.o
- .debug_info    0x0000100e      0xa13 main.o
- .debug_info    0x00001a21      0x21d MCAL/DIO.o
- .debug_info    0x00001c3e      0x410 MCAL/SPI__.o
- .debug_info    0x0000204e      0x613 MCAL/Timer.o
- .debug_info    0x00002661      0x3d4 MCAL/UART.o
- .debug_info    0x00002a35      0x5ae SL/SOS.o
+ .debug_info    0x000005bf      0xa4e ECUAL/LCD.o
+ .debug_info    0x0000100d      0xa13 main.o
+ .debug_info    0x00001a20      0x21d MCAL/DIO.o
+ .debug_info    0x00001c3d      0x410 MCAL/SPI__.o
+ .debug_info    0x0000204d      0x613 MCAL/Timer.o
+ .debug_info    0x00002660      0x3d4 MCAL/UART.o
+ .debug_info    0x00002a34      0x5ae SL/SOS.o
 
-.debug_abbrev   0x00000000      0xc36
+.debug_abbrev   0x00000000      0xc50
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x13b ECUAL/KeyPad.o
- .debug_abbrev  0x0000013b      0x1c0 ECUAL/LCD.o
- .debug_abbrev  0x000002fb      0x197 main.o
- .debug_abbrev  0x00000492       0xe0 MCAL/DIO.o
- .debug_abbrev  0x00000572      0x1ad MCAL/SPI__.o
- .debug_abbrev  0x0000071f      0x1df MCAL/Timer.o
- .debug_abbrev  0x000008fe      0x15a MCAL/UART.o
- .debug_abbrev  0x00000a58      0x1de SL/SOS.o
+ .debug_abbrev  0x0000013b      0x1da ECUAL/LCD.o
+ .debug_abbrev  0x00000315      0x197 main.o
+ .debug_abbrev  0x000004ac       0xe0 MCAL/DIO.o
+ .debug_abbrev  0x0000058c      0x1ad MCAL/SPI__.o
+ .debug_abbrev  0x00000739      0x1df MCAL/Timer.o
+ .debug_abbrev  0x00000918      0x15a MCAL/UART.o
+ .debug_abbrev  0x00000a72      0x1de SL/SOS.o
 
 .debug_line     0x00000000      0xce3
  *(.debug_line .debug_line.* .debug_line_end)

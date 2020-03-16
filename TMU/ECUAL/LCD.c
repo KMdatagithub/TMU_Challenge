@@ -12,6 +12,7 @@
 #include <util/delay.h> // for development only
 
 static uint8_t LCD_Init_State = ZERO;
+static ERROR_STATUS LCD_DATA(uint8_t a_Data);
 
 ERROR_STATUS LCD_init (void)
 {
@@ -68,7 +69,7 @@ ERROR_STATUS LCD_init (void)
 	return errorStatus;
 }
 
-ERROR_STATUS LCD_DATA(uint8_t a_Data)
+static ERROR_STATUS LCD_DATA(uint8_t a_Data)
 {
 	ERROR_STATUS errorStatus = E_NOK;
 	
