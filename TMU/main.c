@@ -46,18 +46,6 @@ void Dummy(void)
 {
 	DIO_Toggle(Test_Pin.GPIO, Test_Pin.pins);
 }
-void ToggleLED1()
-{
-	DIO_Toggle(g_LED1.GPIO, g_LED1.pins);
-}
-void ToggleLED2()
-{
-	DIO_Toggle(g_LED2.GPIO, g_LED2.pins);
-}
-void ToggleLED3()
-{
-	DIO_Toggle(g_LED3.GPIO, g_LED3.pins);
-}
 void Scan_Keypad()
 {
 	Keypad_Scan(key_states);
@@ -106,13 +94,16 @@ void Init_LEDs(void)
 
 int main(void)
 {
-	/*-------------[ LEDs Initialization ]-------------*/
+	/*---------------[ LCD Initialization ]--------------*/
 	LCD_init();
-	Init_LEDs();
-	Keypad_Init();
-	//LCD_displayStringRowColumn(1, 3, (uint8_t*)"OMG GG! IZI");
 	
-	/*-------------[ TMU Initialization ]-------------*/
+	/*--------------[ LEDs Initialization ]--------------*/
+	Init_LEDs();
+	
+	/*-------------[ Keypad Initialization ]-------------*/
+	Keypad_Init();
+	
+	/*---------------[ TMU Initialization ]--------------*/
 	MySOS.Tick_Time = 1;
 	MySOS.Timer_ID = TIMER_CH0;
 	SOS_Init(&MySOS);
@@ -121,7 +112,7 @@ int main(void)
 	/*---[[ Start_Task(Task_FunPtr, TaskID, Periodicity, Time_IN_ms, Priority, PreHook, PostHook); ]]---*/
 	Start_Task(Scan_Keypad, 120, PERIODIC, 5,  2, Dummy, Dummy);
 	Start_Task(Update_LEDs, 150, PERIODIC, 10, 5, Dummy, Dummy);
-	Start_Task(Game_App,    110, PERIODIC, 25, 7, Dummy, Dummy);
+	Start_Task(Game_App,    110, PERIODIC, 50, 7, Dummy, Dummy);
 	
 	/*-------------[ SUPER LOOP ]-------------*/
 	while (1)
@@ -389,9 +380,17 @@ void Game_App(void)
 				}
 				Ticks++;
 			}
-			else if(Ticks < 60)
+			else if(Ticks < 100)
 			{
 				Ticks++;
+			}
+			else
+			{
+				LCD_clear();
+				Score    = ZERO;
+				Key_Hold = ZERO;
+				Ticks    = ZERO;
+				Game_FSM = GAME_INTRO_STATE;
 			}
 			break;
 		}

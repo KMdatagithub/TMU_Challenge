@@ -11,9 +11,20 @@
 static DIO_Cfg_s Ex_Keypad_COL[COLS];
 static DIO_Cfg_s Ex_Keypad_ROW[ROWS];
 
+
+/*
+ * Input: 
+ * Output:
+ * In/Out:			
+ * Return: The error status of the function.			
+ * Description: Initiates the keypad GPIO pins
+ * 							
+ */
 ERROR_STATUS Keypad_Init(void)
 {
 	DIO_Cfg_s Keypad_COL[COLS], Keypad_ROW[ROWS];
+	
+	/* Initialize The Columns IO Pins */
 	
 	Keypad_COL[0].GPIO = KEYPAD_GPIO;
 	Keypad_COL[0].dir = OUTPUT;
@@ -31,6 +42,8 @@ ERROR_STATUS Keypad_Init(void)
 	DIO_init(&Keypad_COL[1]);
 	DIO_init(&Keypad_COL[2]);
 	
+	/* Initialize The Columns IO Pins */
+	
 	Keypad_ROW[0].GPIO = KEYPAD_GPIO;
 	Keypad_ROW[0].dir = INPUT;
 	Keypad_ROW[0].pins = ROW1;
@@ -46,14 +59,23 @@ ERROR_STATUS Keypad_Init(void)
 	DIO_init(&Keypad_ROW[0]);
 	DIO_init(&Keypad_ROW[1]);
 	DIO_init(&Keypad_ROW[2]);
+	
 	/* Activate The Internal Pull Up Resistors*/
+	
 	DIO_Write(Keypad_ROW[0].GPIO, Keypad_ROW[0].pins, HIGH);
 	DIO_Write(Keypad_ROW[1].GPIO, Keypad_ROW[1].pins, HIGH);
 	DIO_Write(Keypad_ROW[2].GPIO, Keypad_ROW[2].pins, HIGH);
 	
-	return 0;
+	return E_OK;
 }
-
+/*
+ * Input: 
+ * Output:
+ * In/Out:	Keys_Status Array Representing The Status OF Each Key in the Keypad
+ * Return: The error status of the function.			
+ * Description: Scans All The Keys in The Keypad, Applies An FIR Digital Filter To The Key Status. 
+ * 							
+ */
 ERROR_STATUS Keypad_Scan(uint8_t* a_Keys_Status)
 {
 	static uint8_t index = ZERO;
@@ -91,7 +113,7 @@ ERROR_STATUS Keypad_Scan(uint8_t* a_Keys_Status)
 			{
 				States_Buffer[index][0] = 1;
 				
-				/* (Output Pattern 0-1-0) */
+				/* (Output Pattern 1-0-1) */
 				DIO_Write(Ex_Keypad_COL[0].GPIO, Ex_Keypad_COL[0].pins, HIGH);
 				DIO_Write(Ex_Keypad_COL[1].GPIO, Ex_Keypad_COL[1].pins, LOW);
 				DIO_Write(Ex_Keypad_COL[2].GPIO, Ex_Keypad_COL[2].pins, HIGH);
@@ -159,7 +181,7 @@ ERROR_STATUS Keypad_Scan(uint8_t* a_Keys_Status)
 		/*--[ 3rd Row Check ]--*/
 		if(!a_ret_states[2])
 		{
-			/* (Output Pattern 1-0-0) */
+			/* (Output Pattern 0-1-1) */
 			DIO_Write(Ex_Keypad_COL[0].GPIO, Ex_Keypad_COL[0].pins, LOW);
 			DIO_Write(Ex_Keypad_COL[1].GPIO, Ex_Keypad_COL[1].pins, HIGH);
 			DIO_Write(Ex_Keypad_COL[2].GPIO, Ex_Keypad_COL[2].pins, HIGH);
@@ -173,7 +195,7 @@ ERROR_STATUS Keypad_Scan(uint8_t* a_Keys_Status)
 			{
 				States_Buffer[index][6] = 1;
 				
-				/* (Output Pattern 0-1-0) */
+				/* (Output Pattern 1-0-1) */
 				DIO_Write(Ex_Keypad_COL[0].GPIO, Ex_Keypad_COL[0].pins, HIGH);
 				DIO_Write(Ex_Keypad_COL[1].GPIO, Ex_Keypad_COL[1].pins, LOW);
 				DIO_Write(Ex_Keypad_COL[2].GPIO, Ex_Keypad_COL[2].pins, HIGH);
@@ -233,5 +255,5 @@ ERROR_STATUS Keypad_Scan(uint8_t* a_Keys_Status)
 	if(index == FILTER_ORDER)
 		index = ZERO;
 
-	return 0;
+	return E_OK;
 }
