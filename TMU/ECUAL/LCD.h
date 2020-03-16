@@ -9,6 +9,8 @@
 #ifndef LCD_H_
 #define LCD_H_
 
+#include "../MCAL/DIO.h"
+#include "../util/error_codes.h"
 
 /*
  * Input: 

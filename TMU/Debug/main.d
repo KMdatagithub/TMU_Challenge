@@ -4,8 +4,8 @@ main.d main.o: .././main.c .././SL/SOS.h .././SL/../MCAL/Timer.h \
  .././SL/../MCAL/../util/registers.h .././SL/../util/std_types.h \
  .././SL/../util/interrupt.h .././SL/../util/error_codes.h \
  .././MCAL/DIO.h .././MCAL/../util/std_types.h \
- .././MCAL/../util/registers.h .././ECUAL/LCD.h .././ECUAL/KeyPad.h \
- .././ECUAL/../MCAL/DIO.h \
+ .././MCAL/../util/registers.h .././ECUAL/LCD.h .././ECUAL/../MCAL/DIO.h \
+ .././ECUAL/../util/error_codes.h .././ECUAL/KeyPad.h \
  e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h \
  e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
@@ -47,9 +47,11 @@ main.d main.o: .././main.c .././SL/SOS.h .././SL/../MCAL/Timer.h \
 
 .././ECUAL/LCD.h:
 
-.././ECUAL/KeyPad.h:
-
 .././ECUAL/../MCAL/DIO.h:
+
+.././ECUAL/../util/error_codes.h:
+
+.././ECUAL/KeyPad.h:
 
 e:\prog_files\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h:
 

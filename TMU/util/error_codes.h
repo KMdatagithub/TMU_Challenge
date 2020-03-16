@@ -11,12 +11,14 @@
 
 /*-----[ Module Error Codes ]-----*/
 
-#define TMR_ERROR   100
-#define TMU_ERROR	200
-#define DIO_ERROR	300
-#define PWM_ERROR   400
-#define UART_ERROR  500
-#define BCM_ERROR   600
+#define TMR_ERROR    100
+#define TMU_ERROR	 200
+#define DIO_ERROR	 300
+#define PWM_ERROR    400
+#define UART_ERROR   500
+#define BCM_ERROR    600
+#define LCD_ERROR    700
+#define KEYPAD_ERROR 800
 
 /*-----[ Special Error Codes ]-----*/
 

@@ -10,7 +10,7 @@
 #define KEYPAD_H_
 
 #include "../MCAL/DIO.h"
-
+#include "../util/error_codes.h"
 
 #define KEY_PRESSED	 1
 #define KEY_RELEASED 0

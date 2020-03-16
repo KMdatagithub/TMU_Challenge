@@ -9,7 +9,7 @@
 #ifndef LCD_CFG_H_
 #define LCD_CFG_H_
 
-#define LCD_EN_GPIO GPIOB
+#define LCD_EN_GPIO GPIOA
 #define LCD_EN_BIT  BIT3
 
 #define LCD_GPIO	GPIOA
